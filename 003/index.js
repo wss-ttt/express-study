@@ -14,7 +14,7 @@ app.all('*', function (req, res, next) {
 
 let data = [];
 // 数据
-for (let i = 0; i < 5000000; i++) {
+for (let i = 0; i < 500; i++) {
 	data.push({
 		id: i,
 		name: 'name' + i
@@ -36,8 +36,12 @@ for (let i = 0; i < 5000000; i++) {
 ]; */
 // 接口
 app.get('/users/list', function (req, res) {
+	var start = req.query.start;
+	var end = req.query.end;
+	console.log(start,end)
 	res.status(200);
-	res.json(data);
+	let d = data.slice(start,end)
+	res.json(d);
 });
 
 app.get('/news', function (req, res) {
