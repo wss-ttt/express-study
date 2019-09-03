@@ -34,14 +34,20 @@ for (let i = 0; i < 500; i++) {
 		"name":"小龙女"
 	}
 ]; */
-// 接口
-app.get('/users/list', function (req, res) {
+// 模拟分页返回数据接口
+app.get('/users/page', function (req, res) {
 	var start = req.query.start;
 	var end = req.query.end;
 	console.log(start,end)
 	res.status(200);
 	let d = data.slice(start,end)
 	res.json(d);
+});
+
+// 一次返回所有的数据
+app.get('/users/list', function (req, res) {
+	res.status(200);
+	res.json(data);
 });
 
 app.get('/news', function (req, res) {
