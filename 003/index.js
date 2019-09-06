@@ -49,7 +49,6 @@ app.get('/users/list', function (req, res) {
 	res.status(200);
 	res.json(data);
 });
-
 app.get('/news', function (req, res) {
 	res.sendFile(__dirname + '/news.json');
 })
