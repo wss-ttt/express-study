@@ -20,20 +20,6 @@ for (let i = 0; i < 500; i++) {
 		name: 'name' + i
 	})
 }
-/* var data = [
-	{
-		"id":1,
-		"name":"张三"
-	},
-	{
-		"id":2,
-		"name":"乔峰"
-	},
-	{
-		"id":3,
-		"name":"小龙女"
-	}
-]; */
 // 模拟分页返回数据接口
 app.get('/users/page', function (req, res) {
 	var start = req.query.start;
