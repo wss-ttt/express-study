@@ -25,8 +25,23 @@ for (let i = 0; i < 500; i++) {
 		"name":"小龙女"
 	}
 ]; */
-// 接口
+
+// 测试 接口
 app.get('/users/list', function (req, res) {
+	res.status(200);
+	res.json(data);
+});
+
+// 测试 
+app.get('/users/list2', function (req, res) {
+	res.json({
+		code:0,
+		msg:'success',
+		data:data
+	});
+});
+// 测试 post接口
+app.post('/users/delete',function(req,res){
 	res.status(200);
 	res.json(data);
 });
