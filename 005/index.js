@@ -129,6 +129,23 @@ app.get('/echarts/test6/list', function (req, res) {
 	res.json(data);
 })
 
+// 测试接口
+app.post('/echarts/list', function (req, res) {
+	let xData = [];
+	for (let i = 0; i < 500; i++) {
+		xData.push('fff' + i);
+	}
+	let yData = [];
+	for (let i = 0; i < 500; i++) {
+		let num = Math.floor(Math.random() * (1500 - 100 + 1) + 100) // 向下取整
+		yData.push(num)
+	}
+	let data = {
+		xAxis: xData,
+		yAxis: yData
+	}
+	res.json(data);
+})
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
