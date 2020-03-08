@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <button id="btn1" type="button">确定</button>
+    <button type="button" id="btn1">get请求</button>
+    <button type="button" id="btn2">post请求</button>
 </body>
 <script src="js/jquery-1.8.3.js"></script>
 <script>
@@ -17,6 +18,15 @@
         $.ajax({
             url: 'data/person.json',
             type: 'get',
+            success: function (res) {
+                console.log(res);
+            }
+        });
+    });
+    $('#btn2').click(function () {
+        $.ajax({
+            url:'http://localhost:9090/users/list',
+            type: 'post',
             success: function (res) {
                 console.log(res);
             }
