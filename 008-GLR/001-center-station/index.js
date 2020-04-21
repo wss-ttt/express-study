@@ -517,7 +517,21 @@ app.get('/echarts/test6/list', function (req, res) {
 
 // 误差影响因素分析
 // 1.基波频率影响
-app.post('/analysis/deviationInfluenceFactor/fundamentalFrequencyImpactData', function (req, res) {
+let prefix = '/analysis/deviationInfluenceFactor/';
+let api = [
+	'fundamentalFrequencyImpactData',  // 基波频率影响
+	'fundamentalFrequencyImpactData',  // 基波有效值影响
+	'zeroSequenceVoltageImbalanceImpactData', // 零序电压不平衡度影响
+	'negativeSequenceVoltageImbalanceImpactData',// 负序电压不平衡度影响
+	'temperatureImpactData',  // 温度影响
+	'humidityImpactData',    // 湿度影响
+	'fundamentalPhaseImpactData',   // 基波相位影响
+	'threeHarmonicAmplitudeImpactData',   // 三次谐波幅值影响
+	'threeHarmonicPhaseImpactData',   // 三次相位
+	'fiveHarmonicAmplitudeImpactData',  // 五次谐波幅值影响
+	'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
+];
+app.post(prefix+api[0], function (req, res) {
 	let datax = [];
 	let data = [];
 	for(var i=0;i<500;i++){
@@ -554,7 +568,7 @@ app.post('/analysis/deviationInfluenceFactor/fundamentalFrequencyImpactData', fu
 	});
 })
 // 2.基波有效值影响
-app.post('/analysis/deviationInfluenceFactor/fundamentalFrequencyImpactData', function (req, res) {
+app.post(prefix+api[1], function (req, res) {
 	let datax = [];
 	let data = [];
 	for(var i=0;i<500;i++){
@@ -591,6 +605,86 @@ app.post('/analysis/deviationInfluenceFactor/fundamentalFrequencyImpactData', fu
 		}
 
 	});
+})
+
+// 3.零序电压不平衡度影响
+app.post(prefix+api[2],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [0,RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+	
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0,
+				xmax:0,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+// 4.负序电压不平衡度影响
+app.post(prefix+api[3],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [0,RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+	
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0,
+				xmax:0,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+
+// 5.温度影响
+app.post(prefix+api[4],function(req,res){
+
 })
 function RandomNumBoth(Min,Max){
 	var range = Max - Min;
