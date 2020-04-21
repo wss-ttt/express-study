@@ -526,9 +526,9 @@ let api = [
 	'temperatureImpactData',  // 温度影响
 	'humidityImpactData',    // 湿度影响
 	'fundamentalPhaseImpactData',   // 基波相位影响
-	'threeHarmonicAmplitudeImpactData',   // 三次谐波幅值影响
+	'threeHarmonicAmplitudeImpactData',   // 三次谐波有效值影响
 	'threeHarmonicPhaseImpactData',   // 三次谐波相位
-	'fiveHarmonicAmplitudeImpactData',  // 五次谐波幅值影响
+	'fiveHarmonicAmplitudeImpactData',  // 五次谐波有效值影响
 	'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
 ];
 // 0.基波频率影响
