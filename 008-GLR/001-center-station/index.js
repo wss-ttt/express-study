@@ -516,7 +516,7 @@ app.get('/echarts/test6/list', function (req, res) {
 })
 
 // 误差影响因素分析
-// 1.基波频率影响
+
 let prefix = '/analysis/deviationInfluenceFactor/';
 let api = [
 	'fundamentalFrequencyImpactData',  // 基波频率影响
@@ -531,6 +531,7 @@ let api = [
 	'fiveHarmonicAmplitudeImpactData',  // 五次谐波幅值影响
 	'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
 ];
+// 0.基波频率影响
 app.post(prefix+api[0], function (req, res) {
 	let datax = [];
 	let data = [];
@@ -567,7 +568,7 @@ app.post(prefix+api[0], function (req, res) {
 		}
 	});
 })
-// 2.基波有效值影响
+// 1.基波有效值影响
 app.post(prefix+api[1], function (req, res) {
 	let datax = [];
 	let data = [];
@@ -607,7 +608,7 @@ app.post(prefix+api[1], function (req, res) {
 	});
 })
 
-// 3.零序电压不平衡度影响
+// 2.零序电压不平衡度影响
 app.post(prefix+api[2],function(req,res){
 	let datax = [];
 	let data = [];
@@ -644,7 +645,7 @@ app.post(prefix+api[2],function(req,res){
 		}
 	});
 })
-// 4.负序电压不平衡度影响
+// 3.负序电压不平衡度影响
 app.post(prefix+api[3],function(req,res){
 	let datax = [];
 	let data = [];
@@ -682,14 +683,278 @@ app.post(prefix+api[3],function(req,res){
 	});
 })
 
-// 5.温度影响
+// 4.温度影响
 app.post(prefix+api[4],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [0,RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		// datax:datax,
+		datax:[],
+		stationId: 305
+	}
 
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0,
+				xmax:0,
+				ymin:0,
+				ymax: 0,
+				data:data
+			}
+		}
+	});
 })
-function RandomNumBoth(Min,Max){
+
+// 5.湿度影响
+app.post(prefix+api[5],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [0,RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		// datax:datax,
+		datax:[],
+		stationId: 305
+	}
+
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0,
+				xmax:0,
+				ymin:0,
+				ymax: 0,
+				data:data
+			}
+		}
+	});
+})
+
+// 6.基波相位影响
+app.post(prefix+api[6], function (req, res) {
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+	
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:-10769.58,
+				xmax: 10796.43,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+
+// 7.三次谐波幅值影响
+app.post(prefix+api[7],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [RandomNumBoth(0,1),RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0.00515,
+				xmax:0.03635,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+
+// 8.三次谐波相位影响
+app.post(prefix+api[8],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:-10789.57,
+				xmax:10780.5,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+
+// 9.五次谐波幅值影响
+app.post(prefix+api[9],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [RandomNumBoth(0,1),RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:0.00037,
+				xmax:0.03549,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+
+// 10.五次谐波相位影响
+app.post(prefix+api[10],function(req,res){
+	let datax = [];
+	let data = [];
+	for(var i=0;i<500;i++){
+		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+		datax.push(arr);
+	}
+	let json = {
+		transformerPositionId: 27,
+		transformerPositionName: "220kV#1母线",
+		transformerId: 79,
+		transformerName: "A相",
+		name: "220kV#1母线A相基波频率",
+		startTime: "2020-03-21 14:15:35",
+		endTime: "2020-04-21 14:15:35",
+		datax:datax,
+		stationId: 305
+	}
+
+	for(var i =0;i<3;i++){
+		data.push(json);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		data:{
+			yseries:{
+				xmin:-10797.59,
+				xmax:10792.26,
+				ymin:0.10005,
+				ymax: 0.21344,
+				data:data
+			}
+		}
+	});
+})
+function RandomNumBoth(Min,Max,count){
 	var range = Max - Min;
+	var count = count || 5;
 	var rand = Math.random();
-	var num = (Min + (rand * range)).toFixed(5); // 保留5位小数
+	var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
 	return +num;
 }
 app.listen(3001, function () {
