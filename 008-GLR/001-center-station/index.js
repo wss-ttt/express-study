@@ -520,7 +520,7 @@ app.get('/echarts/test6/list', function (req, res) {
 let prefix = '/analysis/deviationInfluenceFactor/';
 let api = [
 	'fundamentalFrequencyImpactData',  // 基波频率影响
-	'fundamentalFrequencyImpactData',  // 基波有效值影响
+	'fundamentalAmplitudeImpactData',  // 基波有效值影响
 	'zeroSequenceVoltageImbalanceImpactData', // 零序电压不平衡度影响
 	'negativeSequenceVoltageImbalanceImpactData',// 负序电压不平衡度影响
 	'temperatureImpactData',  // 温度影响
@@ -593,8 +593,8 @@ app.post(prefix + api[1], function (req, res) {
 	}
 
 	res.json({
-		msg: 'ok',
-		code: 0,
+		msg: '错误',
+		code: 1,
 		data: {
 			yseries: {
 				xmin: 129.5713,
