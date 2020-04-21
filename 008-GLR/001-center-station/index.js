@@ -527,16 +527,16 @@ let api = [
 	'humidityImpactData',    // 湿度影响
 	'fundamentalPhaseImpactData',   // 基波相位影响
 	'threeHarmonicAmplitudeImpactData',   // 三次谐波幅值影响
-	'threeHarmonicPhaseImpactData',   // 三次相位
+	'threeHarmonicPhaseImpactData',   // 三次谐波相位
 	'fiveHarmonicAmplitudeImpactData',  // 五次谐波幅值影响
 	'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
 ];
 // 0.基波频率影响
-app.post(prefix+api[0], function (req, res) {
+app.post(prefix + api[0], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(49,50),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(49, 50), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -547,33 +547,33 @@ app.post(prefix+api[0], function (req, res) {
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
-	
-	for(var i =0;i<3;i++){
+
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:49.96019,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 49.96019,
 				xmax: 50.05042,
 				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 // 1.基波有效值影响
-app.post(prefix+api[1], function (req, res) {
+app.post(prefix + api[1], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(131,132),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(131, 132), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -584,24 +584,24 @@ app.post(prefix+api[1], function (req, res) {
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
-	
-	for(var i =0;i<3;i++){
+
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
-	}	
+	}
 
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:129.5713,
-				xmax:132.3113,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 129.5713,
+				xmax: 132.3113,
 				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 
@@ -609,11 +609,11 @@ app.post(prefix+api[1], function (req, res) {
 })
 
 // 2.零序电压不平衡度影响
-app.post(prefix+api[2],function(req,res){
+app.post(prefix + api[2], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [0,RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [0, RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -624,33 +624,33 @@ app.post(prefix+api[2],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
-	
-	for(var i =0;i<3;i++){
+
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0,
-				xmax:0,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 // 3.负序电压不平衡度影响
-app.post(prefix+api[3],function(req,res){
+app.post(prefix + api[3], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [0,RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [0, RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -661,34 +661,34 @@ app.post(prefix+api[3],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
-	
-	for(var i =0;i<3;i++){
+
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0,
-				xmax:0,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 4.温度影响
-app.post(prefix+api[4],function(req,res){
+app.post(prefix + api[4], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [0,RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [0, RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -700,34 +700,34 @@ app.post(prefix+api[4],function(req,res){
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
 		// datax:datax,
-		datax:[],
+		datax: [],
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0,
-				xmax:0,
-				ymin:0,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0,
 				ymax: 0,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 5.湿度影响
-app.post(prefix+api[5],function(req,res){
+app.post(prefix + api[5], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [0,RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [0, RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -739,34 +739,34 @@ app.post(prefix+api[5],function(req,res){
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
 		// datax:datax,
-		datax:[],
+		datax: [],
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0,
-				xmax:0,
-				ymin:0,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0,
 				ymax: 0,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 6.基波相位影响
-app.post(prefix+api[6], function (req, res) {
+app.post(prefix + api[6], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -777,34 +777,34 @@ app.post(prefix+api[6], function (req, res) {
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
-	
-	for(var i =0;i<3;i++){
+
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:-10769.58,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: -10769.58,
 				xmax: 10796.43,
 				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 7.三次谐波幅值影响
-app.post(prefix+api[7],function(req,res){
+app.post(prefix + api[7], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(0,1),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(0, 1), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -815,34 +815,34 @@ app.post(prefix+api[7],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0.00515,
-				xmax:0.03635,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0.00515,
+				xmax: 0.03635,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 8.三次谐波相位影响
-app.post(prefix+api[8],function(req,res){
+app.post(prefix + api[8], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -853,34 +853,34 @@ app.post(prefix+api[8],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:-10789.57,
-				xmax:10780.5,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: -10789.57,
+				xmax: 10780.5,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 9.五次谐波幅值影响
-app.post(prefix+api[9],function(req,res){
+app.post(prefix + api[9], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(0,1),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(0, 1), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -891,34 +891,34 @@ app.post(prefix+api[9],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:0.00037,
-				xmax:0.03549,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: 0.00037,
+				xmax: 0.03549,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
 
 // 10.五次谐波相位影响
-app.post(prefix+api[10],function(req,res){
+app.post(prefix + api[10], function (req, res) {
 	let datax = [];
 	let data = [];
-	for(var i=0;i<500;i++){
-		let arr = [RandomNumBoth(-10000,10000,2),RandomNumBoth(0,1)];
+	for (var i = 0; i < 500; i++) {
+		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
 		datax.push(arr);
 	}
 	let json = {
@@ -929,28 +929,28 @@ app.post(prefix+api[10],function(req,res){
 		name: "220kV#1母线A相基波频率",
 		startTime: "2020-03-21 14:15:35",
 		endTime: "2020-04-21 14:15:35",
-		datax:datax,
+		datax: datax,
 		stationId: 305
 	}
 
-	for(var i =0;i<3;i++){
+	for (var i = 0; i < 3; i++) {
 		data.push(json);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		data:{
-			yseries:{
-				xmin:-10797.59,
-				xmax:10792.26,
-				ymin:0.10005,
+		msg: 'ok',
+		code: 0,
+		data: {
+			yseries: {
+				xmin: -10797.59,
+				xmax: 10792.26,
+				ymin: 0.10005,
 				ymax: 0.21344,
-				data:data
+				data: data
 			}
 		}
 	});
 })
-function RandomNumBoth(Min,Max,count){
+function RandomNumBoth(Min, Max, count) {
 	var range = Max - Min;
 	var count = count || 5;
 	var rand = Math.random();
