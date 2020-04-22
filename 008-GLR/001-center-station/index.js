@@ -534,12 +534,12 @@ let api = [
 
 var wss = {
 	// 创建数据
-	createData:function(min,max){
+	createData:function(min,max,count){
 		let datax_a = [],datax_b=[],datax_c=[],data = [];
 		for(var i =0;i<500;i++){
-			let arr_a = [RandomNumBoth(min, max), RandomNumBoth(0, 1)];
-			let arr_b = [RandomNumBoth(min, max), RandomNumBoth(0, 1)];
-			let arr_c = [RandomNumBoth(min, max), RandomNumBoth(0, 1)];
+			let arr_a = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
+			let arr_b = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
+			let arr_c = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
 			datax_a.push(arr_a);
 			datax_b.push(arr_b);
 			datax_c.push(arr_c);
@@ -570,40 +570,28 @@ var wss = {
 			transformerPositionId: 27,
 			transformerPositionName: "220kV#1母线",
 			transformerId: 81,
-			transformerName: "A相",
+			transformerName: "C相",
 			name: "220kV#1母线C相基波频率",
 			startTime: "2020-03-21 14:15:35",
 			endTime: "2020-04-21 14:15:35",
 			datax: datax_c,
 			stationId: 305
 		};
-		data.push(a,b,c);
+		// data.push(a);
+		data.push(a,b);
+		// data.push(a,b,c);
 		return data;
+	},
+	RandomNumBoth:function(Min, Max, count){
+		var range = Max - Min;
+		var count = count || 5;
+		var rand = Math.random();
+		var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
+		return +num;
 	}
 }
 // 0.基波频率影响
 app.post(prefix + api[0], function (req, res) {
-/* 	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(49, 50), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	} */
 
 	let data = wss.createData(49,50);
 	res.json({
@@ -643,27 +631,7 @@ app.post(prefix + api[1], function (req, res) {
 
 // 2.零序电压不平衡度影响
 app.post(prefix + api[2], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [0, RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(0,0);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -680,27 +648,7 @@ app.post(prefix + api[2], function (req, res) {
 })
 // 3.负序电压不平衡度影响
 app.post(prefix + api[3], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [0, RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(0,0);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -718,37 +666,16 @@ app.post(prefix + api[3], function (req, res) {
 
 // 4.温度影响
 app.post(prefix + api[4], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [0, RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		// datax:datax,
-		datax: [],
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(15,15);
 	res.json({
 		msg: 'ok',
 		code: 0,
 		data: {
 			yseries: {
-				xmin: 0,
-				xmax: 0,
-				ymin: 0,
-				ymax: 0,
+				xmin: 15,
+				xmax: 30,
+				ymin: -3,
+				ymax: 1,
 				data: data
 			}
 		}
@@ -757,37 +684,16 @@ app.post(prefix + api[4], function (req, res) {
 
 // 5.湿度影响
 app.post(prefix + api[5], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [0, RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		// datax:datax,
-		datax: [],
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(15,15);
 	res.json({
 		msg: 'ok',
 		code: 0,
 		data: {
 			yseries: {
-				xmin: 0,
-				xmax: 0,
-				ymin: 0,
-				ymax: 0,
+				xmin: 15,
+				xmax: 30,
+				ymin: -3,
+				ymax: 1,
 				data: data
 			}
 		}
@@ -796,27 +702,7 @@ app.post(prefix + api[5], function (req, res) {
 
 // 6.基波相位影响
 app.post(prefix + api[6], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(-10000, 10000,2);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -832,29 +718,9 @@ app.post(prefix + api[6], function (req, res) {
 	});
 })
 
-// 7.三次谐波幅值影响
+// 7.三次谐波有效值影响
 app.post(prefix + api[7], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(0, 1), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(0,1);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -872,27 +738,7 @@ app.post(prefix + api[7], function (req, res) {
 
 // 8.三次谐波相位影响
 app.post(prefix + api[8], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(-10000, 10000,2);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -908,29 +754,9 @@ app.post(prefix + api[8], function (req, res) {
 	});
 })
 
-// 9.五次谐波幅值影响
+// 9.五次谐波有效值影响
 app.post(prefix + api[9], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(0, 1), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(0,1);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -948,27 +774,7 @@ app.post(prefix + api[9], function (req, res) {
 
 // 10.五次谐波相位影响
 app.post(prefix + api[10], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(-10000, 10000, 2), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	let data = wss.createData(-10000, 10000,2);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -983,13 +789,6 @@ app.post(prefix + api[10], function (req, res) {
 		}
 	});
 })
-function RandomNumBoth(Min, Max, count) {
-	var range = Max - Min;
-	var count = count || 5;
-	var rand = Math.random();
-	var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
-	return +num;
-}
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
