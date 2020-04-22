@@ -603,7 +603,9 @@ app.post(prefix + api[0], function (req, res) {
 
 	for (var i = 0; i < 3; i++) {
 		data.push(json);
-	}
+	} */
+
+	let data = wss.createData(49,50);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -620,31 +622,12 @@ app.post(prefix + api[0], function (req, res) {
 })
 // 1.基波有效值影响
 app.post(prefix + api[1], function (req, res) {
-	let datax = [];
-	let data = [];
-	for (var i = 0; i < 500; i++) {
-		let arr = [RandomNumBoth(131, 132), RandomNumBoth(0, 1)];
-		datax.push(arr);
-	}
-	let json = {
-		transformerPositionId: 27,
-		transformerPositionName: "220kV#1母线",
-		transformerId: 79,
-		transformerName: "A相",
-		name: "220kV#1母线A相基波频率",
-		startTime: "2020-03-21 14:15:35",
-		endTime: "2020-04-21 14:15:35",
-		datax: datax,
-		stationId: 305
-	}
-
-	for (var i = 0; i < 3; i++) {
-		data.push(json);
-	}
+	
+	data = wss.createData(131,132);
 
 	res.json({
-		msg: '错误',
-		code: 1,
+		msg: 'ok',
+		code: 0,
 		data: {
 			yseries: {
 				xmin: 129.5713,
