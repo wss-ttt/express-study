@@ -516,23 +516,30 @@ app.get('/echarts/test6/list', function (req, res) {
 })
 
 // 误差影响因素分析
-
-let prefix = '/analysis/deviationInfluenceFactor/';
-let api = [
-	'fundamentalFrequencyImpactData',  // 基波频率影响
-	'fundamentalAmplitudeImpactData',  // 基波有效值影响
-	'zeroSequenceVoltageImbalanceImpactData', // 零序电压不平衡度影响
-	'negativeSequenceVoltageImbalanceImpactData',// 负序电压不平衡度影响
-	'temperatureImpactData',  // 温度影响
-	'humidityImpactData',    // 湿度影响
-	'fundamentalPhaseImpactData',   // 基波相位影响
-	'threeHarmonicAmplitudeImpactData',   // 三次谐波有效值影响
-	'threeHarmonicPhaseImpactData',   // 三次谐波相位
-	'fiveHarmonicAmplitudeImpactData',  // 五次谐波有效值影响
-	'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
-];
-
 var wss = {
+	prefix: '/analysis/deviationInfluenceFactor/',
+	api: [
+		'fundamentalFrequencyImpactData',  // 基波频率影响
+		'fundamentalAmplitudeImpactData',  // 基波有效值影响
+		'zeroSequenceVoltageImbalanceImpactData', // 零序电压不平衡度影响
+		'negativeSequenceVoltageImbalanceImpactData',// 负序电压不平衡度影响
+		'temperatureImpactData',  // 温度影响
+		'humidityImpactData',    // 湿度影响
+		'fundamentalPhaseImpactData',   // 基波相位影响
+		'threeHarmonicAmplitudeImpactData',   // 三次谐波有效值影响
+		'threeHarmonicPhaseImpactData',   // 三次谐波相位
+		'fiveHarmonicAmplitudeImpactData',  // 五次谐波有效值影响
+		'fiveHarmonicPhaseImpactData'       // 五次谐波相位影响
+	],
+	prefix2: '/analysis/timeSeries/',
+	api2: [
+		'fundamentalFrequencyData',   // 基波频率
+		'fundamentalVoltageData',  // 基波电压
+		'harmonicVoltageData',  // 谐波电压
+		'sequenceVoltageImbalanceData', // 电压不平衡度
+		'temperatureData',  // 温湿度
+		'humidityData'      // 湿度
+	],
 	// 创建数据
 	createData: function (min, max, count) {
 		let datax_a = [], datax_b = [], datax_c = [], data = [];
@@ -656,7 +663,7 @@ var wss = {
 	}
 }
 // 0.基波频率影响
-app.post(prefix + api[0], function (req, res) {
+app.post(wss.prefix + wss.api[0], function (req, res) {
 
 	let data = wss.createData(49, 50);
 	res.json({
@@ -672,7 +679,7 @@ app.post(prefix + api[0], function (req, res) {
 	});
 })
 // 1.基波有效值影响
-app.post(prefix + api[1], function (req, res) {
+app.post(wss.prefix + wss.api[1], function (req, res) {
 
 	data = wss.createData(131, 132);
 
@@ -691,7 +698,7 @@ app.post(prefix + api[1], function (req, res) {
 })
 
 // 2.零序电压不平衡度影响
-app.post(prefix + api[2], function (req, res) {
+app.post(wss.prefix + wss.api[2], function (req, res) {
 	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
@@ -706,7 +713,7 @@ app.post(prefix + api[2], function (req, res) {
 	});
 })
 // 3.负序电压不平衡度影响
-app.post(prefix + api[3], function (req, res) {
+app.post(wss.prefix + wss.api[3], function (req, res) {
 	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
@@ -722,7 +729,7 @@ app.post(prefix + api[3], function (req, res) {
 })
 
 // 4.温度影响
-app.post(prefix + api[4], function (req, res) {
+app.post(wss.prefix + wss.api[4], function (req, res) {
 	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
@@ -738,7 +745,7 @@ app.post(prefix + api[4], function (req, res) {
 })
 
 // 5.湿度影响
-app.post(prefix + api[5], function (req, res) {
+app.post(wss.prefix + wss.api[5], function (req, res) {
 	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
@@ -754,7 +761,7 @@ app.post(prefix + api[5], function (req, res) {
 })
 
 // 6.基波相位影响
-app.post(prefix + api[6], function (req, res) {
+app.post(wss.prefix + wss.api[6], function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
@@ -770,7 +777,7 @@ app.post(prefix + api[6], function (req, res) {
 })
 
 // 7.三次谐波有效值影响
-app.post(prefix + api[7], function (req, res) {
+app.post(wss.prefix + wss.api[7], function (req, res) {
 	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
@@ -786,7 +793,7 @@ app.post(prefix + api[7], function (req, res) {
 })
 
 // 8.三次谐波相位影响
-app.post(prefix + api[8], function (req, res) {
+app.post(wss.prefix + wss.api[8], function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
@@ -802,7 +809,7 @@ app.post(prefix + api[8], function (req, res) {
 })
 
 // 9.五次谐波有效值影响
-app.post(prefix + api[9], function (req, res) {
+app.post(wss.prefix + wss.api[9], function (req, res) {
 	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
@@ -818,7 +825,7 @@ app.post(prefix + api[9], function (req, res) {
 })
 
 // 10.五次谐波相位影响
-app.post(prefix + api[10], function (req, res) {
+app.post(wss.prefix + wss.api[10], function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
@@ -833,19 +840,9 @@ app.post(prefix + api[10], function (req, res) {
 	});
 })
 
-
 // 时序展示模块
-let prefix2 = '/analysis/timeSeries/';
-let api2 = [
-	'fundamentalFrequencyData',   // 基波频率
-	'fundamentalVoltageData',  // 基波电压
-	'harmonicVoltageData',  // 谐波电压
-	'sequenceVoltageImbalanceData', // 电压不平衡度
-	'temperatureData',  // 温湿度
-	'humidityData'      // 湿度
-];
 // 0.基波频率
-app.post(prefix2 + api2[0], function (req, res) {
+app.post(wss.prefix2 + wss.api2[0], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -858,15 +855,15 @@ app.post(prefix2 + api2[0], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
 // 1.基波电压
-app.post(prefix2 + api2[1], function (req, res) {
+app.post(wss.prefix2 + wss.api2[1], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -879,15 +876,15 @@ app.post(prefix2 + api2[1], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
 // 2.谐波电压
-app.post(prefix2 + api2[2], function (req, res) {
+app.post(wss.prefix2 + wss.api2[2], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -900,15 +897,15 @@ app.post(prefix2 + api2[2], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
 // 3.电压不平衡度
-app.post(prefix2 + api2[3], function (req, res) {
+app.post(wss.prefix2 + wss.api2[3], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -921,15 +918,15 @@ app.post(prefix2 + api2[3], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
 // 4.温度
-app.post(prefix2 + api2[4], function (req, res) {
+app.post(wss.prefix2 + wss.api2[4], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -942,15 +939,15 @@ app.post(prefix2 + api2[4], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
 // 5.湿度
-app.post(prefix2 + api2[5], function (req, res) {
+app.post(wss.prefix2 + wss.api2[5], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
@@ -963,13 +960,14 @@ app.post(prefix2 + api2[5], function (req, res) {
 		code: 0,
 		yseries: [
 			{
-			min: 25.9999,
-			max: 100,
-			data: data,
-			everTime: everTime
-		}]
+				min: 25.9999,
+				max: 100,
+				data: data,
+				everTime: everTime
+			}]
 	})
 })
+
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
