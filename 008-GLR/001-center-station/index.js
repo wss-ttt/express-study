@@ -588,6 +588,71 @@ var wss = {
 		var rand = Math.random();
 		var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
 		return +num;
+	},
+	createData2:function(min,max,count){
+		let data_a = [];
+		let data_b = [];
+		let data_c = [];
+		let data = [];
+		let self = this;
+		for(let i =0;i<3;i++){
+			let step = 15;	
+			xtime = i * step;
+			let arr_a = {
+				ydata:self.RandomNumBoth(min,max,count),
+				xtime:'2019-11-14 05:'+xtiem+':00'
+			};
+			let arr_b = {
+				ydata:self.RandomNumBoth(min,max,count),
+				xtime:'2019-11-14 05:'+xtiem+':00'
+			};
+			let arr_c = {
+				ydata:self.RandomNumBoth(min,max,count),
+				xtime:'2019-11-14 05:'+xtiem+':00'
+			};
+			data_a.push(arr_a);
+			data_b.push(arr_b);
+			data_c.push(arr_c);
+		}
+		let a = {
+			transformerPositionId: 3,
+			transformerPositionName: "济南站-3线",
+			transformerId: 7,
+			transformerName: "A相",
+			name: "济南站-3线A相基波频率",
+			startTime: null,
+			endTime: null,
+			data:data_a,
+			type:'line',
+			yaxisIndex:0
+		};
+		let b = {
+			transformerPositionId: 3,
+			transformerPositionName: "济南站-3线",
+			transformerId: 8,
+			transformerName: "B相",
+			name: "济南站-3线B相基波频率",
+			startTime: null,
+			endTime: null,
+			data:data_b,
+			type:'line',
+			yaxisIndex:0
+		};
+		let c = {
+			transformerPositionId: 3,
+			transformerPositionName: "济南站-3线",
+			transformerId: 8,
+			transformerName: "B相",
+			name: "济南站-3线C相基波频率",
+			startTime: null,
+			endTime: null,
+			data:data_c,
+			type:'line',
+			yaxisIndex:0
+		};
+		// push3个相线
+		data.push(a,b,c);
+
 	}
 }
 // 0.基波频率影响
@@ -770,6 +835,34 @@ app.post(prefix + api[10], function (req, res) {
 
 
 // 时序展示模块
+let prefix2 = '/analysis/timeSeries/';
+let api2 = [
+	'fundamentalFrequencyData',   // 基波频率
+	'fundamentalVoltageData',  // 基波电压
+	'harmonicVoltageData',  // 谐波电压
+	'sequenceVoltageImbalanceData', // 电压不平衡度
+	'temperatureAndHumidityData'  // 温湿度
+];
+// 0.基波频率
+app.post(prefix2 + api2[0],function(req,res){
+	let data = wss.createData2(49,50);
+	let everTIme = [];
+	for(let i = 0;i<3;i++){
+		step = 15;
+		xtime = i * stpe;
+		everTIme.push(xtime);
+	}
+	res.json({
+		msg:'ok',
+		code:0,
+		yseries:{
+			min:25.9999,
+			max:100,
+			data:[],
+			everTIme:everTIme
+		}
+	})
+})
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
