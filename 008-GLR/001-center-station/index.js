@@ -841,10 +841,116 @@ let api2 = [
 	'fundamentalVoltageData',  // 基波电压
 	'harmonicVoltageData',  // 谐波电压
 	'sequenceVoltageImbalanceData', // 电压不平衡度
-	'temperatureAndHumidityData'  // 温湿度
+	'temperatureData',  // 温湿度
+	'humidityData'      // 湿度
 ];
 // 0.基波频率
 app.post(prefix2 + api2[0], function (req, res) {
+	let data = wss.createData2(49, 50);
+	let everTime = [];
+	for (let i = 0; i < 3; i++) {
+		step = 15;
+		xtime = i * step;
+		everTime.push('2019-11-14 05:' + xtime + ':00');
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		yseries: [
+			{
+			min: 25.9999,
+			max: 100,
+			data: data,
+			everTime: everTime
+		}]
+	})
+})
+// 1.基波电压
+app.post(prefix2 + api2[1], function (req, res) {
+	let data = wss.createData2(49, 50);
+	let everTime = [];
+	for (let i = 0; i < 3; i++) {
+		step = 15;
+		xtime = i * step;
+		everTime.push('2019-11-14 05:' + xtime + ':00');
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		yseries: [
+			{
+			min: 25.9999,
+			max: 100,
+			data: data,
+			everTime: everTime
+		}]
+	})
+})
+// 2.谐波电压
+app.post(prefix2 + api2[2], function (req, res) {
+	let data = wss.createData2(49, 50);
+	let everTime = [];
+	for (let i = 0; i < 3; i++) {
+		step = 15;
+		xtime = i * step;
+		everTime.push('2019-11-14 05:' + xtime + ':00');
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		yseries: [
+			{
+			min: 25.9999,
+			max: 100,
+			data: data,
+			everTime: everTime
+		}]
+	})
+})
+// 3.电压不平衡度
+app.post(prefix2 + api2[3], function (req, res) {
+	let data = wss.createData2(49, 50);
+	let everTime = [];
+	for (let i = 0; i < 3; i++) {
+		step = 15;
+		xtime = i * step;
+		everTime.push('2019-11-14 05:' + xtime + ':00');
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		yseries: [
+			{
+			min: 25.9999,
+			max: 100,
+			data: data,
+			everTime: everTime
+		}]
+	})
+})
+// 4.温度
+app.post(prefix2 + api2[4], function (req, res) {
+	let data = wss.createData2(49, 50);
+	let everTime = [];
+	for (let i = 0; i < 3; i++) {
+		step = 15;
+		xtime = i * step;
+		everTime.push('2019-11-14 05:' + xtime + ':00');
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		yseries: [
+			{
+			min: 25.9999,
+			max: 100,
+			data: data,
+			everTime: everTime
+		}]
+	})
+})
+// 5.湿度
+app.post(prefix2 + api2[5], function (req, res) {
 	let data = wss.createData2(49, 50);
 	let everTime = [];
 	for (let i = 0; i < 3; i++) {
