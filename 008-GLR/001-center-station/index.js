@@ -600,15 +600,15 @@ var wss = {
 			xtime = i * step;
 			let arr_a = {
 				ydata: self.RandomNumBoth(min, max, count),
-				xtime: '2019-11-14 05:' + xtiem + ':00'
+				xtime: '2019-11-14 05:' + xtime + ':00'
 			};
 			let arr_b = {
 				ydata: self.RandomNumBoth(min, max, count),
-				xtime: '2019-11-14 05:' + xtiem + ':00'
+				xtime: '2019-11-14 05:' + xtime + ':00'
 			};
 			let arr_c = {
 				ydata: self.RandomNumBoth(min, max, count),
-				xtime: '2019-11-14 05:' + xtiem + ':00'
+				xtime: '2019-11-14 05:' + xtime + ':00'
 			};
 			data_a.push(arr_a);
 			data_b.push(arr_b);
@@ -849,7 +849,7 @@ app.post(prefix2 + api2[0], function (req, res) {
 	let everTIme = [];
 	for (let i = 0; i < 3; i++) {
 		step = 15;
-		xtime = i * stpe;
+		xtime = i * step;
 		everTIme.push(xtime);
 	}
 	res.json({
