@@ -846,11 +846,11 @@ let api2 = [
 // 0.基波频率
 app.post(prefix2 + api2[0], function (req, res) {
 	let data = wss.createData2(49, 50);
-	let everTIme = [];
+	let everTime = [];
 	for (let i = 0; i < 3; i++) {
 		step = 15;
 		xtime = i * step;
-		everTIme.push('2019-11-14 05:' + xtime + ':00');
+		everTime.push('2019-11-14 05:' + xtime + ':00');
 	}
 	res.json({
 		msg: 'ok',
@@ -860,7 +860,7 @@ app.post(prefix2 + api2[0], function (req, res) {
 			min: 25.9999,
 			max: 100,
 			data: data,
-			everTIme: everTIme
+			everTime: everTime
 		}]
 	})
 })
