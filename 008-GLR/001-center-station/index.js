@@ -589,26 +589,26 @@ var wss = {
 		var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
 		return +num;
 	},
-	createData2:function(min,max,count){
+	createData2: function (min, max, count) {
 		let data_a = [];
 		let data_b = [];
 		let data_c = [];
 		let data = [];
 		let self = this;
-		for(let i =0;i<3;i++){
-			let step = 15;	
+		for (let i = 0; i < 3; i++) {
+			let step = 15;
 			xtime = i * step;
 			let arr_a = {
-				ydata:self.RandomNumBoth(min,max,count),
-				xtime:'2019-11-14 05:'+xtiem+':00'
+				ydata: self.RandomNumBoth(min, max, count),
+				xtime: '2019-11-14 05:' + xtiem + ':00'
 			};
 			let arr_b = {
-				ydata:self.RandomNumBoth(min,max,count),
-				xtime:'2019-11-14 05:'+xtiem+':00'
+				ydata: self.RandomNumBoth(min, max, count),
+				xtime: '2019-11-14 05:' + xtiem + ':00'
 			};
 			let arr_c = {
-				ydata:self.RandomNumBoth(min,max,count),
-				xtime:'2019-11-14 05:'+xtiem+':00'
+				ydata: self.RandomNumBoth(min, max, count),
+				xtime: '2019-11-14 05:' + xtiem + ':00'
 			};
 			data_a.push(arr_a);
 			data_b.push(arr_b);
@@ -622,9 +622,9 @@ var wss = {
 			name: "济南站-3线A相基波频率",
 			startTime: null,
 			endTime: null,
-			data:data_a,
-			type:'line',
-			yaxisIndex:0
+			data: data_a,
+			type: 'line',
+			yaxisIndex: 0
 		};
 		let b = {
 			transformerPositionId: 3,
@@ -634,9 +634,9 @@ var wss = {
 			name: "济南站-3线B相基波频率",
 			startTime: null,
 			endTime: null,
-			data:data_b,
-			type:'line',
-			yaxisIndex:0
+			data: data_b,
+			type: 'line',
+			yaxisIndex: 0
 		};
 		let c = {
 			transformerPositionId: 3,
@@ -646,12 +646,12 @@ var wss = {
 			name: "济南站-3线C相基波频率",
 			startTime: null,
 			endTime: null,
-			data:data_c,
-			type:'line',
-			yaxisIndex:0
+			data: data_c,
+			type: 'line',
+			yaxisIndex: 0
 		};
 		// push3个相线
-		data.push(a,b,c);
+		data.push(a, b, c);
 
 	}
 }
@@ -844,22 +844,22 @@ let api2 = [
 	'temperatureAndHumidityData'  // 温湿度
 ];
 // 0.基波频率
-app.post(prefix2 + api2[0],function(req,res){
-	let data = wss.createData2(49,50);
+app.post(prefix2 + api2[0], function (req, res) {
+	let data = wss.createData2(49, 50);
 	let everTIme = [];
-	for(let i = 0;i<3;i++){
+	for (let i = 0; i < 3; i++) {
 		step = 15;
 		xtime = i * stpe;
 		everTIme.push(xtime);
 	}
 	res.json({
-		msg:'ok',
-		code:0,
-		yseries:{
-			min:25.9999,
-			max:100,
-			data:[],
-			everTIme:everTIme
+		msg: 'ok',
+		code: 0,
+		yseries: {
+			min: 25.9999,
+			max: 100,
+			data: [],
+			everTIme: everTIme
 		}
 	})
 })
