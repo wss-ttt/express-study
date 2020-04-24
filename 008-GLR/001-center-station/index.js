@@ -534,17 +534,17 @@ let api = [
 
 var wss = {
 	// 创建数据
-	createData:function(min,max,count){
-		let datax_a = [],datax_b=[],datax_c=[],data = [];
-		for(var i =0;i<500;i++){
-			let arr_a = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
-			let arr_b = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
-			let arr_c = [this.RandomNumBoth(min, max,count), this.RandomNumBoth(0, 1,count)];
+	createData: function (min, max, count) {
+		let datax_a = [], datax_b = [], datax_c = [], data = [];
+		for (var i = 0; i < 500; i++) {
+			let arr_a = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
+			let arr_b = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
+			let arr_c = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
 			datax_a.push(arr_a);
 			datax_b.push(arr_b);
 			datax_c.push(arr_c);
 		}
-		let  a= {
+		let a = {
 			transformerPositionId: 27,
 			transformerPositionName: "220kV#1母线",
 			transformerId: 79,
@@ -578,11 +578,11 @@ var wss = {
 			stationId: 305
 		};
 		// data.push(a);
-		data.push(a,b);
+		data.push(a, b);
 		// data.push(a,b,c);
 		return data;
 	},
-	RandomNumBoth:function(Min, Max, count){
+	RandomNumBoth: function (Min, Max, count) {
 		var range = Max - Min;
 		var count = count || 5;
 		var rand = Math.random();
@@ -593,37 +593,33 @@ var wss = {
 // 0.基波频率影响
 app.post(prefix + api[0], function (req, res) {
 
-	let data = wss.createData(49,50);
+	let data = wss.createData(49, 50);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 49.96019,
-				xmax: 50.05042,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 49.96019,
+			xmax: 50.05042,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 // 1.基波有效值影响
 app.post(prefix + api[1], function (req, res) {
-	
-	data = wss.createData(131,132);
+
+	data = wss.createData(131, 132);
 
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 129.5713,
-				xmax: 132.3113,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 129.5713,
+			xmax: 132.3113,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 
 	});
@@ -631,161 +627,143 @@ app.post(prefix + api[1], function (req, res) {
 
 // 2.零序电压不平衡度影响
 app.post(prefix + api[2], function (req, res) {
-	let data = wss.createData(0,0);
+	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 0,
-				xmax: 0,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 0,
+			xmax: 0,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 // 3.负序电压不平衡度影响
 app.post(prefix + api[3], function (req, res) {
-	let data = wss.createData(0,0);
+	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 0,
-				xmax: 0,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 0,
+			xmax: 0,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 
 // 4.温度影响
 app.post(prefix + api[4], function (req, res) {
-	let data = wss.createData(15,15);
+	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 15,
-				xmax: 30,
-				ymin: -3,
-				ymax: 1,
-				data: data
-			}
+		yseries: {
+			xmin: 15,
+			xmax: 30,
+			ymin: -3,
+			ymax: 1,
+			data: data
 		}
 	});
 })
 
 // 5.湿度影响
 app.post(prefix + api[5], function (req, res) {
-	let data = wss.createData(15,15);
+	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 15,
-				xmax: 30,
-				ymin: -3,
-				ymax: 1,
-				data: data
-			}
+		yseries: {
+			xmin: 15,
+			xmax: 30,
+			ymin: -3,
+			ymax: 1,
+			data: data
 		}
 	});
 })
 
 // 6.基波相位影响
 app.post(prefix + api[6], function (req, res) {
-	let data = wss.createData(-10000, 10000,2);
+	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: -10769.58,
-				xmax: 10796.43,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: -10769.58,
+			xmax: 10796.43,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 
 // 7.三次谐波有效值影响
 app.post(prefix + api[7], function (req, res) {
-	let data = wss.createData(0,1);
+	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 0.00515,
-				xmax: 0.03635,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 0.00515,
+			xmax: 0.03635,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 
 // 8.三次谐波相位影响
 app.post(prefix + api[8], function (req, res) {
-	let data = wss.createData(-10000, 10000,2);
+	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: -10789.57,
-				xmax: 10780.5,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: -10789.57,
+			xmax: 10780.5,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 
 // 9.五次谐波有效值影响
 app.post(prefix + api[9], function (req, res) {
-	let data = wss.createData(0,1);
+	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: 0.00037,
-				xmax: 0.03549,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: 0.00037,
+			xmax: 0.03549,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
 
 // 10.五次谐波相位影响
 app.post(prefix + api[10], function (req, res) {
-	let data = wss.createData(-10000, 10000,2);
+	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
 		code: 0,
-		data: {
-			yseries: {
-				xmin: -10797.59,
-				xmax: 10792.26,
-				ymin: 0.10005,
-				ymax: 0.21344,
-				data: data
-			}
+		yseries: {
+			xmin: -10797.59,
+			xmax: 10792.26,
+			ymin: 0.10005,
+			ymax: 0.21344,
+			data: data
 		}
 	});
 })
