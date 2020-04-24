@@ -652,7 +652,7 @@ var wss = {
 		};
 		// push3个相线
 		data.push(a, b, c);
-
+		return data;
 	}
 }
 // 0.基波频率影响
@@ -850,17 +850,18 @@ app.post(prefix2 + api2[0], function (req, res) {
 	for (let i = 0; i < 3; i++) {
 		step = 15;
 		xtime = i * step;
-		everTIme.push(xtime);
+		everTIme.push('2019-11-14 05:' + xtime + ':00');
 	}
 	res.json({
 		msg: 'ok',
 		code: 0,
-		yseries: {
+		yseries: [
+			{
 			min: 25.9999,
 			max: 100,
-			data: [],
+			data: data,
 			everTIme: everTIme
-		}
+		}]
 	})
 })
 app.listen(3001, function () {
