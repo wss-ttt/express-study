@@ -83,6 +83,39 @@ app.get('/error2', function (req, res) {
 	}
 	res.json(data);
 })
+// 单个误差折线图
+app.get('/singleError', function (req, res) {
+	let xData = [];
+	for (let i = 0; i < 10; i++) {
+		xData.push('aaa' + i);
+	}
+	let data = [];
+	for (var i = 0; i < 3; i++) {
+		let yData = [];
+		for (let j = 0; j < 10; j++) {
+			// let num = Math.floor(Math.random() * (1500 - 100 + 1) + 100) // 向下取整
+			// 保留一位小数
+			// 数据 [-0.8,0.8]
+			let num = ((Math.random() > 0.5 ? 1 : -1) * Math.random() * 0.8).toFixed(1);
+			yData.push(num)
+		}
+		data.push({
+			xAxis: xData,
+			yAxis: yData,
+			markLineData: [{
+				yAxis: -0.5
+			}, {
+				yAxis: -0.2
+			}, {
+				yAxis: 0.2
+			}, {
+				yAxis: 0.5
+			}],
+			seriesName: '异常' + i
+		})
+	}
+	res.json(data);
+})
 
 // 老曾
 // 首页-误差随时间变化折线
