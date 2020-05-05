@@ -1000,7 +1000,183 @@ app.post(wss.prefix2 + wss.api2[5], function (req, res) {
 			}]
 	})
 })
+// 老曾-新增加
+// 首页-互感器监控信息
+let transformerTable = [{
+    city:'长沙市',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市2',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市3',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市4',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市5',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市6',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市7',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市8',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市9',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+},{
+    city:'武汉市10',
+    normal:1,
+    warn:3,
+    unNormal:10,
+    operation:10,
+    completed:10
+}]
 
+app.get('/echarts/test/transformerTable', (req, res) => {
+  res.send(transformerTable)
+})
+
+// 首页-运维完成率
+var operationData = []
+for(var i=0;i<20;i++){
+    let obj = {}
+    obj['transformer'] = i * 1000
+    obj['code'] = '石长I线a相'
+    obj['region'] = '长沙市-天心区' + i
+    obj['status'] = '异常' + i
+    operationData.push(obj)
+}
+
+
+app.get('/echarts/test/operationTableData', (req, res) => {
+  res.send(operationData)
+})
+
+
+// 首页-运维完成率
+var operationDialogData = []
+for(var i=0;i<10;i++){
+    let obj = {}
+    obj['code'] = i * 1000
+    obj['region'] = '长沙市-天心区' + i
+    obj['transformerStatus'] = '异常'
+    obj['operationStatus'] = '已完成' + i
+    obj['operationCompany'] = ''
+    obj['operationPeople'] = ''
+    obj['startTime'] = '2020-02-22'
+    obj['endTime'] = '2020-02-29'
+    obj['evaluationValue'] = '0.3'
+    obj['verificationValue'] = '0.5'
+    obj['remarks'] = '这是备注'
+    operationDialogData.push(obj)
+}
+
+
+app.get('/echarts/test/operationDialogData', (req, res) => {
+  res.send(operationDialogData)
+})
+
+// 首页-站点监控信息
+let stationTable = [{
+    station:'站点1',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点2',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点13',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点4',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点5',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点6',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点7',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点8',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+},{
+    station:'站点9',
+    status:'已实施',
+    region:'长沙市-长沙县',
+    timer:'10年',
+    transformer:10,
+}]
+app.get('/echarts/test/stationTable', (req, res) => {
+  res.send(stationTable)
+})
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
