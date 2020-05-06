@@ -1000,6 +1000,101 @@ app.post(wss.prefix2 + wss.api2[5], function (req, res) {
 			}]
 	})
 })
+
+// 26.变电站信息:展示变电站排名，综合评分，健康评分，运维评分
+app.post('/stationScoreController', function(req, res) {
+	let data = [
+        {
+          title: 'comprehensive',
+          name: '综合评分',
+          score: 99
+        },
+        {
+          title: 'operation',
+          name: '运维评分',
+          score: 40
+        },
+        {
+          title: 'healthy',
+          name: '健康评分',
+          score: 50
+		}
+      ];
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: {
+			data,
+			ranking: 67
+		}
+	})
+})
+// 27.互感器评分接口
+app.post('/transformerScoreController', function(req, res) {
+	let data = [];
+	for(let i =1;i<=10;i++){
+		data.push({
+			name: '石长'+i+'线',
+			last: Math.ceil(Math.random()*100),
+			current: Math.ceil(Math.random()*100)
+		})
+	}
+	console.log(data);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+ })
+
+ // 22.基础信息表:变电站的概况
+ app.post('/stationController', function(req, res) {
+	let data = [
+        {
+          name: '投运时间',
+          val: '2020.04.22'
+        },
+        {
+          name: '所属区域',
+          val: '湖南省怀化市某镇'
+        },
+        {
+          name: '站点类型',
+          val: '变电站'
+        },
+        {
+          name: '变电站电压等级',
+          val: '220kV'
+        },
+        {
+          name: '220kV计量母线互感器组数',
+          val: '3组'
+        },
+        {
+          name: '110kV计量母线互感器组数',
+          val: '1组'
+        },
+        {
+          name: '220kV计量线路互感器组数',
+          val: '3组'
+        },
+        {
+          name: '110kV计量线路互感器组数',
+          val: '1组'
+        } /* ,
+        {
+          name: '550kV计量线路互感器组数',
+          val: '1组'
+        } */
+      ]
+	console.log(data);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+ })
+
 // 老曾-新增加
 // 首页-互感器监控信息
 let transformerTable = [{
