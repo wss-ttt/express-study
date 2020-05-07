@@ -1275,6 +1275,66 @@ app.post('/pictureStatus', function (req, res) {
 		data: data
 	})
 })
+// 30.互感器画像基础信息
+app.post('/pictureBaseInfo', function(req, res) {
+	let data = {};
+	data = {
+		type: '变电站',   // 类型
+		timea: '2018年11月11日', // 定检时间
+		voltageLevel: '500KV', // 电压等级
+		timeb: '2019年12月11日', // 周检时间
+		manufactor: '海尔', // 厂家
+		timec: '2020年12月12日' // 上次检修时间
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
+// 31.最近一次的互感器运维信息
+app.post('/latelyOperation', function(req, res) {
+	let data = [];
+	let a = {
+		name: 'a',
+		workOrder: '11111111111111',
+		location: '长沙市-岳麓区',
+		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
+		operationStatus: '已生成',
+		startTime: '2020-03-22',
+		entTime: '2020-11-22',
+		evalutaionValue: 19,
+		verification: 20,
+	}
+	let b = {
+		name: 'b',
+		workOrder: '11111111111111',
+		location: '长沙市-岳麓区',
+		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
+		operationStatus: '已生成',
+		startTime: '2020-03-22',
+		entTime: '2020-11-22',
+		evalutaionValue: 19,
+		verification: 20,
+	}
+	let c = {
+		name: 'b',
+		workOrder: '11111111111111',
+		location: '长沙市-岳麓区',
+		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
+		operationStatus: '已生成',
+		startTime: '2020-03-22',
+		entTime: '2020-11-22',
+		evalutaionValue: 19,
+		verification: 20,
+	}
+	data.push(a,b,c);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
 // 老曾-新增加
 // 首页-互感器监控信息
 let transformerTable = [{
