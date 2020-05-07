@@ -1002,24 +1002,24 @@ app.post(wss.prefix2 + wss.api2[5], function (req, res) {
 })
 
 // 26.变电站信息:展示变电站排名，综合评分，健康评分，运维评分
-app.post('/stationScoreController', function(req, res) {
+app.post('/stationScore', function (req, res) {
 	let data = [
-        {
-          title: 'comprehensive',
-          name: '综合评分',
-          score: 99
-        },
-        {
-          title: 'operation',
-          name: '运维评分',
-          score: 40
-        },
-        {
-          title: 'healthy',
-          name: '健康评分',
-          score: 50
+		{
+			title: 'comprehensive',
+			name: '综合评分',
+			score: 99
+		},
+		{
+			title: 'operation',
+			name: '运维评分',
+			score: 40
+		},
+		{
+			title: 'healthy',
+			name: '健康评分',
+			score: 50
 		}
-      ];
+	];
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -1030,13 +1030,13 @@ app.post('/stationScoreController', function(req, res) {
 	})
 })
 // 27.互感器评分接口
-app.post('/transformerScoreController', function(req, res) {
+app.post('/transformerScore', function (req, res) {
 	let data = [];
-	for(let i =1;i<=10;i++){
+	for (let i = 1; i <= 10; i++) {
 		data.push({
-			name: '石长'+i+'线',
-			last: Math.ceil(Math.random()*100),
-			current: Math.ceil(Math.random()*100)
+			name: '石长' + i + '线',
+			last: Math.ceil(Math.random() * 100),
+			current: Math.ceil(Math.random() * 100)
 		})
 	}
 	console.log(data);
@@ -1045,232 +1045,296 @@ app.post('/transformerScoreController', function(req, res) {
 		code: 0,
 		data: data
 	})
- })
+})
 
- // 22.基础信息表:变电站的概况
- app.post('/stationController', function(req, res) {
+// 22.基础信息表:变电站的概况
+app.post('/station', function (req, res) {
 	let data = [
-        {
-          name: '投运时间',
-          val: '2020.04.22'
-        },
-        {
-          name: '所属区域',
-          val: '湖南省怀化市某镇'
-        },
-        {
-          name: '站点类型',
-          val: '变电站'
-        },
-        {
-          name: '变电站电压等级',
-          val: '220kV'
-        },
-        {
-          name: '220kV计量母线互感器组数',
-          val: '3组'
-        },
-        {
-          name: '110kV计量母线互感器组数',
-          val: '1组'
-        },
-        {
-          name: '220kV计量线路互感器组数',
-          val: '3组'
-        },
-        {
-          name: '110kV计量线路互感器组数',
-          val: '1组'
-        } /* ,
+		{
+			name: '投运时间',
+			val: '2020.04.22'
+		},
+		{
+			name: '所属区域',
+			val: '湖南省怀化市某镇'
+		},
+		{
+			name: '站点类型',
+			val: '变电站'
+		},
+		{
+			name: '变电站电压等级',
+			val: '220kV'
+		},
+		{
+			name: '220kV计量母线互感器组数',
+			val: '3组'
+		},
+		{
+			name: '110kV计量母线互感器组数',
+			val: '1组'
+		},
+		{
+			name: '220kV计量线路互感器组数',
+			val: '3组'
+		},
+		{
+			name: '110kV计量线路互感器组数',
+			val: '1组'
+		} /* ,
         {
           name: '550kV计量线路互感器组数',
           val: '1组'
         } */
-      ]
+	]
 	console.log(data);
 	res.json({
 		msg: 'ok',
 		code: 0,
 		data: data
 	})
- })
+})
+
+// 24.采集电参量
+app.post('/paramerter', function (req, res) {
+	let json = {
+		name: '石长线',
+		time: '2020年2月11日20:15:30',
+		// 基波频率
+		'fundamentalFrequency': {
+			a: '50.88888HZ',
+			b: '50.88364HZ',
+			c: '50.78675HZ'
+		},
+		// 基波有效值
+		'fundamentalAmplitude': {
+			a: '225KV',
+			b: '225KV',
+			c: '225KV'
+		},
+		// 基波相位
+		'fundamentalPhase': {
+			a: '49.88886分',
+			b: '49.88887分',
+			c: '49.88888分',
+		},
+		'zeroSequenceVoltage': '0.02KV',
+		'temperature': '20C',
+		'negativeSequence': '0.003KV',
+		'humidity': '78%RH',
+		// 三次谐波有效值
+		'threeHarmonicAmplitude': {
+			a: '0.02234KV',
+			b: '0.02233KV',
+			c: '0.22333KV'
+		},
+		// 五次谐波有效值
+		'fiveHarmonicAmplitude': {
+			a: '0.02234KV',
+			b: '0.02233KV',
+			c: '0.22333KV'
+		},
+		// 三次谐波相位
+		'threeHarmonicPhase': {
+			a: '8093.72分',
+			b: '8093.73分',
+			c: '8093.74分',
+		},
+		// 五次谐波相位
+		'fiveHarmonicPhase': {
+			a: '8093.72分',
+			b: '8093.73分',
+			c: '8093.74分',
+		}
+	};
+	let data = []
+	for(let i =1 ;i<=5;i++){
+		json['name'] = '石长线'+ i;
+		data.push(json)
+	}
+	res.json({
+		msk: 'ok',
+		code: 0,
+		data: data
+	});
+})
 
 // 老曾-新增加
 // 首页-互感器监控信息
 let transformerTable = [{
-    city:'长沙市',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市2',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市3',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市4',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市5',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市6',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市7',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市8',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市9',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
-},{
-    city:'武汉市10',
-    normal:1,
-    warn:3,
-    unNormal:10,
-    operation:10,
-    completed:10
+	city: '长沙市',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市2',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市3',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市4',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市5',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市6',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市7',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市8',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市9',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
+}, {
+	city: '武汉市10',
+	normal: 1,
+	warn: 3,
+	unNormal: 10,
+	operation: 10,
+	completed: 10
 }]
 
 app.get('/echarts/test/transformerTable', (req, res) => {
-  res.send(transformerTable)
+	res.send(transformerTable)
 })
 
 // 首页-运维完成率
 var operationData = []
-for(var i=0;i<20;i++){
-    let obj = {}
-    obj['transformer'] = i * 1000
-    obj['code'] = '石长I线a相'
-    obj['region'] = '长沙市-天心区' + i
-    obj['status'] = '异常' + i
-    operationData.push(obj)
+for (var i = 0; i < 20; i++) {
+	let obj = {}
+	obj['transformer'] = i * 1000
+	obj['code'] = '石长I线a相'
+	obj['region'] = '长沙市-天心区' + i
+	obj['status'] = '异常' + i
+	operationData.push(obj)
 }
 
 
 app.get('/echarts/test/operationTableData', (req, res) => {
-  res.send(operationData)
+	res.send(operationData)
 })
 
 
 // 首页-运维完成率
 var operationDialogData = []
-for(var i=0;i<10;i++){
-    let obj = {}
-    obj['code'] = i * 1000
-    obj['region'] = '长沙市-天心区' + i
-    obj['transformerStatus'] = '异常'
-    obj['operationStatus'] = '已完成' + i
-    obj['operationCompany'] = ''
-    obj['operationPeople'] = ''
-    obj['startTime'] = '2020-02-22'
-    obj['endTime'] = '2020-02-29'
-    obj['evaluationValue'] = '0.3'
-    obj['verificationValue'] = '0.5'
-    obj['remarks'] = '这是备注'
-    operationDialogData.push(obj)
+for (var i = 0; i < 10; i++) {
+	let obj = {}
+	obj['code'] = i * 1000
+	obj['region'] = '长沙市-天心区' + i
+	obj['transformerStatus'] = '异常'
+	obj['operationStatus'] = '已完成' + i
+	obj['operationCompany'] = ''
+	obj['operationPeople'] = ''
+	obj['startTime'] = '2020-02-22'
+	obj['endTime'] = '2020-02-29'
+	obj['evaluationValue'] = '0.3'
+	obj['verificationValue'] = '0.5'
+	obj['remarks'] = '这是备注'
+	operationDialogData.push(obj)
 }
 
 
 app.get('/echarts/test/operationDialogData', (req, res) => {
-  res.send(operationDialogData)
+	res.send(operationDialogData)
 })
 
 // 首页-站点监控信息
 let stationTable = [{
-    station:'站点1',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点2',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点13',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点4',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点5',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点6',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点7',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点8',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
-},{
-    station:'站点9',
-    status:'已实施',
-    region:'长沙市-长沙县',
-    timer:'10年',
-    transformer:10,
+	station: '站点1',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点2',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点13',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点4',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点5',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点6',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点7',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点8',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
+}, {
+	station: '站点9',
+	status: '已实施',
+	region: '长沙市-长沙县',
+	timer: '10年',
+	transformer: 10,
 }]
 app.get('/echarts/test/stationTable', (req, res) => {
-  res.send(stationTable)
+	res.send(stationTable)
 })
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
