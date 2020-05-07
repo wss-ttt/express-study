@@ -1148,10 +1148,10 @@ app.post('/paramerter', function (req, res) {
 		}
 	};
 	let data = []
-	for(let i =1 ;i<=5;i++){
+	for (let i = 1; i <= 5; i++) {
 		// 由于json是引用类型，所以这里需要过渡转换一次，否则最终的数据都是一样的
-		var t = JSON.parse( JSON.stringify(json));
-		t['name'] = '石长线'+i;
+		var t = JSON.parse(JSON.stringify(json));
+		t['name'] = '石长线' + i;
 		data.push(t)
 	}
 	res.json({
@@ -1163,19 +1163,19 @@ app.post('/paramerter', function (req, res) {
 
 // 24.接线图-线路的相线误差数据
 // 每条线的abc3个相线的误差值
-app.post('/lineError', function(req, res) {
+app.post('/lineError', function (req, res) {
 	// 数据结构
 	let json = {
-		name:'石长线',  // 线路名称
+		name: '石长线',  // 线路名称
 		a: 0.8, // a相值
 		b: 1, // b相值
 		c: 0.4 // c相值
 	};
 	let data = [];
 	// 有几条数据就返回几个，我这里模拟返回5条数据
-	for(let i =1;i<=5;i++){
+	for (let i = 1; i <= 5; i++) {
 		let t = JSON.parse(JSON.stringify(json));
-		t['name'] +=i;
+		t['name'] += i;
 		data.push(t);
 	}
 	res.json({
