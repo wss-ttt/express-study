@@ -1168,8 +1168,8 @@ app.post('/lineError', function (req, res) {
 	let json = {
 		name: '石长线',  // 线路名称
 		a: {
-			val:0.8,   // 相线误差值
-			status: 0 // 0：正常 1:警告 2:异常
+			val: 0.8,   // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
 		},
 		b: {
 			val: 1,// 相线误差值
@@ -1178,10 +1178,66 @@ app.post('/lineError', function (req, res) {
 		c: {
 			val: 0.4,// 相线误差值
 			status: 2	// 0：正常 1:警告 2:异常
-		}
+		},
+		isBus: 0,   // 0:表示不是母线 1：表示是母线
 	};
+	// 母线I
+	let json2 = {
+		name: 'I母线',  // 线路名称
+		a: {
+			val: 0.8,   // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		b: {
+			val: 1,// 相线误差值
+			status: 1// 0：正常 1:警告 2:异常
+		},
+		c: {
+			val: 0.4,// 相线误差值
+			status: 2	// 0：正常 1:警告 2:异常
+		},
+		isBus: 1,   // 0:表示不是母线 1：表示是母线
+	}
+	// 母线II
+	let json3 = {
+		name: 'II母线',  // 线路名称
+		a: {
+			val: 0.8,   // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		b: {
+			val: 1,// 相线误差值
+			status: 1// 0：正常 1:警告 2:异常
+		},
+		c: {
+			val: 0.4,// 相线误差值
+			status: 2	// 0：正常 1:警告 2:异常
+		},
+		isBus: 1,   // 0:表示不是母线 1：表示是母线
+	}
 	let data = [];
 	// 有几条数据就返回几个，我这里模拟返回5条数据
+	for (let i = 1; i <= 6; i++) {
+		let t = JSON.parse(JSON.stringify(json));
+		t['name'] += i;
+		data.push(t);
+	}
+	data.push(json2, json3);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
+// 28.互感器画像5个维度的信息
+app.post('/pictureInfo', function (req, res) {
+	let data = [];
+	let json = {
+		name: '使用年限',  // 名称
+		a: '2年',
+		b: '12年',
+		c: '22年'
+	}
 	for (let i = 1; i <= 5; i++) {
 		let t = JSON.parse(JSON.stringify(json));
 		t['name'] += i;
@@ -1193,7 +1249,32 @@ app.post('/lineError', function (req, res) {
 		data: data
 	})
 })
-// 
+// 29.互感器画像
+app.post('/pictureStatus', function (req, res) {
+	let data = [];
+	data = [
+		{
+			name: 'a相',
+			type: '110', // 取值:110 | 220 | 500
+			status: 0,    // 0:正常 1: 警告 2: 异常
+		},
+		{
+			name: 'b相',
+			type: '220',
+			status: 1
+		},
+		{
+			name: 'c相',
+			type: '500',
+			status: 2
+		}
+	]
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
 // 老曾-新增加
 // 首页-互感器监控信息
 let transformerTable = [{
@@ -1313,64 +1394,83 @@ app.get('/echarts/test/operationDialogData', (req, res) => {
 })
 
 // 首页-站点监控信息
-let stationTable = [{
-	station: '站点1',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点2',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点13',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点4',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点5',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点6',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点7',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点8',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}, {
-	station: '站点9',
-	status: '已实施',
-	region: '长沙市-长沙县',
-	timer: '10年',
-	transformer: 10,
-}]
-app.get('/echarts/test/stationTable', (req, res) => {
-	res.send(stationTable)
-})
+let stationTable = [
+	{
+		station: "站点1",
+		stationId: 1,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点2",
+		stationId: 2,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点3",
+		stationId: 3,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点4",
+		stationId: 4,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点5",
+		stationId: 5,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点6",
+		stationId: 6,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点7",
+		stationId: 7,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点8",
+		stationId: 8,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+	{
+		station: "站点9",
+		stationId: 9,
+		status: "已实施",
+		region: "长沙市-长沙县",
+		timer: "10年",
+		transformer: 10,
+	},
+];
+app.get("/echarts/test/stationTable", (req, res) => {
+	res.send(stationTable);
+});
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
 });
