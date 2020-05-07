@@ -1149,8 +1149,10 @@ app.post('/paramerter', function (req, res) {
 	};
 	let data = []
 	for(let i =1 ;i<=5;i++){
-		json['name'] = '石长线'+ i;
-		data.push(json)
+		// 由于json是引用类型，所以这里需要过渡转换一次，否则最终的数据都是一样的
+		var t = JSON.parse( JSON.stringify(json));
+		t['name'] = '石长线'+i;
+		data.push(t)
 	}
 	res.json({
 		msk: 'ok',
