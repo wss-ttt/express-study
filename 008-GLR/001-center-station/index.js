@@ -1183,6 +1183,7 @@ app.post('/lineError', function (req, res) {
 	};
 	// 母线I
 	let json2 = {
+		id:7,
 		name: 'I母线',  // 线路名称
 		a: {
 			val: 0.8,   // 相线误差值
@@ -1200,6 +1201,7 @@ app.post('/lineError', function (req, res) {
 	}
 	// 母线II
 	let json3 = {
+		id:8,
 		name: 'II母线',  // 线路名称
 		a: {
 			val: 0.8,   // 相线误差值
@@ -1220,6 +1222,7 @@ app.post('/lineError', function (req, res) {
 	for (let i = 1; i <= 6; i++) {
 		let t = JSON.parse(JSON.stringify(json));
 		t['name'] += i;
+		t['id']=i;
 		data.push(t);
 	}
 	data.push(json2, json3);
