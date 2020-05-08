@@ -1302,7 +1302,7 @@ app.post('/latelyOperation', function(req, res) {
 		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
 		operationStatus: '已生成',
 		startTime: '2020-03-22',
-		entTime: '2020-11-22',
+		endTime: '2020-11-22',
 		evalutaionValue: 19,
 		verification: 20,
 	}
@@ -1310,10 +1310,10 @@ app.post('/latelyOperation', function(req, res) {
 		name: 'b',
 		workOrder: '11111111111111',
 		location: '长沙市-岳麓区',
-		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
+		transformerStatus: 1,  // 0:正常 1:警告 2: 异常
 		operationStatus: '已生成',
 		startTime: '2020-03-22',
-		entTime: '2020-11-22',
+		endTime: '2020-11-22',
 		evalutaionValue: 19,
 		verification: 20,
 	}
@@ -1321,10 +1321,10 @@ app.post('/latelyOperation', function(req, res) {
 		name: 'b',
 		workOrder: '11111111111111',
 		location: '长沙市-岳麓区',
-		transformerStatus: 0,  // 0:正常 1:警告 2: 异常
+		transformerStatus: 2,  // 0:正常 1:警告 2: 异常
 		operationStatus: '已生成',
 		startTime: '2020-03-22',
-		entTime: '2020-11-22',
+		endTime: '2020-11-22',
 		evalutaionValue: 19,
 		verification: 20,
 	}
