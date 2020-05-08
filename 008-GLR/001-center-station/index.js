@@ -1032,7 +1032,7 @@ app.post('/stationScore', function (req, res) {
 // 27.互感器评分接口
 app.post('/transformerScore', function (req, res) {
 	let data = [];
-	for (let i = 1; i <= 10; i++) {
+	for (let i = 1; i <= 11; i++) {
 		data.push({
 			name: '石长' + i + '线',
 			last: Math.ceil(Math.random() * 100),
@@ -1276,7 +1276,7 @@ app.post('/pictureStatus', function (req, res) {
 	})
 })
 // 30.互感器画像基础信息
-app.post('/pictureBaseInfo', function(req, res) {
+app.post('/pictureBaseInfo', function (req, res) {
 	let data = {};
 	data = {
 		type: '变电站',   // 类型
@@ -1293,7 +1293,7 @@ app.post('/pictureBaseInfo', function(req, res) {
 	})
 })
 // 31.最近一次的互感器运维信息
-app.post('/latelyOperation', function(req, res) {
+app.post('/latelyOperation', function (req, res) {
 	let data = [];
 	let a = {
 		name: 'a',
@@ -1328,7 +1328,7 @@ app.post('/latelyOperation', function(req, res) {
 		evalutaionValue: 19,
 		verification: 20,
 	}
-	data.push(a,b,c);
+	data.push(a, b, c);
 	res.json({
 		msg: 'ok',
 		code: 0,
@@ -1336,200 +1336,71 @@ app.post('/latelyOperation', function(req, res) {
 	})
 })
 // 老曾-新增加
-// 首页-互感器监控信息
-let transformerTable = [{
-	city: '长沙市',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市2',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市3',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市4',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市5',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市6',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市7',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市8',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市9',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}, {
-	city: '武汉市10',
-	normal: 1,
-	warn: 3,
-	unNormal: 10,
-	operation: 10,
-	completed: 10
-}]
 
-app.get('/echarts/test/transformerTable', (req, res) => {
-	res.send(transformerTable)
-})
-
-// 首页-运维完成率
-var operationData = []
-for (var i = 0; i < 20; i++) {
-	let obj = {}
-	obj['transformer'] = i * 1000
-	obj['code'] = '石长I线a相'
-	obj['region'] = '长沙市-天心区' + i
-	obj['status'] = '异常' + i
-	operationData.push(obj)
-}
-
-
-app.get('/echarts/test/operationTableData', (req, res) => {
-	res.send(operationData)
-})
-
-
-// 首页-运维完成率
-var operationDialogData = []
-for (var i = 0; i < 10; i++) {
-	let obj = {}
-	obj['code'] = i * 1000
-	obj['region'] = '长沙市-天心区' + i
-	obj['transformerStatus'] = '异常'
-	obj['operationStatus'] = '已完成' + i
-	obj['operationCompany'] = ''
-	obj['operationPeople'] = ''
-	obj['startTime'] = '2020-02-22'
-	obj['endTime'] = '2020-02-29'
-	obj['evaluationValue'] = '0.3'
-	obj['verificationValue'] = '0.5'
-	obj['remarks'] = '这是备注'
-	operationDialogData.push(obj)
-}
-
-
-app.get('/echarts/test/operationDialogData', (req, res) => {
-	res.send(operationDialogData)
-})
-
+// 首页-站点监控状态信息
+app.get("/presentation/sysStation/stationStatis", (req, res) => {
+	let dataPie = {
+		code: 200,
+		data: {
+			constructing: 10,
+			active: 100,
+			noActive: 0,
+		}
+	};
+	res.send(dataPie);
+});
 // 首页-站点监控信息
-let stationTable = [
-	{
-		station: "站点1",
-		stationId: 1,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点2",
-		stationId: 2,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点3",
-		stationId: 3,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点4",
-		stationId: 4,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点5",
-		stationId: 5,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点6",
-		stationId: 6,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点7",
-		stationId: 7,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点8",
-		stationId: 8,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-	{
-		station: "站点9",
-		stationId: 9,
-		status: "已实施",
-		region: "长沙市-长沙县",
-		timer: "10年",
-		transformer: 10,
-	},
-];
-app.get("/echarts/test/stationTable", (req, res) => {
-	res.send(stationTable);
+app.post("/presentation/sysStation/stationMonitor", (req, res) => {
+	var stationTable = [];
+	for (var i = 0; i < 10; i++) {
+		let obj = {};
+		obj["stationName"] = "站点" + i;
+		obj["stationId"] = i;
+		obj["status"] = 0;
+		obj["address"] = "湖南省某地" + i;
+		obj["commissionDate"] = i * 5;
+		obj["transformerCount"] = i * 10;
+		stationTable.push(obj)
+	}
+	let stationTables = {
+		code: 200,
+		data: stationTable
+	};
+	res.send(stationTables);
+});
+// 首页-互感器监控状态信息仪表图正常、异常、警告
+app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
+	let dataGauges = {
+		code: 200,
+		msg: "操作成功",
+		data: {
+			warnCount: 10,
+			normalCount: 20,
+			abnormalCount: 5,
+		}
+	};
+	res.send(dataGauges);
+});
+
+// 首页-互感器监控信息
+app.get("/presentation/transformer/transformerMonitorInfo", (req, res) => {
+	var transformerTable = [];
+	for (let i = 0; i < 20; i++) {
+		let obj = {};
+		obj["regionName"] = "长沙市1" + i;
+		obj["cityId"] = i;
+		obj["normalCount"] = i * 4;
+		obj["warnCount"] = i * 3;
+		obj["abnormalCount"] = i * 8;
+		obj["needRepair"] = i * 5;
+		obj["completed"] = i * 10;
+		transformerTable.push(obj);
+	}
+	var transformerTables = {
+		code: 200,
+		data: transformerTable,
+	};
+	res.send(transformerTables);
 });
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
