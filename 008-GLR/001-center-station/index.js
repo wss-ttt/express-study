@@ -1340,9 +1340,30 @@ app.post('/latelyOperation', function (req, res) {
 })
 
 // 32.历史运维信息
-app.post('/historyOperation', function(req, res) {
-
-})
+app.post('/historyOperation', function (req, res) {
+	let data = [];
+	for (var i = 0; i < 10; i++) {
+	  let obj = {
+		code: i * 1000,
+		region:'长沙市-天心区' + i,
+		transformerStatus: 0,
+		operationStatus: '已完成' + i,
+		operationCompany: '海尔',
+		operationPeople: '张三',
+		startTime: '2020-02-22',
+		endTime: '2020-02-29',
+		evaluationValue: '45',
+		verificationValue: '43',
+		remarks: '好好哦xxix '
+	  }
+	  data.push(obj);
+	}
+	res.json({
+	  msg: 'ok',
+	  code: 0,
+	  data: data
+	})
+  })
 // 老曾-新增加
 
 // 首页-站点监控状态信息
