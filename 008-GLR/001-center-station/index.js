@@ -1183,7 +1183,7 @@ app.post('/lineError', function (req, res) {
 	};
 	// 母线I
 	let json2 = {
-		id:7,
+		id: 7,
 		name: 'I母线',  // 线路名称
 		a: {
 			val: 0.8,   // 相线误差值
@@ -1201,7 +1201,7 @@ app.post('/lineError', function (req, res) {
 	}
 	// 母线II
 	let json3 = {
-		id:8,
+		id: 8,
 		name: 'II母线',  // 线路名称
 		a: {
 			val: 0.8,   // 相线误差值
@@ -1222,7 +1222,7 @@ app.post('/lineError', function (req, res) {
 	for (let i = 1; i <= 6; i++) {
 		let t = JSON.parse(JSON.stringify(json));
 		t['name'] += i;
-		t['id']=i;
+		t['id'] = i;
 		data.push(t);
 	}
 	data.push(json2, json3);
@@ -1258,12 +1258,12 @@ app.post('/pictureStatus', function (req, res) {
 	data = [
 		{
 			name: 'a相',
-			type: '110', // 取值:110 | 220 | 500
+			type: '500', // 取值:110 | 220 | 500
 			status: 0,    // 0:正常 1: 警告 2: 异常
 		},
 		{
 			name: 'b相',
-			type: '220',
+			type: '500',
 			status: 1
 		},
 		{
@@ -1343,35 +1343,35 @@ app.post('/latelyOperation', function (req, res) {
 app.post('/historyOperation', function (req, res) {
 	let data = [];
 	for (var i = 0; i < 10; i++) {
-	  let obj = {
-		code: i * 1000,
-		region:'长沙市-天心区' + i,
-		transformerStatus: 0,
-		operationStatus: '已完成' + i,
-		operationCompany: '海尔',
-		operationPeople: '张三',
-		startTime: '2020-02-22',
-		endTime: '2020-02-29',
-		evaluationValue: '45',
-		verificationValue: '43',
-		remarks: '好好哦xxix '
-	  }
-	  data.push(obj);
+		let obj = {
+			code: i * 1000,
+			region: '长沙市-天心区' + i,
+			transformerStatus: 0,
+			operationStatus: '已完成' + i,
+			operationCompany: '海尔',
+			operationPeople: '张三',
+			startTime: '2020-02-22',
+			endTime: '2020-02-29',
+			evaluationValue: '45',
+			verificationValue: '43',
+			remarks: '好好哦xxix '
+		}
+		data.push(obj);
 	}
 	res.json({
-	  msg: 'ok',
-	  code: 0,
-	  data: data
+		msg: 'ok',
+		code: 0,
+		data: data
 	})
-  })
+})
 /**
  * dev 
  * 
 */
 // 33. 互感器主干接线图数据
-app.post('/presentation/transformer/transformerData/', function(req,res){
+app.post('/presentation/transformer/transformerData/', function (req, res) {
 	let data = [];
-	for(let i = 1;i<=6;i++){
+	for (let i = 1; i <= 6; i++) {
 		let json = {
 			positionId: i,   // 线路位置编号
 			monitorStateA: 0,
@@ -1391,26 +1391,26 @@ app.post('/presentation/transformer/transformerData/', function(req,res){
 })
 
 // 34.互感器主干接线图
-app.get('/presentation/transformer/selectWiringDiagram/', function(req,res){
+app.get('/presentation/transformer/selectWiringDiagram/', function (req, res) {
 	let data = [];
 	// 竖线
-	for(let i=1;i<=4;i++){
+	for (let i = 1; i <= 4; i++) {
 		let json = {
 			positionId: i,
-			busId: 101+i,
-			isBus:1,  // 不是母线
-			positionName:'线' +i,
+			busId: 101 + i,
+			isBus: 1,  // 不是母线
+			positionName: '线' + i,
 			positionNum: '1110111fffxxx'
 		}
 		data.push(json);
 	}
 	// 母线
-	for(let i =1;i<=2;i++){
+	for (let i = 1; i <= 2; i++) {
 		let json = {
 			positionId: i,
-			busId: 101+i,
-			isBus:0,   // 母线
-			positionName:'线' +i,
+			busId: 101 + i,
+			isBus: 0,   // 母线
+			positionName: '线' + i,
 			positionNum: '1110111fffxxx'
 		}
 		data.push(json);
@@ -1418,12 +1418,12 @@ app.get('/presentation/transformer/selectWiringDiagram/', function(req,res){
 	res.json({
 		msg: 'ok',
 		code: 200,
-		data:data
+		data: data
 	});
 })
 
 // 35.变电站基础信息表
-app.get('/presentation/sysStation/basicsInfo', function(req,res){
+app.get('/presentation/sysStation/basicsInfo', function (req, res) {
 	let data = {
 		mergerName: '株洲',  // 所属地区
 		commissionDate: '',   // 投运时间
@@ -1431,8 +1431,8 @@ app.get('/presentation/sysStation/basicsInfo', function(req,res){
 		voltageLevel: 380,  // 变电站电压等级
 		bustransformer220kV: 1,  // 220KV计量母线互感器组数
 		bustransformer110kV: 1, // 110KV计量母线互感器组数
-		lineTransformer220kV:1,  // 220KV计量线路互感器组数
-		lineTransformer110kV:1   // 110KV计量线路互感器组数
+		lineTransformer220kV: 1,  // 220KV计量线路互感器组数
+		lineTransformer110kV: 1   // 110KV计量线路互感器组数
 	};
 	res.json({
 		msg: 'ok',
@@ -1442,9 +1442,9 @@ app.get('/presentation/sysStation/basicsInfo', function(req,res){
 })
 
 // 36.运维历史情况表
-app.post('/presentation/maintenanceOrder/maintenanceHistory',function(req, res){
+app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res) {
 	let data = [];
-	for(let i=1;i<=10;i++){
+	for (let i = 1; i <= 10; i++) {
 		let o = {
 			orderId: i,
 			address: '武汉', // 所在地区
@@ -1532,6 +1532,326 @@ app.get("/presentation/transformer/transformerMonitorInfo", (req, res) => {
 		data: transformerTable,
 	};
 	res.send(transformerTables);
+});
+// 健康诊断
+// 健康诊断-温度
+
+app.post("/analysis/HealthDiagnosis/temperature", (req, res) => {
+	let temperatureDatas = {
+		code: 0,
+		data: {
+			max: 0.1091,
+			min: 0.10939,
+			yseries: [
+				[
+					{
+						name: "误差均值",
+						type: "line",
+						xaxisIndex: 0,
+						data: [
+							{ xtime: "2020年04月", ydata: 0.10915 },
+							{ xtime: "2020年05月", ydata: 0.10912 },
+						],
+					},
+				],
+				[
+					{
+						name: "低温段1(-10℃以下)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10911 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10912 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10913 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10914 },
+						],
+					},
+					{
+						name: "低温段2(-10-0℃)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10917 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10918 },
+						],
+					},
+					{
+						name: "常温度1(0-10℃)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10919 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.1092 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10921 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10922 },
+						],
+					},
+					{
+						name: "常温度2(10-20℃】",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10923 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10924 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10925 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10926 },
+						],
+					},
+					{
+						name: "常温度3(20-30℃】",
+						type: "scatter",
+						xaxisIndex: 1,
+
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10927 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10928 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10929 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.1093 },
+						],
+					},
+					{
+						name: "高温段1(30-40℃】",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10931 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10932 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10933 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10934 },
+						],
+					},
+					{
+						name: "高温段2(40℃以上)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10935 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10936 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10937 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10938 },
+						],
+					},
+				],
+			],
+		},
+	};
+	res.send(temperatureDatas);
+});
+// 健康诊断-湿度
+
+app.post("/analysis/HealthDiagnosis/humidity", (req, res) => {
+	let humidityDatas = {
+		code: 0,
+		data: {
+			max: 0.10909,
+			min: 0.1092,
+			yseries: [
+				[
+					{
+						name: "误差均值",
+						type: "line",
+						xaxisIndex: 0,
+						data: [
+							{ xtime: "2020年04月", ydata: 0.10914 },
+							{ xtime: "2020年05月", ydata: 0.10912 },
+						],
+					},
+				],
+				[
+					{
+						name: "正常(90%RH以下)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10911 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10912 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10913 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10914 },
+						],
+					},
+					{
+						name: "高湿(90%RH以上)",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10917 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10918 },
+						],
+					},
+				],
+			],
+		},
+	};
+	res.send(humidityDatas);
+});
+// 健康诊断-基波频率
+
+app.post("/analysis/HealthDiagnosis/fundamentalFrequency", (req, res) => {
+	let fundamentalFrequencyDatas = {
+		code: 0,
+		data: {
+			max: 0.1091,
+			min: 0.10939,
+			yseries: [
+				[
+					{
+						name: "误差均值",
+						type: "line",
+						xaxisIndex: 0,
+						data: [
+							{ xtime: "2020年04月", ydata: 0.10915 },
+							{ xtime: "2020年05月", ydata: 0.10912 },
+						],
+					},
+				],
+				[
+					{
+						name: "低频段1[49.95Hz,49.97Hz]",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10911 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10912 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10913 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10914 },
+						],
+					},
+					{
+						name: "低频段2[49.97Hz,49.99Hz]",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10917 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10918 },
+						],
+					},
+					{
+						name: "低频段3[49.99Hz,50.01Hz]",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10919 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.1092 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10921 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10922 },
+						],
+					},
+					{
+						name: "未知频率",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10923 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10924 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10925 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10926 },
+						],
+					},
+					{
+						name: "高频段1[50.01Hz,50.03Hz]",
+						type: "scatter",
+						xaxisIndex: 1,
+
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10927 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10928 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10929 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.1093 },
+						],
+					},
+					{
+						name: "高频段2[50.03Hz,50.05Hz]",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10931 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10932 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10933 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10934 },
+						],
+					},
+				],
+			],
+		},
+	};
+	res.send(fundamentalFrequencyDatas);
+});
+// 健康诊断-基波有效值
+
+app.post("/analysis/HealthDiagnosis/fundamentalEffectiveValue", (req, res) => {
+	let fundamentalEffectiveValueDatas = {
+		code: 0,
+		data: {
+			max: 0.1091,
+			min: 0.10939,
+			yseries: [
+				[
+					{
+						name: "误差均值",
+						type: "line",
+						xaxisIndex: 0,
+						data: [
+							{ xtime: "2020年04月", ydata: 0.10915 },
+							{ xtime: "2020年05月", ydata: 0.10912 },
+						],
+					},
+				],
+				[
+					{
+						name: "(90%-100%)额定电压",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10911 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10912 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10913 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10914 },
+						],
+					},
+					{
+						name: "(100%-110%)额定电压",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10915 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10917 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10918 },
+						],
+					},
+					{
+						name: "(110%-120%)额定电压",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10919 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.1092 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10921 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10922 },
+						],
+					},
+					{
+						name: "未知额定电压",
+						type: "scatter",
+						xaxisIndex: 1,
+						data: [
+							{ xtime: "2020年04月07日 09:45:11", ydata: 0.10923 },
+							{ xtime: "2020年04月07日 10:00:11", ydata: 0.10924 },
+							{ xtime: "2020年04月07日 10:15:11", ydata: 0.10925 },
+							{ xtime: "2020年04月07日 10:30:11", ydata: 0.10926 },
+						],
+					},
+				],
+			],
+		},
+	};
+	res.send(fundamentalEffectiveValueDatas);
 });
 app.listen(3001, function () {
 	console.log('端口号3001 服务启动成功');
