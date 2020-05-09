@@ -1307,7 +1307,7 @@ app.post('/latelyOperation', function (req, res) {
 		startTime: '2020-03-22',
 		endTime: '2020-11-22',
 		evalutaionValue: 19,
-		verification: 20,
+		verificationValue: 20,
 	}
 	let b = {
 		name: 'b',
@@ -1318,7 +1318,7 @@ app.post('/latelyOperation', function (req, res) {
 		startTime: '2020-03-22',
 		endTime: '2020-11-22',
 		evalutaionValue: 19,
-		verification: 20,
+		verificationValue: 20,
 	}
 	let c = {
 		name: 'b',
@@ -1329,7 +1329,7 @@ app.post('/latelyOperation', function (req, res) {
 		startTime: '2020-03-22',
 		endTime: '2020-11-22',
 		evalutaionValue: 19,
-		verification: 20,
+		verificationValue: 20,
 	}
 	data.push(a, b, c);
 	res.json({
@@ -1337,6 +1337,11 @@ app.post('/latelyOperation', function (req, res) {
 		code: 0,
 		data: data
 	})
+})
+
+// 32.历史运维信息
+app.post('/historyOperation', function(req, res) {
+
 })
 // 老曾-新增加
 
