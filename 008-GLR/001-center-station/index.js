@@ -1364,6 +1364,108 @@ app.post('/historyOperation', function (req, res) {
 	  data: data
 	})
   })
+/**
+ * dev 
+ * 
+*/
+// 33. 互感器主干接线图数据
+app.post('/presentation/transformer/transformerData/', function(req,res){
+	let data = [];
+	for(let i = 1;i<=6;i++){
+		let json = {
+			positionId: i,   // 线路位置编号
+			monitorStateA: 0,
+			monitorStateB: 1,
+			monitorStateC: 2,
+			ratioDifferenceAverageA: 0.00058,
+			ratioDifferenceAverageB: 0.00393,
+			ratioDifferenceAverageC: 0.00358
+		}
+		data.push(json);
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	});
+})
+
+// 34.互感器主干接线图
+app.get('/presentation/transformer/selectWiringDiagram/', function(req,res){
+	let data = [];
+	// 竖线
+	for(let i=1;i<=4;i++){
+		let json = {
+			positionId: i,
+			busId: 101+i,
+			isBus:1,  // 不是母线
+			positionName:'线' +i,
+			positionNum: '1110111fffxxx'
+		}
+		data.push(json);
+	}
+	// 母线
+	for(let i =1;i<=2;i++){
+		let json = {
+			positionId: i,
+			busId: 101+i,
+			isBus:0,   // 母线
+			positionName:'线' +i,
+			positionNum: '1110111fffxxx'
+		}
+		data.push(json);
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data:data
+	});
+})
+
+// 35.变电站基础信息表
+app.get('/presentation/sysStation/basicsInfo', function(req,res){
+	let data = {
+		mergerName: '株洲',  // 所属地区
+		commissionDate: '',   // 投运时间
+		stationType: 0,   // 变电站类型
+		voltageLevel: 380,  // 变电站电压等级
+		bustransformer220kV: 1,  // 220KV计量母线互感器组数
+		bustransformer110kV: 1, // 110KV计量母线互感器组数
+		lineTransformer220kV:1,  // 220KV计量线路互感器组数
+		lineTransformer110kV:1   // 110KV计量线路互感器组数
+	};
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	});
+})
+
+// 36.运维历史情况表
+app.post('/presentation/maintenanceOrder/maintenanceHistory',function(req, res){
+	let data = [];
+	for(let i=1;i<=10;i++){
+		let o = {
+			orderId: i,
+			address: '武汉', // 所在地区
+			monitorState: 0, // 互感器状态
+			orderStatus: 0,  // 工单状态
+			companyName: '海尔',
+			userName: '老曾',
+			startTime: '2020-11-30',
+			endTime: '2020-12-23',
+			evaluationValue: 20,
+			appraisalValue: 39,
+			remark: '好好学习 天天向上'
+		}
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	})
+})
+/*****************************************************8*/
 // 老曾-新增加
 
 // 首页-站点监控状态信息
