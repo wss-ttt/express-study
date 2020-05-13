@@ -1316,7 +1316,7 @@ app.post('/lineError', function (req, res) {
 	})
 })
 // 28.互感器画像5个维度的信息
-app.post('/pictureInfo', function (req, res) {
+app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res) {
 	let data = [];
 	let json = {
 		name: '使用年限', // 名称
@@ -1331,7 +1331,7 @@ app.post('/pictureInfo', function (req, res) {
 	}
 	res.json({
 		msg: 'ok',
-		code: 0,
+		code: 200,
 		data: data
 	})
 })
