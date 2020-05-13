@@ -7,27 +7,26 @@ var express = require('express');
 var app = express();
 const fs = require('fs')
 
-// 此处没有设置跨域请求
+// 1.变电站周期评分表接口
 
-// 健康图接口
-app.get('/healthy', function (req, res) {
-	let xData = [];
-	for (let i = 0; i < 10; i++) {
-		xData.push('fff' + i);
-	}
-	let yData = [];
-	let lineData = [];
-	for (let i = 0; i < 10; i++) {
-		let num = Math.floor(Math.random() * (1500 - 100 + 1) + 100) // 向下取整
-		yData.push(num)
-		lineData.push(num);
-	}
-	let data = {
-		xAxis: xData,
-		yAxis: yData,
-		lineData: lineData
-	}
-	res.json(data);
+// 2.变电站健康情况
+app.get('/presentation/sysStation/healthInfo', function (req, res) {
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: {
+			oneCount: 10,
+			twoCOunt: 20,
+			threeCount: 30,
+			fourCount: 40,
+			fiveCount: 30,
+			sixCount: 20,
+			sevenCount: 15,
+			eightCount: 25,
+			nineCount: 12,
+			tenCount: 15
+		}
+	});
 })
 // 误差折线图接口
 app.get('/error', function (req, res) {
@@ -745,7 +744,8 @@ app.post(wss.prefix + wss.api[0], function (req, res) {
 			xmax: 50.05042,
 			ymin: 0.10005,
 			ymax: 0.21344,
-			data: data
+			// data: data
+			data: []
 		}
 	});
 })
@@ -1034,8 +1034,8 @@ app.post(wss.prefix2 + wss.api2[5], function (req, res) {
 })
 
 // 26.变电站信息:展示变电站排名，综合评分，健康评分，运维评分
-app.post('/stationScore', function (req, res) {
-	let data = [{
+app.post('/presentation/sysStation/stationRank', function (req, res) {
+	let list = [{
 			title: 'comprehensive',
 			name: '综合评分',
 			score: 99
@@ -1053,15 +1053,15 @@ app.post('/stationScore', function (req, res) {
 	];
 	res.json({
 		msg: 'ok',
-		code: 0,
+		code: 200,
 		data: {
-			data,
+			list,
 			ranking: 67
 		}
 	})
 })
-// 27.互感器评分接口
-app.post('/transformerScore', function (req, res) {
+// 27.变电站周期评分表
+app.post('/presentation/sysStation/cycleScore', function (req, res) {
 	let data = [];
 	for (let i = 1; i <= 11; i++) {
 		data.push({
