@@ -10,7 +10,7 @@ const fs = require('fs')
 // 1.变电站周期评分表接口
 
 // 2.变电站健康情况
-app.get('/presentation/sysStation/healthInfo', function (req, res) {
+app.post('/presentation/sysStation/healthInfo', function (req, res) {
 	res.json({
 		msg: 'ok',
 		code: 200,
@@ -1070,54 +1070,6 @@ app.post('/presentation/sysStation/cycleScore', function (req, res) {
 			current: Math.ceil(Math.random() * 100)
 		})
 	}
-	console.log(data);
-	res.json({
-		msg: 'ok',
-		code: 0,
-		data: data
-	})
-})
-
-// 22.基础信息表:变电站的概况
-app.post('/station', function (req, res) {
-	let data = [{
-			name: '投运时间',
-			val: '2020.04.22'
-		},
-		{
-			name: '所属区域',
-			val: '湖南省怀化市某镇'
-		},
-		{
-			name: '站点类型',
-			val: '变电站'
-		},
-		{
-			name: '变电站电压等级',
-			val: '220kV'
-		},
-		{
-			name: '220kV计量母线互感器组数',
-			val: '3组'
-		},
-		{
-			name: '110kV计量母线互感器组数',
-			val: '1组'
-		},
-		{
-			name: '220kV计量线路互感器组数',
-			val: '3组'
-		},
-		{
-			name: '110kV计量线路互感器组数',
-			val: '1组'
-		}
-		/* ,
-		       {
-		         name: '550kV计量线路互感器组数',
-		         val: '1组'
-		       } */
-	]
 	console.log(data);
 	res.json({
 		msg: 'ok',
