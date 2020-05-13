@@ -1239,9 +1239,39 @@ app.post('/paramerter', function (req, res) {
 	})
 	res.json({
 		msk: 'ok',
-		code: 0,
+		code: 200,
 		data: data
 	});
+})
+
+app.post('/paramerter2', function(req, res) {
+	let data = []
+	for(let i = 0;i< 21;i++){
+		let phaseSequence = i % 3 === 0 ? 'a' : (i % 3 === 1? 'b' : 'c');
+		let o = {
+			measuringTime: '2020-05-05', // 测量时间
+			positionId: i%7 + 1, // 线路id(1,2,3,4,5,6,7)
+			phaseSequence: phaseSequence, // 相序(a,b,c)
+			fundamentalFrequency: 50.03148, // 基波频率
+			fundamentalAmplitude: 5.98354, // 基波有效值
+			thirdHarmonicAmplitude: 0.02572, // 三次谐波有效值
+			fifthHarmonicAmplitude: 0.02446, // 五次谐波有效值
+			fundamentalPhase: 2133.04, // 基波相位
+			thirdHarmonicPhase: 6947.2, // 三次谐波相位
+			fifthHarmonicPhase: -8459.07, // 五次谐波相位
+			zeroSequenceVoltageImbalanc:  0.00192, // 零序电压不平衡度
+			negativeSequenceVoltageImba: 0.001, // 负序电压不平衡度
+			temperature: 35, // 温度
+			humidity: 20, // 湿度
+			transformerName: '衡阳-1线' + this.positionId, // 线路名称
+		}
+		data.push(o)
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data
+	})
 })
 
 // 24.接线图-线路的相线误差数据
@@ -1446,10 +1476,7 @@ app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res
 		data: data
 	})
 })
-/**
- * dev 
- * 
- */
+
 // 33. 互感器主干接线图数据
 app.post('/presentation/transformer/transformerData/', function (req, res) {
 	let data = [];
