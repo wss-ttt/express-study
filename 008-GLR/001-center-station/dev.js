@@ -110,6 +110,23 @@ app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res
         data: data
     })
 })
+// 2.1.互感器基础信息（基础档案）
+app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
+	let data = {};
+	data = {
+		stationType: '变电站', // 类型
+		fixeInspectionTime: '2018年11月11日', // 定检时间
+		voltageLevel: '500KV', // 电压等级
+		weeklyInspectionTime: '2019年12月11日', // 周检时间
+		factoryName: '海尔', // 厂家
+		lastMaintenanceTime: '2020年12月12日' // 上次检修时间
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	})
+})
 // 首页-互感器监控状态信息仪表图正常、异常、警告
 app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
