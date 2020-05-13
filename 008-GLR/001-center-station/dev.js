@@ -2,25 +2,54 @@ var express = require('express');
 var app = express();
 const fs = require('fs');
 
-// 1.变电站周期评分表
-app.post('/presentation/sysStation/cycleScore', function (req, res) {
-    let data = [];
-    for (let i = 1; i <= 11; i++) {
-        data.push({
-            name: '石长' + i + '线',
-            last: Math.ceil(Math.random() * 100),
-            current: Math.ceil(Math.random() * 100)
-        })
-    }
+// 1.变电站排名评分
+app.post('/presentation/sysStation/stationRank', function (req, res) {
+    let list = [{
+            title: 'comprehensive',
+            name: '综合评分',
+            score: 99
+        },
+        {
+            title: 'operation',
+            name: '运维评分',
+            score: 40
+        },
+        {
+            title: 'healthy',
+            name: '健康评分',
+            score: 50
+        }
+    ];
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: {
+            list,
+            ranking: 67
+        }
+    })
+})
+// 2.变电站基础信息表
+app.get('/presentation/sysStation/basicsInfo', function (req, res) {
+    let data = {
+        mergerName: '株洲', // 所属地区
+        commissionDate: '', // 投运时间
+        stationType: 0, // 变电站类型
+        voltageLevel: 380, // 变电站电压等级
+        bustransformer220kV: 1, // 220KV计量母线互感器组数
+        bustransformer110kV: 1, // 110KV计量母线互感器组数
+        lineTransformer220kV: 1, // 220KV计量线路互感器组数
+        lineTransformer110kV: 1 // 110KV计量线路互感器组数
+    };
     res.json({
         msg: 'ok',
         code: 200,
         data: data
-    })
+    });
 })
 
-// 2.变电站健康情况
-app.get('/presentation/sysStation/healthInfo', function (req, res) {
+// 3.变电站健康情况
+app.post('/presentation/sysStation/healthInfo', function (req, res) {
     res.json({
         msg: 'ok',
         code: 200,
@@ -39,32 +68,21 @@ app.get('/presentation/sysStation/healthInfo', function (req, res) {
     });
 })
 
-// 3.变电站排名评分
-app.post('/presentation/sysStation/stationRank', function (req, res) {
-	let list = [{
-			title: 'comprehensive',
-			name: '综合评分',
-			score: 99
-		},
-		{
-			title: 'operation',
-			name: '运维评分',
-			score: 40
-		},
-		{
-			title: 'healthy',
-			name: '健康评分',
-			score: 50
-		}
-	];
-	res.json({
-		msg: 'ok',
-		code: 200,
-		data: {
-			list,
-			ranking: 67
-		}
-	})
+// 4.变电站周期评分表
+app.post('/presentation/sysStation/cycleScore', function (req, res) {
+    let data = [];
+    for (let i = 1; i <= 11; i++) {
+        data.push({
+            name: '石长' + i + '线',
+            last: Math.ceil(Math.random() * 100),
+            current: Math.ceil(Math.random() * 100)
+        })
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    })
 })
 
 
