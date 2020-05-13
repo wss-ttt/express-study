@@ -110,7 +110,7 @@ app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res
         data: data
     })
 })
-// 2.1.互感器基础信息（基础档案）
+// 2.互感器基础信息（基础档案）
 app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 	let data = {};
 	data = {
@@ -127,6 +127,54 @@ app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 		data: data
 	})
 })
+
+// 3.计量线路历史运维信息
+app.post('/presentation/transformer/PositionMaintenance', function (req, res) {
+	let data = [];
+	let a = {
+		phaseSequence: 'a',   // 相序名称
+		orderId: '11111111111111',   // 工单编号
+		regionName: '长沙市-岳麓区',    // 所在地区
+		monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22',  // 开始时间
+		finishTime: '2020-11-22',  // 结束时间
+		evaluationValue: 19,   // 评估值
+		appraisalValue: 20,   // 检定值
+	}
+	let b = {
+		phaseSequence: 'b',
+		orderId: '11111111111111',   // 工单编号
+		regionName: '长沙市-岳麓区',    // 所在地区
+		monitiorState: 1, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 1,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22',  // 开始时间
+		finishTime: '2020-11-22',  // 结束时间
+		evaluationValue: 19,   // 评估值
+		appraisalValue: 20,   // 检定值
+	}
+	let c = {
+		phaseSequence: 'b',
+		orderId: '11111111111111',   // 工单编号
+		regionName: '长沙市-岳麓区',    // 所在地区
+		monitiorState: 2, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 2,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22',  // 开始时间
+		finishTime: '2020-11-22',  // 结束时间
+		evaluationValue: 19,   // 评估值
+		appraisalValue: 20,   // 检定值
+	}
+	data.push(a, b, c);
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	})
+})
+
+
+
+
 // 首页-互感器监控状态信息仪表图正常、异常、警告
 app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
