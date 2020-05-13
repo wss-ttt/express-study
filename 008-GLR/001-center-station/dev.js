@@ -172,7 +172,31 @@ app.post('/presentation/transformer/PositionMaintenance', function (req, res) {
 	})
 })
 
-
+// 4.运维历史情况表
+app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res) {
+	let data = [];
+	for (var i = 1; i <= 10; i++) {
+		let obj = {
+			orderId: i * 1000,   // 工单id
+			regionName: '长沙市-天心区' + i,  // 所在地区
+			monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
+			orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+			companyName: '海尔', // 运维公司
+			userName: '张三', // 运维人员
+			startTime: '2020-02-22', // 开始时间
+			endTime: '2020-02-29', // 结束时间
+			evaluationValue: '45', // 评估值
+			appraisalValue: '43', // 检定值
+			remark: '好好哦xxix ' // 说明/备注
+		}
+		data.push(obj);
+	}
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: data
+	})
+})
 
 
 // 首页-互感器监控状态信息仪表图正常、异常、警告
