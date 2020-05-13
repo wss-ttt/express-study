@@ -1361,19 +1361,19 @@ app.post('/pictureStatus', function (req, res) {
 	})
 })
 // 30.互感器画像基础信息
-app.post('/pictureBaseInfo', function (req, res) {
+app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 	let data = {};
 	data = {
-		type: '变电站', // 类型
-		timea: '2018年11月11日', // 定检时间
+		stationType: '变电站', // 类型
+		fixeInspectionTime: '2018年11月11日', // 定检时间
 		voltageLevel: '500KV', // 电压等级
-		timeb: '2019年12月11日', // 周检时间
-		manufactor: '海尔', // 厂家
-		timec: '2020年12月12日' // 上次检修时间
+		weeklyInspectionTime: '2019年12月11日', // 周检时间
+		factoryName: '海尔', // 厂家
+		lastMaintenanceTime: '2020年12月12日' // 上次检修时间
 	}
 	res.json({
 		msg: 'ok',
-		code: 0,
+		code: 200,
 		data: data
 	})
 })
