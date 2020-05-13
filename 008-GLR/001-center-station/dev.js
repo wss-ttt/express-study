@@ -2,6 +2,9 @@ var express = require('express');
 var app = express();
 const fs = require('fs');
 
+/**
+ * (一)变电站相关接口
+ * **/
 // 1.变电站排名评分
 app.post('/presentation/sysStation/stationRank', function (req, res) {
     let list = [{
@@ -84,8 +87,29 @@ app.post('/presentation/sysStation/cycleScore', function (req, res) {
         data: data
     })
 })
-
-
+/**
+ * (二)互感器画像相关接口
+ * **/
+// 1.互感器基础信息（使用年限等）
+app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res) {
+    let data = [];
+    let json = {
+        name: '使用年限', // 名称
+        a: '2年',
+        b: '12年',
+        c: '22年'
+    }
+    for (let i = 1; i <= 5; i++) {
+        let t = JSON.parse(JSON.stringify(json));
+        t['name'] += i;
+        data.push(t);
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    })
+})
 // 首页-互感器监控状态信息仪表图正常、异常、警告
 app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
