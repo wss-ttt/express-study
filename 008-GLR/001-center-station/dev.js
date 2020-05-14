@@ -112,93 +112,122 @@ app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res
 })
 // 2.互感器基础信息（基础档案）
 app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
-	let data = {};
-	data = {
-		stationType: '变电站', // 类型
-		fixeInspectionTime: '2018年11月11日', // 定检时间
-		voltageLevel: '500KV', // 电压等级
-		weeklyInspectionTime: '2019年12月11日', // 周检时间
-		factoryName: '海尔', // 厂家
-		lastMaintenanceTime: '2020年12月12日' // 上次检修时间
-	}
-	res.json({
-		msg: 'ok',
-		code: 200,
-		data: data
-	})
+    let data = {};
+    data = {
+        stationType: '变电站', // 类型
+        fixeInspectionTime: '2018年11月11日', // 定检时间
+        voltageLevel: '500KV', // 电压等级
+        weeklyInspectionTime: '2019年12月11日', // 周检时间
+        factoryName: '海尔', // 厂家
+        lastMaintenanceTime: '2020年12月12日' // 上次检修时间
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    })
 })
 
 // 3.计量线路历史运维信息
 app.post('/presentation/transformer/PositionMaintenance', function (req, res) {
-	let data = [];
-	let a = {
-		phaseSequence: 'a',   // 相序名称
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
-		monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
-	}
-	let b = {
-		phaseSequence: 'b',
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
-		monitiorState: 1, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 1,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
-	}
-	let c = {
-		phaseSequence: 'b',
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
-		monitiorState: 2, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 2,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
-	}
-	data.push(a, b, c);
-	res.json({
-		msg: 'ok',
-		code: 200,
-		data: data
-	})
+    let data = [];
+    let a = {
+        phaseSequence: 'a', // 相序名称
+        orderId: '11111111111111', // 工单编号
+        regionName: '长沙市-岳麓区', // 所在地区
+        monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
+        orderStatus: 0, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+        startTime: '2020-03-22', // 开始时间
+        finishTime: '2020-11-22', // 结束时间
+        evaluationValue: 19, // 评估值
+        appraisalValue: 20, // 检定值
+    }
+    let b = {
+        phaseSequence: 'b',
+        orderId: '11111111111111', // 工单编号
+        regionName: '长沙市-岳麓区', // 所在地区
+        monitiorState: 1, // 互感器状态 0:正常 1:警告 2: 异常  
+        orderStatus: 1, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+        startTime: '2020-03-22', // 开始时间
+        finishTime: '2020-11-22', // 结束时间
+        evaluationValue: 19, // 评估值
+        appraisalValue: 20, // 检定值
+    }
+    let c = {
+        phaseSequence: 'b',
+        orderId: '11111111111111', // 工单编号
+        regionName: '长沙市-岳麓区', // 所在地区
+        monitiorState: 2, // 互感器状态 0:正常 1:警告 2: 异常  
+        orderStatus: 2, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+        startTime: '2020-03-22', // 开始时间
+        finishTime: '2020-11-22', // 结束时间
+        evaluationValue: 19, // 评估值
+        appraisalValue: 20, // 检定值
+    }
+    data.push(a, b, c);
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    })
 })
 
 // 4.运维历史情况表
 app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res) {
-	let data = [];
-	for (var i = 1; i <= 10; i++) {
-		let obj = {
-			orderId: i * 1000,   // 工单id
-			regionName: '长沙市-天心区' + i,  // 所在地区
-			monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
-			orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-			companyName: '海尔', // 运维公司
-			userName: '张三', // 运维人员
-			startTime: '2020-02-22', // 开始时间
-			endTime: '2020-02-29', // 结束时间
-			evaluationValue: '45', // 评估值
-			appraisalValue: '43', // 检定值
-			remark: '好好哦xxix ' // 说明/备注
-		}
-		data.push(obj);
-	}
-	res.json({
-		msg: 'ok',
-		code: 200,
-		data: data
-	})
+    let data = [];
+    for (var i = 1; i <= 10; i++) {
+        let obj = {
+            orderId: i * 1000, // 工单id
+            regionName: '长沙市-天心区' + i, // 所在地区
+            monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
+            orderStatus: 0, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+            companyName: '海尔', // 运维公司
+            userName: '张三', // 运维人员
+            startTime: '2020-02-22', // 开始时间
+            endTime: '2020-02-29', // 结束时间
+            evaluationValue: '45', // 评估值
+            appraisalValue: '43', // 检定值
+            remark: '好好哦xxix ' // 说明/备注
+        }
+        data.push(obj);
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    })
 })
 
-
+// 5.互感器电参量数据
+app.post('/presentation/sysStation/electricalParameter', function (req, res) {
+    let data = []
+    for (let i = 0; i < 21; i++) {
+        let phaseSequence = i % 3 === 0 ? 'a' : (i % 3 === 1 ? 'b' : 'c');
+        let o = {
+            measuringTime: '2020-05-05', // 测量时间
+            positionId: i % 7 + 1, // 线路id(1,2,3,4,5,6,7)
+            phaseSequence: phaseSequence, // 相序(a,b,c)
+            fundamentalFrequency: 50.03148, // 基波频率
+            fundamentalAmplitude: 5.98354, // 基波有效值
+            thirdHarmonicAmplitude: 0.02572, // 三次谐波有效值
+            fifthHarmonicAmplitude: 0.02446, // 五次谐波有效值
+            fundamentalPhase: 2133.04, // 基波相位
+            thirdHarmonicPhase: 6947.2, // 三次谐波相位
+            fifthHarmonicPhase: -8459.07, // 五次谐波相位
+            zeroSequenceVoltageImbalanc: 0.00192, // 零序电压不平衡度
+            negativeSequenceVoltageImba: 0.001, // 负序电压不平衡度
+            temperature: 35, // 温度
+            humidity: 20, // 湿度
+            transformerName: '衡阳-1线', // 线路名称
+        }
+        data.push(o)
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data
+    })
+})
 // 首页-互感器监控状态信息仪表图正常、异常、警告
 app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
