@@ -228,187 +228,562 @@ app.post('/presentation/sysStation/electricalParameter', function (req, res) {
         data
     })
 })
-// 首页-互感器监控状态信息仪表图正常、异常、警告
+/***************************************老曾*****************************************/
+
+// 01.互感器总数统计
+
 app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
         code: 200,
         msg: "操作成功",
         data: {
-            warnCount: 10,
-            normalCount: 20,
             abnormalCount: 5,
-        }
+            normalCount: 41,
+            warnCount: 1,
+        },
     };
     res.send(dataGauges);
-})
-// 首页-互感器监控信息
+});
+
+// 02.互感器监控列表
 app.get("/presentation/transformer/transformerMonitorInfo", (req, res) => {
-    var transformerTable = [];
-    for (let i = 0; i < 20; i++) {
-        let obj = {};
-        obj["regionName"] = "长沙市1" + i;
-        obj["cityId"] = i;
-        obj["normalCount"] = i * 4;
-        obj["warnCount"] = i * 3;
-        obj["abnormalCount"] = i * 8;
-        obj["needRepair"] = i * 5;
-        obj["completed"] = i * 10;
-        transformerTable.push(obj);
-    }
-    var transformerTables = {
+    //   let transformerTable = [];
+    //   let regionName = ["衡阳市"];
+    //   for (let i = 0; i < 20; i++) {
+    //     let obj = {};
+    //     obj["regionName"] = "长沙市" + i;
+    //     obj["regionId"] = i;
+    //     obj["normalCount"] = i * 4;
+    //     obj["warnCount"] = i * 3;
+    //     obj["abnormalCount"] = i * 8;
+    //     obj["needRepair"] = i * 5;
+    //     obj["completed"] = i * 10;
+    //     transformerTable.push(obj);
+    //   }
+    let transformerTables = {
         code: 200,
-        data: transformerTable,
+        data: [{
+            abnormalCount: 1,
+            completed: 4,
+            needRepair: 3,
+            normalCount: 22,
+            regionId: 430400,
+            regionName: "衡阳市",
+            warnCount: 1,
+        }, ],
+        msg: "操作成功",
     };
     res.send(transformerTables);
 });
 
-// 首页-站点监控状态信息
+// 03.站点监控饼状图
 app.get("/presentation/sysStation/stationStatis", (req, res) => {
     let dataPie = {
         code: 200,
         data: {
             constructing: 10,
             active: 100,
-            noActive: 0,
-        }
+            noActive: 20,
+        },
+        msg: "操作成功",
     };
     res.send(dataPie);
 });
 
-// 首页-站点监控信息
+// 04.站点监控列表
 app.post("/presentation/sysStation/stationMonitor", (req, res) => {
-    var stationTable = [];
-    for (var i = 0; i < 10; i++) {
-        let obj = {};
-        obj["stationName"] = "站点" + i;
-        obj["stationId"] = i;
-        obj["status"] = 0;
-        obj["address"] = "湖南省某地" + i;
-        obj["commissionDate"] = i * 5;
-        obj["transformerCount"] = i * 10;
-        stationTable.push(obj)
-    }
+    let stationTable = [{
+            address: "衡阳市麻塘",
+            commissionDate: null,
+            stationId: 1,
+            stationName: "衡阳站",
+            status: 2,
+            transformerCount: 24,
+        },
+        {
+            address: "株洲",
+            commissionDate: null,
+            stationId: 302,
+            stationName: "株洲站",
+            status: 2,
+            transformerCount: 0,
+        },
+    ];
+    //   for (var i = 0; i < 10; i++) {
+    //     let obj = {};
+    //     obj["stationName"] = "站点" + i;
+    //     obj["stationId"] = i;
+    //     obj["status"] = 0;
+    //     obj["address"] = "湖南省某地" + i;
+    //     obj["commissionDate"] = i * 5;
+    //     obj["transformerCount"] = i * 10;
+    //     stationTable.push(obj);
+    //   }
     let stationTables = {
         code: 200,
-        data: stationTable
+        data: stationTable,
     };
     res.send(stationTables);
 });
-app.get("/presentation/map/selectRegionJson", (req, res) => {
+
+// 05.站点地图-地理数据(测试时用给本地引入的)
+app.post("/presentation/map/selectRegionJson", (req, res) => {
     let selectRegionJson = {
         code: 200,
         data: "test",
     };
     res.send(selectRegionJson);
 });
+
+// 06.站点地图-站点信息
 app.post("/presentation/sysStation/stationMap", (req, res) => {
     let stationDatas = {
         code: 200,
         data: [{
-                name: "站点0",
-                id: 0,
-                value: [112.982279, 28.19409],
-            },
-            {
-                name: "站点1",
                 id: 1,
-                value: [113.032067, 25.793589],
+                name: "衡阳站",
+                value: [112.3037, 26.5223],
+                status: 2
             },
             {
-                name: "站点2",
-                id: 2,
-                value: [112.944052, 27.82973],
+                id: 302,
+                name: "株洲站",
+                value: [113.151737, 27.835806],
+                status: 2
             },
         ],
+        msg: "操作成功",
     };
     res.send(stationDatas);
 });
-// 首页-地图-3省的城市字典
-app.post("/presentation/sysStation/cityInfo", (req, res) => {
-    var cityInfo = [];
-    for (let i = 0; i < 20; i++) {
-        let obj = {};
-        obj["name"] = "长沙市" + i;
-        obj["id"] = i;
-        cityInfo.push(obj);
-    }
-    let cityInfos = {
+
+// 07.站点地图-地区信息
+app.get("/presentation/map/selectRegionInfo", (req, res) => {
+    let selectRegionInfos = {
         code: 200,
-        data: cityInfo,
+        data: [{
+                regionId: 430100,
+                regionName: "长沙市",
+                value: [112.982279, 28.19409],
+                activeCount: 0,
+            },
+            {
+                regionId: 430200,
+                regionName: "株洲市",
+                value: [113.151737, 27.835806],
+                activeCount: 1,
+            },
+            {
+                regionId: 430300,
+                regionName: "湘潭市",
+                value: [112.944052, 27.82973],
+                activeCount: 0,
+            },
+            {
+                regionId: 430400,
+                regionName: "衡阳市",
+                value: [112.607693, 26.900358],
+                activeCount: 1,
+            },
+            {
+                regionId: 430500,
+                regionName: "邵阳市",
+                value: [111.46923, 27.237842],
+                activeCount: 0,
+            },
+            {
+                regionId: 430600,
+                regionName: "岳阳市",
+                value: [113.132855, 29.37029],
+                activeCount: 0,
+            },
+            {
+                regionId: 430700,
+                regionName: "常德市",
+                value: [111.691347, 29.040225],
+                activeCount: 0,
+            },
+            {
+                regionId: 430800,
+                regionName: "张家界市",
+                value: [110.479921, 29.127401],
+                activeCount: 0,
+            },
+            {
+                regionId: 430900,
+                regionName: "益阳市",
+                value: [112.355042, 28.570066],
+                activeCount: 0,
+            },
+            {
+                regionId: 431000,
+                regionName: "郴州市",
+                value: [113.032067, 25.793589],
+                activeCount: 0,
+            },
+            {
+                regionId: 431100,
+                regionName: "永州市",
+                value: [111.608019, 26.434516],
+                activeCount: 0,
+            },
+            {
+                regionId: 431200,
+                regionName: "怀化市",
+                value: [109.97824, 27.550082],
+                activeCount: 0,
+            },
+            {
+                regionId: 431300,
+                regionName: "娄底市",
+                value: [112.008497, 27.728136],
+                activeCount: 0,
+            },
+            {
+                regionId: 433100,
+                regionName: "湘西土家族苗族自治州",
+                value: [109.739735, 28.314296],
+                activeCount: 0,
+            },
+        ],
+        msg: "操作成功",
     };
-    res.send(cityInfos);
+    res.send(selectRegionInfos);
 });
-app.get("/presentation/map/selectRegionJson", (req, res) => {
-    let selectRegionJson = {
-        code: 200,
-        data: "test",
-    };
-    res.send(selectRegionJson);
-});
-// 互感器异常数据-每个区域互感器的异常数据接口
+
+// 08.互感器热力地图-异常信息
 app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
-    var transformerAbnormal = [{
-            name: "常德市",
-            abnormalCount: 10,
+    let transformerAbnormal = [{
+            regionName: "长沙市",
+            regionId: 430100,
+            count: 0,
+            latitude: 28.19409,
+            longitude: 112.982279,
         },
         {
-            name: "张家界市",
-            value: 20,
+            regionName: "株洲市",
+            regionId: 430200,
+            count: 0,
+            latitude: 27.835806,
+            longitude: 113.151737,
         },
         {
-            name: "岳阳市",
-            value: 15,
+            regionName: "湘潭市",
+            regionId: 430300,
+            count: 0,
+            latitude: 27.82973,
+            longitude: 112.944052,
         },
         {
-            name: "益阳市",
-            value: 20,
+            regionName: "衡阳市",
+            regionId: 430400,
+            count: 1,
+            latitude: 26.900358,
+            longitude: 112.607693,
         },
         {
-            name: "湘西土家族苗族自治州市",
-            value: 13,
+            regionName: "邵阳市",
+            regionId: 430500,
+            count: 1,
+            latitude: 27.237842,
+            longitude: 111.46923,
         },
         {
-            name: "长沙市",
-            value: 2,
+            regionName: "岳阳市",
+            regionId: 430600,
+            count: 0,
+            latitude: 29.37029,
+            longitude: 113.132855,
         },
         {
-            name: "娄底市",
-            value: 50,
+            regionName: "常德市",
+            regionId: 430700,
+            count: 1,
+            latitude: 29.040225,
+            longitude: 111.691347,
         },
         {
-            name: "湘潭市",
-            value: 40,
+            regionName: "张家界市",
+            regionId: 430800,
+            count: 0,
+            latitude: 29.127401,
+            longitude: 110.479921,
         },
         {
-            name: "株洲市",
-            value: 10,
+            regionName: "益阳市",
+            regionId: 430900,
+            count: 1,
+            latitude: 28.570066,
+            longitude: 112.355042,
         },
         {
-            name: "怀化市",
-            value: 10,
+            regionName: "郴州市",
+            regionId: 431000,
+            count: 1,
+            latitude: 25.793589,
+            longitude: 113.032067,
         },
         {
-            name: "邵阳市",
-            value: 6,
+            regionName: "永州市",
+            regionId: 431100,
+            count: 0,
+            latitude: 26.434516,
+            longitude: 111.608019,
         },
         {
-            name: "衡阳市",
-            value: 23,
+            regionName: "怀化市",
+            regionId: 431200,
+            count: 0,
+            latitude: 27.550082,
+            longitude: 109.97824,
         },
         {
-            name: "永州市",
-            value: 30,
+            regionName: "娄底市",
+            regionId: 431300,
+            count: 1,
+            latitude: 27.728136,
+            longitude: 112.008497,
+        },
+        {
+            regionName: "湘西土家族苗族自治州",
+            regionId: 433100,
+            count: 0,
+            latitude: 28.314296,
+            longitude: 109.739735,
         },
     ];
+
     let transformerAbnormals = {
         code: 200,
         data: transformerAbnormal,
     };
     res.send(transformerAbnormals);
-})
-// 首页-运维历史弹窗完成
+});
+
+// 09.运维统计图
+app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
+    let dataPieOpex = {
+        code: 200,
+        msg: "操作成功",
+        data: {
+            auditauditedCount: 10, // 已审核
+            generatedCount: 20, // 已生成
+            sendedCount: 15, // 已派单
+            completedCount: 18, // 已完成
+        },
+        msg: "操作成功",
+    };
+    res.send(dataPieOpex);
+});
+
+// 10.运维进度条
+app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
+    let dataProgress = {
+        code: 200,
+        data: [{
+                city: "长沙市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "株洲市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "湘潭市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "衡阳市",
+                completionCount: 4,
+                orderCount: 7,
+                completionRate: 57,
+                abnormalCount: null,
+            },
+            {
+                city: "邵阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "岳阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "常德市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "张家界市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "益阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "郴州市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+
+            {
+                city: "永州市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "怀化市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "娄底市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "湘西土家族苗族自治州",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+        ],
+        msg: "操作成功",
+    };
+    res.send(dataProgress);
+});
+
+// 11.运维信息表
+app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
+    // var haveSentList = [];
+    // for (var i = 0; i < 50; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线a相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 0; //0正常,1警告，2异常
+    //   haveSentList.push(obj);
+    // }
+    // var completedList = [];
+    // for (var i = 0; i < 20; i++) {
+    //   let obj = {};
+    //   obj["positionName"] = "石长I线b相";
+    //   obj["positionId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 1;
+    //   completedList.push(obj);
+    // }
+    // var generatedList = [];
+    // for (var i = 0; i < 30; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线c相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 2;
+    //   generatedList.push(obj);
+    // }
+    // var auditauditedList = [];
+    // for (var i = 0; i < 40; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线a相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 0;
+    //   auditauditedList.push(obj);
+    // }
+
+    let operationDatas = {
+        code: 200,
+        msg: "操作成功",
+        data: {
+            sendedCount: [], // 已派单
+            completedCount: [{
+                    orderId: 4,
+                    transformerName: "衡阳-1线1",
+                    transformerId: 0,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 5,
+                    transformerName: "衡阳-1线2",
+                    transformerId: 1,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 6,
+                    transformerName: "衡阳-1线3",
+                    transformerId: 2,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 7,
+                    transformerName: "衡阳-1线4",
+                    transformerId: 3,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+            ], // 已完成
+            generatedCount: [{
+                orderId: 1,
+                transformerName: "衡阳-1线1",
+                address: "中国,湖南省,衡阳市",
+                transformerId: 1,
+                monitorState: 0,
+            }, ], // 已生成
+            auditauditedCount: [{
+                orderId: 3,
+                transformerName: "衡阳-1线3",
+                transformerId: 3,
+                address: "中国,湖南省,衡阳市",
+                monitorState: 0,
+            }, ], // 已审核
+        },
+    };
+    res.send(operationDatas);
+});
+
+// 12.运维历史信息表TODO
 app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
-    var operationDialogData = [];
+    let operationDialogData = [];
     for (var i = 0; i < 30; i++) {
         let obj = {};
         obj["orderId"] = i * 1000;
@@ -426,6 +801,211 @@ app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
     }
     res.send(operationDialogData);
 });
+
+// 07.站点地图-地区信息
+app.get("/presentation/map/selectRegionInfo", (req, res) => {
+    let selectRegionInfos = {
+        code: 200,
+        data: [{
+                regionId: 430100,
+                regionName: "长沙市",
+                value: [112.982279, 28.19409],
+                activeCount: 0,
+            },
+            {
+                regionId: 430200,
+                regionName: "株洲市",
+                value: [113.151737, 27.835806],
+                activeCount: 1,
+            },
+            {
+                regionId: 430300,
+                regionName: "湘潭市",
+                value: [112.944052, 27.82973],
+                activeCount: 0,
+            },
+            {
+                regionId: 430400,
+                regionName: "衡阳市",
+                value: [112.607693, 26.900358],
+                activeCount: 1,
+            },
+            {
+                regionId: 430500,
+                regionName: "邵阳市",
+                value: [111.46923, 27.237842],
+                activeCount: 0,
+            },
+            {
+                regionId: 430600,
+                regionName: "岳阳市",
+                value: [113.132855, 29.37029],
+                activeCount: 0,
+            },
+            {
+                regionId: 430700,
+                regionName: "常德市",
+                value: [111.691347, 29.040225],
+                activeCount: 0,
+            },
+            {
+                regionId: 430800,
+                regionName: "张家界市",
+                value: [110.479921, 29.127401],
+                activeCount: 0,
+            },
+            {
+                regionId: 430900,
+                regionName: "益阳市",
+                value: [112.355042, 28.570066],
+                activeCount: 0,
+            },
+            {
+                regionId: 431000,
+                regionName: "郴州市",
+                value: [113.032067, 25.793589],
+                activeCount: 0,
+            },
+            {
+                regionId: 431100,
+                regionName: "永州市",
+                value: [111.608019, 26.434516],
+                activeCount: 0,
+            },
+            {
+                regionId: 431200,
+                regionName: "怀化市",
+                value: [109.97824, 27.550082],
+                activeCount: 0,
+            },
+            {
+                regionId: 431300,
+                regionName: "娄底市",
+                value: [112.008497, 27.728136],
+                activeCount: 0,
+            },
+            {
+                regionId: 433100,
+                regionName: "湘西土家族苗族自治州",
+                value: [109.739735, 28.314296],
+                activeCount: 0,
+            },
+        ],
+        msg: "操作成功",
+    };
+    res.send(selectRegionInfos);
+});
+
+// 08.互感器热力地图-异常信息
+app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
+    let transformerAbnormal = [{
+            regionName: "长沙市",
+            regionId: 430100,
+            count: 0,
+            latitude: 28.19409,
+            longitude: 112.982279,
+        },
+        {
+            regionName: "株洲市",
+            regionId: 430200,
+            count: 0,
+            latitude: 27.835806,
+            longitude: 113.151737,
+        },
+        {
+            regionName: "湘潭市",
+            regionId: 430300,
+            count: 0,
+            latitude: 27.82973,
+            longitude: 112.944052,
+        },
+        {
+            regionName: "衡阳市",
+            regionId: 430400,
+            count: 1,
+            latitude: 26.900358,
+            longitude: 112.607693,
+        },
+        {
+            regionName: "邵阳市",
+            regionId: 430500,
+            count: 1,
+            latitude: 27.237842,
+            longitude: 111.46923,
+        },
+        {
+            regionName: "岳阳市",
+            regionId: 430600,
+            count: 0,
+            latitude: 29.37029,
+            longitude: 113.132855,
+        },
+        {
+            regionName: "常德市",
+            regionId: 430700,
+            count: 1,
+            latitude: 29.040225,
+            longitude: 111.691347,
+        },
+        {
+            regionName: "张家界市",
+            regionId: 430800,
+            count: 0,
+            latitude: 29.127401,
+            longitude: 110.479921,
+        },
+        {
+            regionName: "益阳市",
+            regionId: 430900,
+            count: 1,
+            latitude: 28.570066,
+            longitude: 112.355042,
+        },
+        {
+            regionName: "郴州市",
+            regionId: 431000,
+            count: 1,
+            latitude: 25.793589,
+            longitude: 113.032067,
+        },
+        {
+            regionName: "永州市",
+            regionId: 431100,
+            count: 0,
+            latitude: 26.434516,
+            longitude: 111.608019,
+        },
+        {
+            regionName: "怀化市",
+            regionId: 431200,
+            count: 0,
+            latitude: 27.550082,
+            longitude: 109.97824,
+        },
+        {
+            regionName: "娄底市",
+            regionId: 431300,
+            count: 1,
+            latitude: 27.728136,
+            longitude: 112.008497,
+        },
+        {
+            regionName: "湘西土家族苗族自治州",
+            regionId: 433100,
+            count: 0,
+            latitude: 28.314296,
+            longitude: 109.739735,
+        },
+    ];
+
+    let transformerAbnormals = {
+        code: 200,
+        data: transformerAbnormal,
+    };
+    res.send(transformerAbnormals);
+});
+
+// 09.运维统计图
 app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
     let dataPieOpex = {
         code: 200,
@@ -435,9 +1015,236 @@ app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
             generatedCount: 20, // 已生成
             sendedCount: 15, // 已派单
             completedCount: 18, // 已完成
-        }
+        },
+        msg: "操作成功",
     };
     res.send(dataPieOpex);
+});
+
+// 10.运维进度条
+app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
+    let dataProgress = {
+        code: 200,
+        data: [{
+                city: "长沙市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "株洲市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "湘潭市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "衡阳市",
+                completionCount: 4,
+                orderCount: 7,
+                completionRate: 57,
+                abnormalCount: null,
+            },
+            {
+                city: "邵阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "岳阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "常德市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "张家界市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "益阳市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "郴州市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+
+            {
+                city: "永州市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "怀化市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "娄底市",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+            {
+                city: "湘西土家族苗族自治州",
+                completionCount: 0,
+                orderCount: 0,
+                completionRate: 100,
+                abnormalCount: null,
+            },
+        ],
+        msg: "操作成功",
+    };
+    res.send(dataProgress);
+});
+
+// 11.运维信息表
+app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
+    // var haveSentList = [];
+    // for (var i = 0; i < 50; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线a相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 0; //0正常,1警告，2异常
+    //   haveSentList.push(obj);
+    // }
+    // var completedList = [];
+    // for (var i = 0; i < 20; i++) {
+    //   let obj = {};
+    //   obj["positionName"] = "石长I线b相";
+    //   obj["positionId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 1;
+    //   completedList.push(obj);
+    // }
+    // var generatedList = [];
+    // for (var i = 0; i < 30; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线c相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 2;
+    //   generatedList.push(obj);
+    // }
+    // var auditauditedList = [];
+    // for (var i = 0; i < 40; i++) {
+    //   let obj = {};
+    //   obj["transformerName"] = "石长I线a相";
+    //   obj["transformerId"] = i++;
+    //   obj["orderId"] = i * 1000;
+    //   obj["address"] = "长沙市-天心区" + i;
+    //   obj["monitorState"] = 0;
+    //   auditauditedList.push(obj);
+    // }
+
+    let operationDatas = {
+        code: 200,
+        msg: "操作成功",
+        data: {
+            sendedCount: [], // 已派单
+            completedCount: [{
+                    orderId: 4,
+                    transformerName: "衡阳-1线1",
+                    transformerId: 0,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 5,
+                    transformerName: "衡阳-1线2",
+                    transformerId: 1,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 6,
+                    transformerName: "衡阳-1线3",
+                    transformerId: 2,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+                {
+                    orderId: 7,
+                    transformerName: "衡阳-1线4",
+                    transformerId: 3,
+                    address: "中国,湖南省,衡阳市",
+                    monitorState: 0,
+                },
+            ], // 已完成
+            generatedCount: [{
+                orderId: 1,
+                transformerName: "衡阳-1线1",
+                address: "中国,湖南省,衡阳市",
+                transformerId: 1,
+                monitorState: 0,
+            }, ], // 已生成
+            auditauditedCount: [{
+                orderId: 3,
+                transformerName: "衡阳-1线3",
+                transformerId: 3,
+                address: "中国,湖南省,衡阳市",
+                monitorState: 0,
+            }, ], // 已审核
+        },
+    };
+    res.send(operationDatas);
+});
+
+// 12.运维历史信息表TODO
+app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
+    let operationDialogData = [];
+    for (var i = 0; i < 30; i++) {
+        let obj = {};
+        obj["orderId"] = i * 1000;
+        obj["address"] = "长沙市-天心区" + i;
+        obj["monitorState"] = 0; // 0=正常,1=警告,2=异常
+        obj["orderStatus"] = 0; // 工单状态0已审核，1未派单、2已派单、3待确认、4已确认、5已完成
+        obj["companyShortName"] = "运维公司";
+        obj["userName"] = "张三";
+        obj["startTime"] = "2020-02-22";
+        obj["endTime"] = "2020-02-29";
+        obj["evaluationValue"] = "0.3"; // 评估值
+        obj["appraisalValue"] = "0.5"; // 鉴定值
+        obj["remark"] = "这是备注";
+        operationDialogData.push(obj);
+    }
+    res.send(operationDialogData);
 });
 app.listen(3001, function () {
     console.log('端口号3001 服务启动成功');
