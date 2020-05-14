@@ -1244,13 +1244,13 @@ app.post('/paramerter', function (req, res) {
 	});
 })
 
-app.post('/paramerter2', function(req, res) {
+app.post('/presentation/sysStation/electricalParameter', function (req, res) {
 	let data = []
-	for(let i = 0;i< 21;i++){
-		let phaseSequence = i % 3 === 0 ? 'a' : (i % 3 === 1? 'b' : 'c');
+	for (let i = 0; i < 21; i++) {
+		let phaseSequence = i % 3 === 0 ? 'a' : (i % 3 === 1 ? 'b' : 'c');
 		let o = {
 			measuringTime: '2020-05-05', // 测量时间
-			positionId: i%7 + 1, // 线路id(1,2,3,4,5,6,7)
+			positionId: i % 7 + 1, // 线路id(1,2,3,4,5,6,7)
 			phaseSequence: phaseSequence, // 相序(a,b,c)
 			fundamentalFrequency: 50.03148, // 基波频率
 			fundamentalAmplitude: 5.98354, // 基波有效值
@@ -1259,11 +1259,11 @@ app.post('/paramerter2', function(req, res) {
 			fundamentalPhase: 2133.04, // 基波相位
 			thirdHarmonicPhase: 6947.2, // 三次谐波相位
 			fifthHarmonicPhase: -8459.07, // 五次谐波相位
-			zeroSequenceVoltageImbalanc:  0.00192, // 零序电压不平衡度
+			zeroSequenceVoltageImbalanc: 0.00192, // 零序电压不平衡度
 			negativeSequenceVoltageImba: 0.001, // 负序电压不平衡度
 			temperature: 35, // 温度
 			humidity: 20, // 湿度
-			transformerName: '衡阳-1线' + this.positionId, // 线路名称
+			transformerName: '衡阳-1线', // 线路名称
 		}
 		data.push(o)
 	}
@@ -1411,37 +1411,37 @@ app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 app.post('/presentation/transformer/PositionMaintenance', function (req, res) {
 	let data = [];
 	let a = {
-		phaseSequence: 'a',   // 相序名称
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
+		phaseSequence: 'a', // 相序名称
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
 		monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
+		orderStatus: 0, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
 	}
 	let b = {
 		phaseSequence: 'b',
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
 		monitiorState: 1, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 1,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
+		orderStatus: 1, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
 	}
 	let c = {
 		phaseSequence: 'b',
-		orderId: '11111111111111',   // 工单编号
-		regionName: '长沙市-岳麓区',    // 所在地区
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
 		monitiorState: 2, // 互感器状态 0:正常 1:警告 2: 异常  
-		orderStatus: 2,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
-		startTime: '2020-03-22',  // 开始时间
-		finishTime: '2020-11-22',  // 结束时间
-		evaluationValue: 19,   // 评估值
-		appraisalValue: 20,   // 检定值
+		orderStatus: 2, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
 	}
 	data.push(a, b, c);
 	res.json({
@@ -1456,10 +1456,10 @@ app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res
 	let data = [];
 	for (var i = 1; i <= 10; i++) {
 		let obj = {
-			orderId: i * 1000,   // 工单id
-			regionName: '长沙市-天心区' + i,  // 所在地区
+			orderId: i * 1000, // 工单id
+			regionName: '长沙市-天心区' + i, // 所在地区
 			monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
-			orderStatus: 0,    // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+			orderStatus: 0, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
 			companyName: '海尔', // 运维公司
 			userName: '张三', // 运维人员
 			startTime: '2020-02-22', // 开始时间
