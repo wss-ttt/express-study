@@ -33,7 +33,7 @@ app.post('/presentation/sysStation/stationRank', function (req, res) {
     })
 })
 // 2.变电站基础信息表
-app.get('/presentation/sysStation/basicsInfo', function (req, res) {
+app.post('/presentation/sysStation/basicsInfo', function (req, res) {
     let data = {
         mergerName: '株洲', // 所属地区
         commissionDate: '', // 投运时间
@@ -227,6 +227,38 @@ app.post('/presentation/sysStation/electricalParameter', function (req, res) {
         code: 200,
         data
     })
+})
+
+// 6.所有误差折线图
+app.post('/presentation/transformer/data', function(req, res) {
+	let data = [];
+	for(let i =0;i<3;i++){
+		let o = {
+			name: 'aa' + i,
+			data: [{
+				ydata: Math.random(),
+				xtime: '2020-05-09 11:00:00'
+			}, {
+				ydata: Math.random(),
+				xtime: '2020-05-09 11:00:15'
+			},{
+				ydata: Math.random(),
+				xtime: '2020-05-09 11:00:30'
+			}]
+		}
+		data.push(o)
+	}
+	let everTime = ['2020-05-09 11:00:00', '2020-05-09 11:00:15', '2020-05-09 11:00:30']
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: {
+			min: 0.00009395,
+			max: 0.99999999,
+			data: data,
+			everTime
+		}
+	})
 })
 /***************************************老曾*****************************************/
 
