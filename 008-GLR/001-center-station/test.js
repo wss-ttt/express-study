@@ -508,6 +508,28 @@ app.post('/presentation/transformer/transformerData', function (req, res) {
         data: data
     });
 })
+/**
+ * (三)健康图表相关接口
+ * **/
+// 1.健康影响因素接口
+app.post('/web/analysis/influence/data', function (req, res) {
+    let columnType = req.body.columnType
+    let data = {};
+    switch (columnType) {
+        case 'FUNDAMENTAL_FREQUENCY':
+            console.log('这个执行了没');
+            break;
+
+        default:
+            break;
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: []
+    })
+})
+
 /***************************************老曾*****************************************/
 
 
