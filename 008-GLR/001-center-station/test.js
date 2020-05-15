@@ -3,6 +3,70 @@ var app = express();
 const fs = require('fs');
 
 /**
+ *  公共
+ * **/
+// 1.传参用的数据字典接口
+app.post('/web/common/columnTypes', function (req, res) {
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: [{
+                "code": "FUNDAMENTAL_FREQUENCY",
+                "desc": "基波频率"
+            },
+            {
+                "code": "FUNDAMENTAL_AMPLITUDE",
+                "desc": "基波有效值"
+            },
+            {
+                "code": "THIRD_HARMONIC_AMPLITUDE",
+                "desc": "三次谐波有效值"
+            },
+            {
+                "code": "FIFTH_HARMONIC_AMPLITUDE",
+                "desc": "五次谐波有效值"
+            },
+            {
+                "code": "FUNDAMENTAL_PHASE",
+                "desc": "基波相位"
+            },
+            {
+                "code": "THIRD_HARMONIC_PHASE",
+                "desc": "三次谐波相位"
+            },
+            {
+                "code": "FIFTH_HARMONIC_PHASE",
+                "desc": "五次谐波相位"
+            },
+            {
+                "code": "ZERO_SEQUENCE_VOLTAGE_IMBALANC",
+                "desc": "零序电压不平衡度"
+            },
+            {
+                "code": "NEGATIVE_SEQUENCE_VOLTAGE_IMBA",
+                "desc": "负序电压不平衡度"
+            },
+            {
+                "code": "TEMPERATURE",
+                "desc": "温度"
+            },
+            {
+                "code": "HUMIDITY",
+                "desc": "湿度"
+            },
+            {
+                "code": "RATIO_DIFFERENCE_AVERAGE",
+                "desc": "比差均值"
+            },
+            {
+                "code": "RATIO_DIFFERENCE_VARIANCE",
+                "desc": "比差方差"
+            }
+        ]
+    })
+})
+
+/**
  * (一)变电站相关接口
  * **/
 // 1.变电站排名评分
@@ -230,35 +294,35 @@ app.post('/presentation/sysStation/electricalParameter', function (req, res) {
 })
 
 // 6.所有误差折线图
-app.post('/presentation/transformer/data', function(req, res) {
-	let data = [];
-	for(let i =0;i<3;i++){
-		let o = {
-			name: 'aa' + i,
-			data: [{
-				ydata: Math.random(),
-				xtime: '2020-05-09 11:00:00'
-			}, {
-				ydata: Math.random(),
-				xtime: '2020-05-09 11:00:15'
-			},{
-				ydata: Math.random(),
-				xtime: '2020-05-09 11:00:30'
-			}]
-		}
-		data.push(o)
-	}
-	let everTime = ['2020-05-09 11:00:00', '2020-05-09 11:00:15', '2020-05-09 11:00:30']
-	res.json({
-		msg: 'ok',
-		code: 200,
-		data: {
-			min: 0.00009395,
-			max: 0.99999999,
-			data: data,
-			everTime
-		}
-	})
+app.post('/presentation/transformer/data', function (req, res) {
+    let data = [];
+    for (let i = 0; i < 3; i++) {
+        let o = {
+            name: 'aa' + i,
+            data: [{
+                ydata: Math.random(),
+                xtime: '2020-05-09 11:00:00'
+            }, {
+                ydata: Math.random(),
+                xtime: '2020-05-09 11:00:15'
+            }, {
+                ydata: Math.random(),
+                xtime: '2020-05-09 11:00:30'
+            }]
+        }
+        data.push(o)
+    }
+    let everTime = ['2020-05-09 11:00:00', '2020-05-09 11:00:15', '2020-05-09 11:00:30']
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: {
+            min: 0.00009395,
+            max: 0.99999999,
+            data: data,
+            everTime
+        }
+    })
 })
 /***************************************老曾*****************************************/
 
