@@ -66,6 +66,134 @@ app.post('/web/common/columnTypes', function (req, res) {
     })
 })
 
+// 2.创造数据
+let wss = {
+    // 创建数据
+    createData: function (min, max, count) {
+        let datax_a = [],
+            datax_b = [],
+            datax_c = [],
+            data = [];
+        for (var i = 0; i < 500; i++) {
+            let arr_a = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
+            let arr_b = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
+            let arr_c = [this.RandomNumBoth(min, max, count), this.RandomNumBoth(0, 1, count)];
+            datax_a.push(arr_a);
+            datax_b.push(arr_b);
+            datax_c.push(arr_c);
+        }
+        let a = {
+            transformerPositionId: 27,
+            transformerPositionName: "220kV#1母线",
+            transformerId: 79,
+            transformerName: "A相",
+            name: "220kV#1母线A相基波频率",
+            startTime: "2020-03-21 14:15:35",
+            endTime: "2020-04-21 14:15:35",
+            datax: datax_a,
+            stationId: 305
+        };
+        let b = {
+            transformerPositionId: 27,
+            transformerPositionName: "220kV#1母线",
+            transformerId: 80,
+            transformerName: "B相",
+            name: "220kV#1母线B相基波幅值",
+            startTime: "2020-03-21 14:15:35",
+            endTime: "2020-04-21 14:15:35",
+            datax: datax_b,
+            stationId: 305
+        };
+        let c = {
+            transformerPositionId: 27,
+            transformerPositionName: "220kV#1母线",
+            transformerId: 81,
+            transformerName: "C相",
+            name: "220kV#1母线C相基波频率",
+            startTime: "2020-03-21 14:15:35",
+            endTime: "2020-04-21 14:15:35",
+            datax: datax_c,
+            stationId: 305
+        };
+        // data.push(a);
+        data.push(a, b);
+        // data.push(a,b,c);
+        return data;
+    },
+    RandomNumBoth: function (Min, Max, count) {
+        var range = Max - Min;
+        var count = count || 5;
+        var rand = Math.random();
+        var num = (Min + (rand * range)).toFixed(count); // 保留5位小数
+        return +num;
+    },
+    createData2: function (min, max, count) {
+        let data_a = [];
+        let data_b = [];
+        let data_c = [];
+        let data = [];
+        let self = this;
+        for (let i = 0; i < 3; i++) {
+            let step = 15;
+            xtime = i * step;
+            let arr_a = {
+                ydata: self.RandomNumBoth(min, max, count),
+                xtime: '2019-11-14 05:' + xtime + ':00'
+            };
+            let arr_b = {
+                ydata: self.RandomNumBoth(min, max, count),
+                xtime: '2019-11-14 05:' + xtime + ':00'
+            };
+            let arr_c = {
+                ydata: self.RandomNumBoth(min, max, count),
+                xtime: '2019-11-14 05:' + xtime + ':00'
+            };
+            data_a.push(arr_a);
+            data_b.push(arr_b);
+            data_c.push(arr_c);
+        }
+        let a = {
+            transformerPositionId: 3,
+            transformerPositionName: "济南站-3线",
+            transformerId: 7,
+            transformerName: "A相",
+            name: "济南站-3线A相基波频率",
+            startTime: null,
+            endTime: null,
+            data: data_a,
+            type: 'line',
+            yaxisIndex: 0
+        };
+        let b = {
+            transformerPositionId: 3,
+            transformerPositionName: "济南站-3线",
+            transformerId: 8,
+            transformerName: "B相",
+            name: "济南站-3线B相基波频率",
+            startTime: null,
+            endTime: null,
+            data: data_b,
+            type: 'line',
+            yaxisIndex: 0
+        };
+        let c = {
+            transformerPositionId: 3,
+            transformerPositionName: "济南站-3线",
+            transformerId: 8,
+            transformerName: "B相",
+            name: "济南站-3线C相基波频率",
+            startTime: null,
+            endTime: null,
+            data: data_c,
+            type: 'line',
+            yaxisIndex: 0
+        };
+        // push3个相线
+        data.push(a, b, c);
+        return data;
+    }
+}
+
 /**
  * (一)变电站相关接口
  * **/
