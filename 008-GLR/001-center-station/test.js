@@ -519,20 +519,198 @@ app.post('/presentation/transformer/transformerData', function (req, res) {
 // 1.健康影响因素接口
 app.post('/web/analysis/influence/data', function (req, res) {
     let columnType = req.body.columnType
-    let data = {};
+    let data;
     switch (columnType) {
+            // 基波频率
         case 'FUNDAMENTAL_FREQUENCY':
-            console.log('这个执行了没');
+            data = wss.createData(49, 50);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 49.96019,
+                        xmax: 50.05042,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
             break;
+            // 基波有效值
+        case 'FUNDAMENTAL_AMPLITUDE':
+            data = wss.createData(131, 132);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 129.5713,
+                        xmax: 132.3113,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
 
-        default:
+            });
+            break;
+            // 零序电压不平衡度
+        case 'ZERO_SEQUENCE_VOLTAGE_IMBALANC':
+            data = wss.createData(0, 0);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 0,
+                        xmax: 0,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+
+            });
+            break;
+            // 负序电压不平衡度
+        case 'NEGATIVE_SEQUENCE_VOLTAGE_IMBA':
+            data = wss.createData(0, 0);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 0,
+                        xmax: 0,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 温度
+        case 'TEMPERATURE':
+            data = wss.createData(15, 15);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 15,
+                        xmax: 30,
+                        ymin: -3,
+                        ymax: 1,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 湿度
+        case 'HUMIDITY':
+            data = wss.createData(15, 15);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 15,
+                        xmax: 30,
+                        ymin: -3,
+                        ymax: 1,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 基波相位
+        case 'FUNDAMENTAL_PHASE':
+            data = wss.createData(-10000, 10000, 2);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: -10769.58,
+                        xmax: 10796.43,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 三次谐波有效值
+        case 'THIRD_HARMONIC_AMPLITUDE':
+            data = wss.createData(0, 1);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 0.00515,
+                        xmax: 0.03635,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 三次谐波相位
+        case 'THIRD_HARMONIC_PHASE':
+            data = wss.createData(-10000, 10000, 2);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: -10789.57,
+                        xmax: 10780.5,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 五次谐波有效值
+        case 'FIFTH_HARMONIC_AMPLITUDE':
+            data = wss.createData(0, 1);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: 0.00037,
+                        xmax: 0.03549,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
+            break;
+            // 五次谐波相位
+        case 'FIFTH_HARMONIC_PHASE':
+            data = wss.createData(-10000, 10000, 2);
+            res.json({
+                msg: 'ok',
+                code: 200,
+                data: {
+                    yseries: {
+                        xmin: -10797.59,
+                        xmax: 10792.26,
+                        ymin: 0.10005,
+                        ymax: 0.21344,
+                        data: data
+                    }
+                }
+            });
             break;
     }
-    res.json({
-        msg: 'ok',
-        code: 200,
-        data: []
-    })
 })
 
 /***************************************老曾*****************************************/
