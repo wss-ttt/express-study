@@ -264,7 +264,7 @@ app.post('/presentation/transformer/data', function(req, res) {
 
 // 01.互感器总数统计
 
-app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
+app.post("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
         code: 200,
         msg: "操作成功",
@@ -278,7 +278,7 @@ app.get("/presentation/transformer/selectTransformerCount", (req, res) => {
 });
 
 // 02.互感器监控列表
-app.get("/presentation/transformer/transformerMonitorInfo", (req, res) => {
+app.post("/presentation/transformer/transformerMonitorInfo", (req, res) => {
     //   let transformerTable = [];
     //   let regionName = ["衡阳市"];
     //   for (let i = 0; i < 20; i++) {
@@ -309,7 +309,7 @@ app.get("/presentation/transformer/transformerMonitorInfo", (req, res) => {
 });
 
 // 03.站点监控饼状图
-app.get("/presentation/sysStation/stationStatis", (req, res) => {
+app.post("/presentation/sysStation/stationStatis", (req, res) => {
     let dataPie = {
         code: 200,
         data: {
@@ -390,7 +390,7 @@ app.post("/presentation/sysStation/stationMap", (req, res) => {
 });
 
 // 07.站点地图-地区信息
-app.get("/presentation/map/selectRegionInfo", (req, res) => {
+app.post("/presentation/map/selectRegionInfo", (req, res) => {
     let selectRegionInfos = {
         code: 200,
         data: [{
@@ -484,7 +484,7 @@ app.get("/presentation/map/selectRegionInfo", (req, res) => {
 });
 
 // 08.互感器热力地图-异常信息
-app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
+app.post("/presentation/transformer/transformerAbnormal", (req, res) => {
     let transformerAbnormal = [{
             regionName: "长沙市",
             regionId: 430100,
@@ -593,7 +593,7 @@ app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
 });
 
 // 09.运维统计图
-app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
+app.post("/presentation/maintenanceOrder/statisti", (req, res) => {
     let dataPieOpex = {
         code: 200,
         msg: "操作成功",
@@ -609,7 +609,7 @@ app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
 });
 
 // 10.运维进度条
-app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
+app.post("/presentation/maintenanceOrder/completionRate", (req, res) => {
     let dataProgress = {
         code: 200,
         data: [{
@@ -718,7 +718,7 @@ app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
 });
 
 // 11.运维信息表
-app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
+app.post("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
     // var haveSentList = [];
     // for (var i = 0; i < 50; i++) {
     //   let obj = {};
@@ -814,7 +814,7 @@ app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
 });
 
 // 12.运维历史信息表TODO
-app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
+app.post("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
     let operationDialogData = [];
     for (var i = 0; i < 30; i++) {
         let obj = {};
@@ -835,7 +835,7 @@ app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
 });
 
 // 07.站点地图-地区信息
-app.get("/presentation/map/selectRegionInfo", (req, res) => {
+app.post("/presentation/map/selectRegionInfo", (req, res) => {
     let selectRegionInfos = {
         code: 200,
         data: [{
@@ -929,7 +929,7 @@ app.get("/presentation/map/selectRegionInfo", (req, res) => {
 });
 
 // 08.互感器热力地图-异常信息
-app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
+app.post("/presentation/transformer/transformerAbnormal", (req, res) => {
     let transformerAbnormal = [{
             regionName: "长沙市",
             regionId: 430100,
@@ -1038,7 +1038,7 @@ app.get("/presentation/transformer/transformerAbnormal", (req, res) => {
 });
 
 // 09.运维统计图
-app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
+app.post("/presentation/maintenanceOrder/statisti", (req, res) => {
     let dataPieOpex = {
         code: 200,
         msg: "操作成功",
@@ -1054,7 +1054,7 @@ app.get("/presentation/maintenanceOrder/statisti", (req, res) => {
 });
 
 // 10.运维进度条
-app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
+app.post("/presentation/maintenanceOrder/completionRate", (req, res) => {
     let dataProgress = {
         code: 200,
         data: [{
@@ -1163,7 +1163,7 @@ app.get("/presentation/maintenanceOrder/completionRate", (req, res) => {
 });
 
 // 11.运维信息表
-app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
+app.post("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
     // var haveSentList = [];
     // for (var i = 0; i < 50; i++) {
     //   let obj = {};
@@ -1259,7 +1259,7 @@ app.get("/presentation/maintenanceOrder/maintenanceInfo", (req, res) => {
 });
 
 // 12.运维历史信息表TODO
-app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
+app.post("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
     let operationDialogData = [];
     for (var i = 0; i < 30; i++) {
         let obj = {};
@@ -1278,6 +1278,7 @@ app.get("/presentation/maintenanceOrder/maintenanceHistory", (req, res) => {
     }
     res.send(operationDialogData);
 });
+
 app.listen(3001, function () {
     console.log('端口号3001 服务启动成功');
 })
