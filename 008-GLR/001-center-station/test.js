@@ -382,8 +382,8 @@ app.post('/presentation/transformer/transformerData', function (req, res) {
 })
 /***************************************老曾*****************************************/
 
-// 01.互感器总数统计
 
+// 01.互感器总数统计
 app.post("/presentation/transformer/selectTransformerCount", (req, res) => {
     let dataGauges = {
         code: 200,
