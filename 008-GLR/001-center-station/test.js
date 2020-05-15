@@ -324,6 +324,62 @@ app.post('/presentation/transformer/data', function (req, res) {
         }
     })
 })
+
+// 7.主干接线图接口
+app.post('/presentation/transformer/transformerData', function (req, res) {
+    let data = []
+    // 竖线
+    for (let i = 1; i <= 6; i++) {
+        let o = {
+            positionId: i,
+            positionName: '竖线' + i,
+            isBus: 1, // 0: 表示母线 1: 竖线
+            map: {
+                a: {
+                    val: 0.8, // 相线误差值
+                    status: 2 // 0：正常 1:警告 2:异常
+                },
+                b: {
+                    val: 1, // 相线误差值
+                    status: 1 // 0：正常 1:警告 2:异常
+                },
+                c: {
+                    val: 0.4, // 相线误差值
+                    status: 2 // 0：正常 1:警告 2:异常
+                }
+            }
+        }
+        data.push(o)
+    }
+    // 母线
+    for (let i = 1; i <= 2; i++) {
+        let o = {
+            positionId: i,
+            positionName: '母线' + i,
+            isBus: 0, // 0: 表示母线 1: 竖线
+            map: {
+                a: {
+                    val: 0.8, // 相线误差值
+                    status: 2 // 0：正常 1:警告 2:异常
+                },
+                b: {
+                    val: 1, // 相线误差值
+                    status: 1 // 0：正常 1:警告 2:异常
+                },
+                c: {
+                    val: 0.4, // 相线误差值
+                    status: 2 // 0：正常 1:警告 2:异常
+                }
+            }
+        }
+        data.push(o);
+    }
+    res.json({
+        msg: 'ok',
+        code: 200,
+        data: data
+    });
+})
 /***************************************老曾*****************************************/
 
 // 01.互感器总数统计
