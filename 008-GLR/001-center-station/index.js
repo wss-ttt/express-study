@@ -1104,7 +1104,7 @@ app.post('/presentation/sysStation/cycleScore', function (req, res) {
 	console.log(data);
 	res.json({
 		msg: 'ok',
-		code: 0,
+		code: 200,
 		data: data
 	})
 })
@@ -1372,7 +1372,7 @@ app.post('/lineError', function (req, res) {
 	data.push(json2, json3);
 	res.json({
 		msg: 'ok',
-		code: 0,
+		code: 200,
 		data: data
 	})
 })
