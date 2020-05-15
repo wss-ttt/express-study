@@ -87,6 +87,27 @@ app.post('/presentation/sysStation/healthInfo', function (req, res) {
 		}
 	});
 })
+
+// 健康图接口
+app.get('/healthy', function (req, res) {
+	let xData = [];
+	for (let i = 0; i < 10; i++) {
+		xData.push('fff' + i);
+	}
+	let yData = [];
+	let lineData = [];
+	for (let i = 0; i < 10; i++) {
+		let num = Math.floor(Math.random() * (1500 - 100 + 1) + 100) // 向下取整
+		yData.push(num)
+		lineData.push(num);
+	}
+	let data = {
+		xAxis: xData,
+		yAxis: yData,
+		lineData: lineData
+	}
+	res.json(data);
+})
 // 误差折线图接口
 app.get('/error', function (req, res) {
 	let xData = [];
@@ -1174,6 +1195,33 @@ app.post('/presentation/sysStation/stationRank', function (req, res) {
 		}
 	})
 })
+// 分支演示用的
+app.post('/stationScore', function (req, res) {
+	let data = [{
+			title: 'comprehensive',
+			name: '综合评分',
+			score: 99
+		},
+		{
+			title: 'operation',
+			name: '运维评分',
+			score: 40
+		},
+		{
+			title: 'healthy',
+			name: '健康评分',
+			score: 50
+		}
+	];
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: {
+			data,
+			ranking: 67
+		}
+	})
+})
 // 27.变电站周期评分表
 app.post('/presentation/sysStation/cycleScore', function (req, res) {
 	let data = [];
@@ -1188,6 +1236,22 @@ app.post('/presentation/sysStation/cycleScore', function (req, res) {
 	res.json({
 		msg: 'ok',
 		code: 200,
+		data: data
+	})
+})
+app.post('/transformerScore', function (req, res) {
+	let data = [];
+	for (let i = 1; i <= 11; i++) {
+		data.push({
+			name: '石长' + i + '线',
+			last: Math.ceil(Math.random() * 100),
+			current: Math.ceil(Math.random() * 100)
+		})
+	}
+	console.log(data);
+	res.json({
+		msg: 'ok',
+		code: 0,
 		data: data
 	})
 })
@@ -1353,7 +1417,7 @@ app.post('/paramerter', function (req, res) {
 	})
 	res.json({
 		msk: 'ok',
-		code: 200,
+		code: 0,
 		data: data
 	});
 })
@@ -1390,6 +1454,76 @@ app.post('/presentation/sysStation/electricalParameter', function (req, res) {
 
 // 24.接线图-线路的相线误差数据
 // 每条线的abc3个相线的误差值
+app.post('/lineError2', function (req, res) {
+	// 数据结构
+	let json = {
+		positionName: '石长线', // 线路名称
+		a: {
+			val: 0.8, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		b: {
+			val: 1, // 相线误差值
+			status: 1 // 0：正常 1:警告 2:异常
+		},
+		c: {
+			val: 0.4, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		isBus: 1, // 0:表示母线 1：表示不是母线
+	};
+	// 母线I
+	let json2 = {
+		positionId: 7,
+		positionName: 'I母线', // 线路名称
+		a: {
+			val: 0.8, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		b: {
+			val: 1, // 相线误差值
+			status: 1 // 0：正常 1:警告 2:异常
+		},
+		c: {
+			val: 0.4, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		isBus: 0, // 0:表示母线 1：表示不是母线
+	}
+	// 母线II
+	let json3 = {
+		positionId: 8,
+		positionName: 'II母线', // 线路名称
+		a: {
+			val: 0.8, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		b: {
+			val: 1, // 相线误差值
+			status: 1 // 0：正常 1:警告 2:异常
+		},
+		c: {
+			val: 0.4, // 相线误差值
+			status: 2 // 0：正常 1:警告 2:异常
+		},
+		isBus: 1, // 0:表示不是母线 1：表示是母线
+	}
+	let data = [];
+	// 有几条数据就返回几个，我这里模拟返回5条数据
+	for (let i = 1; i <= 5; i++) {
+		let t = JSON.parse(JSON.stringify(json));
+		t['positionName'] += i;
+		t['positionId'] = i;
+		data.push(t);
+	}
+	data.push(json2, json3);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
+// 展示用的
 app.post('/lineError', function (req, res) {
 	// 数据结构
 	let json = {
@@ -1406,7 +1540,7 @@ app.post('/lineError', function (req, res) {
 			val: 0.4, // 相线误差值
 			status: 2 // 0：正常 1:警告 2:异常
 		},
-		isBus: 0, // 0:表示不是母线 1：表示是母线
+		isBus: 0, // 0:表示母线 1： 表示竖线
 	};
 	// 母线I
 	let json2 = {
@@ -1455,11 +1589,32 @@ app.post('/lineError', function (req, res) {
 	data.push(json2, json3);
 	res.json({
 		msg: 'ok',
-		code: 200,
+		code: 0,
 		data: data
 	})
 })
+
 // 28.互感器画像5个维度的信息
+// 分支演示用的
+app.post('/pictureInfo', function (req, res) {
+	let data = [];
+	let json = {
+		name: '使用年限', // 名称
+		a: '2年',
+		b: '12年',
+		c: '22年'
+	}
+	for (let i = 1; i <= 5; i++) {
+		let t = JSON.parse(JSON.stringify(json));
+		t['name'] += i;
+		data.push(t);
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
 app.post('/presentation/transformer/transformerBasicInfoAge', function (req, res) {
 	let data = [];
 	let json = {
@@ -1505,6 +1660,24 @@ app.post('/pictureStatus', function (req, res) {
 	})
 })
 // 30.互感器画像基础信息
+// 分支演示用的
+app.post('/pictureBaseInfo', function (req, res) {
+	let data = {};
+	data = {
+		type: '变电站', // 类型
+		timea: '2018年11月11日', // 定检时间
+		voltageLevel: '500KV', // 电压等级
+		timeb: '2019年12月11日', // 周检时间
+		manufactor: '海尔', // 厂家
+		timec: '2020年12月12日' // 上次检修时间
+	}
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
+
 app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 	let data = {};
 	data = {
@@ -1521,7 +1694,51 @@ app.post('/presentation/transformer/transformerBasicInfo', function (req, res) {
 		data: data
 	})
 })
+
 // 31.最近一次的互感器运维信息
+app.post('/latelyOperation', function (req, res) {
+	let data = [];
+	let a = {
+		phaseSequence: 'a', // 相序名称
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
+		monitiorState: 0, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 0, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
+	}
+	let b = {
+		phaseSequence: 'b',
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
+		monitiorState: 1, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 1, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
+	}
+	let c = {
+		phaseSequence: 'b',
+		orderId: '11111111111111', // 工单编号
+		regionName: '长沙市-岳麓区', // 所在地区
+		monitiorState: 2, // 互感器状态 0:正常 1:警告 2: 异常  
+		orderStatus: 2, // 运维状态 0:已审核 1：未派单 2：已派单 3: 待确认 4：已确认 5：已完成
+		startTime: '2020-03-22', // 开始时间
+		finishTime: '2020-11-22', // 结束时间
+		evaluationValue: 19, // 评估值
+		appraisalValue: 20, // 检定值
+	}
+	data.push(a, b, c);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
+
 app.post('/presentation/transformer/PositionMaintenance', function (req, res) {
 	let data = [];
 	let a = {
@@ -1664,6 +1881,52 @@ app.post('/presentation/sysStation/basicsInfo', function (req, res) {
 	});
 })
 
+app.post('/station', function (req, res) {
+	let data = [
+		{
+			name: '投运时间',
+			val: '2020.04.22'
+		},
+		{
+			name: '所属区域',
+			val: '湖南省怀化市某镇'
+		},
+		{
+			name: '站点类型',
+			val: '变电站'
+		},
+		{
+			name: '变电站电压等级',
+			val: '220kV'
+		},
+		{
+			name: '220kV计量母线互感器组数',
+			val: '3组'
+		},
+		{
+			name: '110kV计量母线互感器组数',
+			val: '1组'
+		},
+		{
+			name: '220kV计量线路互感器组数',
+			val: '3组'
+		},
+		{
+			name: '110kV计量线路互感器组数',
+			val: '1组'
+		} /* ,
+        {
+          name: '550kV计量线路互感器组数',
+          val: '1组'
+        } */
+	]
+	console.log(data);
+	res.json({
+		msg: 'ok',
+		code: 0,
+		data: data
+	})
+})
 // 36.运维历史情况表
 app.post('/presentation/maintenanceOrder/maintenanceHistory', function (req, res) {
 	let data = [];
