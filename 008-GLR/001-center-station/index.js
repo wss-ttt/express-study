@@ -6,7 +6,66 @@
 var express = require('express');
 var app = express();
 const fs = require('fs')
-
+// 字典数据接口
+app.post('/web/common/columnTypes', function (req, res) {
+	res.json({
+		msg: 'ok',
+		code: 200,
+		data: [{
+				"code": "FUNDAMENTAL_FREQUENCY",
+				"desc": "基波频率"
+			},
+			{
+				"code": "FUNDAMENTAL_AMPLITUDE",
+				"desc": "基波有效值"
+			},
+			{
+				"code": "THIRD_HARMONIC_AMPLITUDE",
+				"desc": "三次谐波有效值"
+			},
+			{
+				"code": "FIFTH_HARMONIC_AMPLITUDE",
+				"desc": "五次谐波有效值"
+			},
+			{
+				"code": "FUNDAMENTAL_PHASE",
+				"desc": "基波相位"
+			},
+			{
+				"code": "THIRD_HARMONIC_PHASE",
+				"desc": "三次谐波相位"
+			},
+			{
+				"code": "FIFTH_HARMONIC_PHASE",
+				"desc": "五次谐波相位"
+			},
+			{
+				"code": "ZERO_SEQUENCE_VOLTAGE_IMBALANC",
+				"desc": "零序电压不平衡度"
+			},
+			{
+				"code": "NEGATIVE_SEQUENCE_VOLTAGE_IMBA",
+				"desc": "负序电压不平衡度"
+			},
+			{
+				"code": "TEMPERATURE",
+				"desc": "温度"
+			},
+			{
+				"code": "HUMIDITY",
+				"desc": "湿度"
+			},
+			{
+				"code": "RATIO_DIFFERENCE_AVERAGE",
+				"desc": "比差均值"
+			},
+			{
+				"code": "RATIO_DIFFERENCE_VARIANCE",
+				"desc": "比差方差"
+			}
+		]
+	})
+})
 // 1.变电站周期评分表接口
 
 // 2.变电站健康情况
@@ -83,9 +142,9 @@ app.get('/error2', function (req, res) {
 	res.json(data);
 })
 // 误差折线图
-app.post('/presentation/transformer/data', function(req, res) {
+app.post('/presentation/transformer/data', function (req, res) {
 	let data = [];
-	for(let i =0;i<3;i++){
+	for (let i = 0; i < 3; i++) {
 		let o = {
 			name: 'aa' + i,
 			data: [{
@@ -94,7 +153,7 @@ app.post('/presentation/transformer/data', function(req, res) {
 			}, {
 				ydata: Math.random(),
 				xtime: '2020-05-09 11:00:15'
-			},{
+			}, {
 				ydata: Math.random(),
 				xtime: '2020-05-09 11:00:30'
 			}]
@@ -615,6 +674,7 @@ app.get('/echarts/test6/list', function (req, res) {
 
 // 误差影响因素分析
 var wss = {
+	commonUrl: '/web/analysis/influence/data',
 	prefix: '/analysis/deviationInfluenceFactor/',
 	api: [
 		'fundamentalFrequencyImpactData', // 基波频率影响
@@ -764,180 +824,203 @@ var wss = {
 	}
 }
 // 0.基波频率影响
-app.post(wss.prefix + wss.api[0], function (req, res) {
-
+app.post(wss.commonUrl, function (req, res) {
+	console.log('req',req)
 	let data = wss.createData(49, 50);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 49.96019,
-			xmax: 50.05042,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			// data: data
-			data: []
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 49.96019,
+				xmax: 50.05042,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				// data: data
+				data: []
+			}
 		}
 	});
 })
 // 1.基波有效值影响
-app.post(wss.prefix + wss.api[1], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 
 	data = wss.createData(131, 132);
 
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 129.5713,
-			xmax: 132.3113,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 129.5713,
+				xmax: 132.3113,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 
 	});
 })
 
 // 2.零序电压不平衡度影响
-app.post(wss.prefix + wss.api[2], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 0,
-			xmax: 0,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
+
 	});
 })
 // 3.负序电压不平衡度影响
-app.post(wss.prefix + wss.api[3], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(0, 0);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 0,
-			xmax: 0,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 0,
+				xmax: 0,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
 
 // 4.温度影响
-app.post(wss.prefix + wss.api[4], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 15,
-			xmax: 30,
-			ymin: -3,
-			ymax: 1,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 15,
+				xmax: 30,
+				ymin: -3,
+				ymax: 1,
+				data: data
+			}
 		}
 	});
 })
 
 // 5.湿度影响
-app.post(wss.prefix + wss.api[5], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(15, 15);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 15,
-			xmax: 30,
-			ymin: -3,
-			ymax: 1,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 15,
+				xmax: 30,
+				ymin: -3,
+				ymax: 1,
+				data: data
+			}
 		}
 	});
 })
 
 // 6.基波相位影响
-app.post(wss.prefix + wss.api[6], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: -10769.58,
-			xmax: 10796.43,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: -10769.58,
+				xmax: 10796.43,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
 
 // 7.三次谐波有效值影响
-app.post(wss.prefix + wss.api[7], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 0.00515,
-			xmax: 0.03635,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 0.00515,
+				xmax: 0.03635,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
 
 // 8.三次谐波相位影响
-app.post(wss.prefix + wss.api[8], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: -10789.57,
-			xmax: 10780.5,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: -10789.57,
+				xmax: 10780.5,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
 
 // 9.五次谐波有效值影响
-app.post(wss.prefix + wss.api[9], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(0, 1);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: 0.00037,
-			xmax: 0.03549,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: 0.00037,
+				xmax: 0.03549,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
 
 // 10.五次谐波相位影响
-app.post(wss.prefix + wss.api[10], function (req, res) {
+app.post(wss.commonUrl, function (req, res) {
 	let data = wss.createData(-10000, 10000, 2);
 	res.json({
 		msg: 'ok',
-		code: 0,
-		yseries: {
-			xmin: -10797.59,
-			xmax: 10792.26,
-			ymin: 0.10005,
-			ymax: 0.21344,
-			data: data
+		code: 200,
+		data: {
+			yseries: {
+				xmin: -10797.59,
+				xmax: 10792.26,
+				ymin: 0.10005,
+				ymax: 0.21344,
+				data: data
+			}
 		}
 	});
 })
