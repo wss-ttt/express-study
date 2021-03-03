@@ -31,8 +31,8 @@ http.get(news, (res) => {
     fs.writeFile("./data1.json", res, (err) => {
       if (!err) console.log("成功写入");
     })
-    fs.writeFile('./data2.txt', strHtml, function(err) {
-      console.log('写入成功 data2.txt')
+    fs.writeFile('./data2.html', strHtml, function(err) {
+      console.log('写入成功 data2.html')
     })
   });
 });
