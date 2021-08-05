@@ -1,33 +1,17 @@
-var express = require('express');
-var app = express();
-var ws = require("nodejs-websocket");
-console.log("开始建立连接...")
-var game1 = null, game2 = null, game1Ready = false, game2Ready = false;
+var ws = require('nodejs-websocket');
+var server = ws.createServer(function (socket) {
+  // 事件名称为text(读取字符串时，就叫做text)，读取客户端传来的字符串
+  var count = 1;
+  socket.on('text', function (str) {
+    // 在控制台输出前端传来的消息　　
+    console.log(str);
+    //向前端回复消息
+    socket.sendText('服务器端收到客户端端发来的消息了！' + count++);
+  });
 
-var server = ws.createServer(function (conn) {
-  conn.on("text", function (str) {
-    console.log("收到的信息为:" + str)
-    if (str === "game1") {
-      game1 = conn;
-      game1Ready = true;
-      conn.sendText("success");
-    }
-    if (str === "game2") {
-      game2 = conn;
-      game2Ready = true;
-    }
-
-    if (game1Ready && game2Ready) {
-      game2.sendText(str);
-    }
-
-    conn.sendText(str)
+  socket.on('error', error => {
+    console.log('error', error)
   })
-  conn.on("close", function (code, reason) {
-    console.log("关闭连接")
-  });
-  conn.on("error", function (code, reason) {
-    console.log("异常关闭")
-  });
-}).listen(8001)
-console.log("WebSocket建立完毕")
+}).listen(5000, function() {
+  console.log('服务启动成功')
+});
