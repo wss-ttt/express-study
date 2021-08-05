@@ -32,6 +32,7 @@
 		var ws = null
 		var box = document.querySelector('.box')
 		initWebSocket()
+
 		function initWebSocket() {
 			if ('WebSocket' in window) {
 				// 建立连接
@@ -45,7 +46,7 @@
 			}
 
 			ws.onerror = function (data) {
-				box.innerHTML = '连接建立失败' + '<br>'
+				box.innerHTML = '-----------连接建立失败-----------' + '<br>'
 				console.log('--连接建立失败--', ws)
 			}
 
@@ -67,7 +68,9 @@
 
 		// 开发发送数据
 		btns[0].onclick = function () {
-			ws.send('好好学习')
+			setInterval(() => {
+				ws.send('今天天气很好')
+			}, 2000)
 		}
 
 		// 关闭连接
@@ -76,7 +79,7 @@
 		}
 
 		// 重新连接
-		btns[2].onclick = function() {
+		btns[2].onclick = function () {
 			initWebSocket()
 		}
 	</script>
