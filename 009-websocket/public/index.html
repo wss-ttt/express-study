@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			width: 400px;
+			margin: auto;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+	</style>
+</head>
+<div class="container">
+	<button type="button">向服务器发送数据</button>
+	<button type="button">关闭连接</button>
+	<button type="button">重新建立连接</button>
+	<div class="box"></div>
+</div>
+
+<body>
+	<script>
+		var btns = document.querySelectorAll('button')
+		var ws = null
+		var box = document.querySelector('.box')
+		initWebSocket()
+
+		function initWebSocket() {
+			if ('WebSocket' in window) {
+				// 建立连接
+				ws = new WebSocket('ws://localhost:5000/');
+			} else {
+				console.log('当前浏览器 Not support websocket')
+			}
+			ws.onopen = function (data) {
+				box.innerHTML += '-----------连接成功-----------' + '<br>'
+				console.log('--连接建立成功了--', ws)
+			}
+
+			ws.onerror = function (data) {
+				box.innerHTML = '连接建立失败' + '<br>'
+				console.log('--连接建立失败--', ws)
+			}
+
+			// 接受服务器返回的消息
+			ws.onmessage = function (params) {
+				box.innerHTML += params.data + '<br>'
+				console.log('数据', params.data)
+			}
+
+			ws.onclose = function () {
+				box.innerHTML += '-----------连接已关闭-----------' + '<br>'
+				console.log('--连接已关闭--', ws)
+			}
+			ws.onbeforeunload = function () {
+				// 关闭连接
+				ws.close()
+			}
+		}
+
+		// 开发发送数据
+		btns[0].onclick = function () {
+			setInterval(() => {
+				ws.send('今天天气很好')
+			}, 2000)
+		}
+
+		// 关闭连接
+		btns[1].onclick = function () {
+			ws.close()
+		}
+
+		// 重新连接
+		btns[2].onclick = function () {
+			initWebSocket()
+		}
+	</script>
+</body>
+
+</html>
