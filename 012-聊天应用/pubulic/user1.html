@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>user1</title>
+	<title>user2</title>
 	<style>
 		.container {
 			width: 400px;
@@ -11,7 +11,6 @@
 			border: 1px solid #ccc;
 			margin: auto;
 		}
-
 		#mes {
 			width: 300px;
 			height: 300px;
@@ -27,18 +26,16 @@
 			padding: 5px;
 			margin-top: 5px;
 		}
-
 		.row {
 			display: flex;
 			flex-direction: column;
 		}
-
 		.user-name {
 			font-size: 14px;
 		}
+		.msg {
 
-		.msg {}
-
+		}
 		.tl {
 			color: red;
 			text-align: left;
@@ -64,37 +61,26 @@
 	</div>
 	<script>
 		var mes = document.getElementById("mes");
-		var btn = document.querySelector(".send")
 		if (window.WebSocket) {
 			var ws = new WebSocket('ws://localhost:8001');
-
 			ws.onopen = function (e) {
 				console.log("连接服务器成功");
-				/* var msg = {
-					"name": 'user1',
-					"mes": ''
-				}
-				console.log('aa', JSON.stringify(msg))
-				ws.send(JSON.stringify(msg)); */
-
-				ws.send('user1')
+				ws.send("user1");
 			}
 
 			ws.onmessage = function (e) {
-				console.log('e', e.data)
-				// debugger
 				if (e.data !== "user1" && e.data !== "user2") {
 					console.log(e);
 					var newData = JSON.parse(e.data);
 					var msg = newData.mes
 					var name = newData.name
 					var html = ''
-					if (name === 'user1') {
+					if(name === 'user1') {
 						html = `<li class="row tr">
 								<div class="user-name">${ name }</div>
 								<div class="msg">${ msg }</div>
 							</li>`
-					} else if (name === 'user2') {
+					} else if(name === 'user2') {
 						html = `<li class="row tl">
 								<div class="user-name">${ name }</div>
 								<div class="msg">${ msg }</div>
@@ -103,14 +89,14 @@
 					// 更新页面上显示的信息
 					mes.innerHTML += html
 				}
-			}
-			btn.onclick = function (e) {
-				var obj = {
-					name: "user1",
-					mes: document.querySelector(".int").value
+				document.querySelector(".send").onclick = function (e) {
+					var obj = {
+						name: "user1",
+						mes: document.querySelector(".int").value
+					}
+					ws.send(JSON.stringify(obj));
+					document.querySelector(".int").value = "";
 				}
-				ws.send(JSON.stringify(obj));
-				document.querySelector(".int").value = "";
 			}
 
 			ws.onclose = function (e) {
