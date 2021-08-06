@@ -6,15 +6,21 @@
 	<title>user2</title>
 	<style>
 		.container {
-			width: 400px;
+			width: 500px;
 			padding: 10px;
 			border: 1px solid #ccc;
 			margin: auto;
 		}
+
+		.current-info {
+			font-size: 16px;
+			font-weight: bold;
+			padding-bottom: 15px;
+			border-bottom: 1px dashed #ccc;
+		}
+
 		#mes {
-			width: 300px;
-			height: 300px;
-			border: 1px solid #666;
+			height: 400px;
 			overflow: auto;
 			margin-bottom: 10px;
 			padding: 5px;
@@ -22,80 +28,198 @@
 
 		li {
 			text-decoration: none;
-			background: #f4f4f4;
 			padding: 5px;
-			margin-top: 5px;
+			margin-top: 15px;
 		}
-		.row {
-			display: flex;
-			flex-direction: column;
+
+		li::after {
+			content: '';
+			display: block;
+			clear: both;
 		}
-		.user-name {
-			font-size: 14px;
+
+		.user-info {
+			width: 44px;
+			border-radius: 50%;
+			margin-left: 15px;
+			float: right;
 		}
+
+		.user-info img {
+			height: 44px;
+			width: 100%;
+			border-radius: 50%;
+		}
+
 		.msg {
+			font-size: 14px;
+			width: auto;
+			height: auto;
+			background: #2683f5;
+			padding: 10px 20px;
+			margin: 4px;
+			line-height: 20px;
+			font-size: 14px;
+			border-radius: 10px;
+			margin-left: 30px;
+			position: relative;
+			float: right;
+			color: white;
+		}
+
+		.msg::after {
+			content: '';
+			display: block;
+			background: url(images/talk.jpg) no-repeat;
+			width: 8px;
+			height: 14px;
+			position: absolute;
+			right: -8px;
+			top: 10px;
+		}
+
+		.input-box {
+			border-top: 1px dashed #ccc;
+			height: 60px;
+			padding: 10px;
+			position: relative;
+		}
+
+		.input-box .txt {
+			width: 100%;
+			height: 100%;
+			border: none;
+			outline: none;
+			font-size: 16px;
+			resize: none;
+		}
+
+		.input-box .txt:focus {
+			border: none;
+			outline: none;
+		}
+
+		.input-box .send {
+			width: 68px;
+			height: 25px;
+			background: #0188fb;
+			border: none;
+			position: absolute;
+			bottom: 10px;
+			right: 12px;
+			color: white;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.time {
+			margin-top: 10px;
+			font-size: 12px;
+			color: #ccc;
+		}
+
+		.current {
+			color: #1acd7e;
+		}
+
+		.answer {
+			color: #ccc;
+		}
+
+		.fr {
+			float: right;
 
 		}
-		.tl {
-			color: red;
-			text-align: left;
-		}
 
-		.tr {
-			color: green;
-			text-align: right;
+		.fl {
+			float: left;
+
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<div>
+		<div class="current-info">
 			当前用户名: user2
 		</div>
 		<ul id="mes"></ul>
-		<div class="kuang">
-			<input type="text" value="" class="int">
-			<button class="send">发送</button>
+		<div class="input-box">
+			<textarea value="" class="txt" placeholder="请输入消息"></textarea>
+			<button class="send">发送(s)</button>
 		</div>
 	</div>
 	<script>
 		var mes = document.getElementById("mes");
+		var btn = document.querySelector(".send")
+		var input = document.querySelector(".txt")
+		var count = 0
 		if (window.WebSocket) {
 			var ws = new WebSocket('ws://localhost:8001');
 			ws.onopen = function (e) {
 				console.log("连接服务器成功");
-				ws.send("user2");
+				var msg = {
+					name: 'user2',
+					mes: '',
+					count
+				}
+				ws.send(JSON.stringify(msg))
 			}
 
 			ws.onmessage = function (e) {
-				if (e.data !== "user1" && e.data !== "user2") {
-					console.log(e);
+				var data = JSON.parse(e.data)
+				var count = +data.count // 转换成数字
+				// 不是首次
+				if (count) {
+					// console.log(e);
 					var newData = JSON.parse(e.data);
 					var msg = newData.mes
 					var name = newData.name
+					var time = newData.time
 					var html = ''
-					if(name === 'user1') {
-						html = `<li class="row tl">
-								<div class="user-name">${ name }</div>
-								<div class="msg">${ msg }</div>
+					if (name === 'user1') {
+						html = `<li class="answer">
+								<div class="user-info fl">
+									<img src="images/1.jpg" />
+									<div class="user-name">${ name }</div>
+								</div>
+								<div class="msg fl">${ msg }</div>
 							</li>`
-					} else if(name === 'user2') {
-						html = `<li class="row tr">
-								<div class="user-name">${ name }</div>
-								<div class="msg">${ msg }</div>
+					} else if (name === 'user2') {
+						html = `<li class="current">
+								<div class="user-info fr">
+									<img src="images/2.jpg" />
+									<div class="user-name">${ name }</div>
+								</div>
+								<div class="msg fr">${ msg }</div>
 							</li>`
 					}
 					// 更新页面上显示的信息
 					mes.innerHTML += html
 				}
-				document.querySelector(".send").onclick = function (e) {
-					var obj = {
-						name: "user2",
-						mes: document.querySelector(".int").value
-					}
-					ws.send(JSON.stringify(obj));
-					document.querySelector(".int").value = "";
+			}
+			btn.onclick = sendMsg
+
+			// 发送消息
+			function sendMsg() {
+				if (input.value === '') return alert('消息不能为空')
+				count++
+				// 必须是字符串
+				var obj = {
+					name: "user2",
+					mes: input.value,
+					count: count + '' // 必须是字符串
+				}
+				ws.send(JSON.stringify(obj));
+				input.value = "";
+			}
+
+			// 回车事件
+			document.onkeydown = function (event) {
+				var e = event || window.event
+				// enter键
+				if (e && e.keyCode === 13) {
+					sendMsg()
 				}
 			}
 
