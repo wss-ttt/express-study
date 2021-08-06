@@ -11,6 +11,7 @@
 			border: 1px solid #ccc;
 			margin: auto;
 		}
+
 		#mes {
 			width: 300px;
 			height: 300px;
@@ -26,16 +27,27 @@
 			padding: 5px;
 			margin-top: 5px;
 		}
+
 		.row {
 			display: flex;
 			flex-direction: column;
 		}
+
 		.user-name {
 			font-size: 14px;
+			border:1px solid #ccc;
 		}
-		.msg {
 
+		.msg {
+			margin: 10px 0;
 		}
+
+		.time {
+			margin-top: 10px;
+			font-size: 12px;
+			color: #ccc;
+		}
+
 		.tl {
 			color: red;
 			text-align: left;
@@ -61,42 +73,53 @@
 	</div>
 	<script>
 		var mes = document.getElementById("mes");
+		var btn = document.querySelector(".send")
+		var count = 0
 		if (window.WebSocket) {
 			var ws = new WebSocket('ws://localhost:8001');
 			ws.onopen = function (e) {
 				console.log("连接服务器成功");
-				ws.send("user1");
+				btn.click()
 			}
 
 			ws.onmessage = function (e) {
-				if (e.data !== "user1" && e.data !== "user2") {
-					console.log(e);
+				var data = JSON.parse(e.data)
+				var count = +data.count // 转换成数字
+				// 不是首次
+				if(count) {
+					// console.log(e);
 					var newData = JSON.parse(e.data);
 					var msg = newData.mes
 					var name = newData.name
+					var time = newData.time
 					var html = ''
-					if(name === 'user1') {
+					if (name === 'user1') {
 						html = `<li class="row tr">
 								<div class="user-name">${ name }</div>
 								<div class="msg">${ msg }</div>
+								<div class="time">${ time }</div>
 							</li>`
-					} else if(name === 'user2') {
+					} else if (name === 'user2') {
 						html = `<li class="row tl">
 								<div class="user-name">${ name }</div>
 								<div class="msg">${ msg }</div>
+								<div class="time">时间:${ time }</div>
 							</li>`
 					}
 					// 更新页面上显示的信息
 					mes.innerHTML += html
 				}
-				document.querySelector(".send").onclick = function (e) {
-					var obj = {
-						name: "user1",
-						mes: document.querySelector(".int").value
-					}
-					ws.send(JSON.stringify(obj));
-					document.querySelector(".int").value = "";
+			}
+			btn.onclick = function (e) {
+				// 必须是字符串
+				var obj = {
+					name: "user1",
+					mes: document.querySelector(".int").value,
+					count: count +'' // 必须是字符串
 				}
+				ws.send(JSON.stringify(obj));
+				document.querySelector(".int").value = "";
+				count++
 			}
 
 			ws.onclose = function (e) {
