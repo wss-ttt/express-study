@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>user2</title>
+	<style>
+		.container {
+			width: 400px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			margin: auto;
+		}
+		#mes {
+			width: 300px;
+			height: 300px;
+			border: 1px solid #666;
+			overflow: auto;
+			margin-bottom: 10px;
+			padding: 5px;
+		}
+
+		li {
+			text-decoration: none;
+			background: #f4f4f4;
+			padding: 5px;
+			margin-top: 5px;
+		}
+		.row {
+			display: flex;
+			flex-direction: column;
+		}
+		.user-name {
+			font-size: 14px;
+		}
+		.msg {
+
+		}
+		.tl {
+			color: red;
+			text-align: left;
+		}
+
+		.tr {
+			color: green;
+			text-align: right;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div>
+			当前用户名: user2
+		</div>
+		<ul id="mes"></ul>
+		<div class="kuang">
+			<input type="text" value="" class="int">
+			<button class="send">发送</button>
+		</div>
+	</div>
+	<script>
+		var mes = document.getElementById("mes");
+		if (window.WebSocket) {
+			var ws = new WebSocket('ws://localhost:8001');
+			ws.onopen = function (e) {
+				console.log("连接服务器成功");
+				ws.send("user2");
+			}
+
+			ws.onmessage = function (e) {
+				if (e.data !== "user1" && e.data !== "user2") {
+					// console.log(e);
+					var newData = JSON.parse(e.data);
+					var msg = newData.mes
+					var name = newData.name
+					var html = ''
+					if(name === 'user1') {
+						html = `<li class="row tl">
+								<div class="user-name">${ name }</div>
+								<div class="msg">${ msg }</div>
+							</li>`
+					} else if(name === 'user2') {
+						html = `<li class="row tr">
+								<div class="user-name">${ name }</div>
+								<div class="msg">${ msg }</div>
+							</li>`
+					}
+					// 更新页面上显示的信息
+					mes.innerHTML += html
+				}
+				document.querySelector(".send").onclick = function (e) {
+					var obj = {
+						name: "user2",
+						mes: document.querySelector(".int").value
+					}
+					ws.send(JSON.stringify(obj));
+					document.querySelector(".int").value = "";
+				}
+			}
+
+			ws.onclose = function (e) {
+				console.log("服务器关闭");
+			}
+
+			ws.onerror = function () {
+				console.log("连接出错");
+			}
+		}
+	</script>
+</body>
+
+</html>
