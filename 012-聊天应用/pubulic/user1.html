@@ -6,15 +6,15 @@
 	<title>user2</title>
 	<style>
 		.container {
-			width: 400px;
+			width: 500px;
 			padding: 10px;
 			border: 1px solid #ccc;
 			margin: auto;
 		}
 
 		#mes {
-			width: 300px;
-			height: 300px;
+			width: 400px;
+			height: 400px;
 			border: 1px solid #666;
 			overflow: auto;
 			margin-bottom: 10px;
@@ -23,24 +23,59 @@
 
 		li {
 			text-decoration: none;
-			background: #f4f4f4;
 			padding: 5px;
-			margin-top: 5px;
+			margin-top: 15px;
+		}
+		li::after {
+			content: '';
+			display: block;
+			clear: both;
 		}
 
 		.row {
-			display: flex;
-			flex-direction: column;
+			/* display: flex; */
+			/* flex-direction: column; */
 		}
 
-		.user-name {
-			font-size: 14px;
-			border:1px solid #ccc;
+		.user-info {
+			width: 44px;
+			border-radius: 50%;
+			margin-left: 15px;
+			float: right;
+		}
+
+		.user-info img {
+			height: 44px;
+			width: 100%;
+			border-radius: 50%;
 		}
 
 		.msg {
-			margin: 10px 0;
+			font-size: 14px;
+			width: auto;
+			height: auto;
+			background: #2683f5;
+			padding: 10px 20px;
+			margin: 4px;
+			line-height: 20px;
+			font-size: 14px;
+			border-radius: 10px;
+			margin-left: 30px;
+			position: relative;
+			float: right;
+			color: white;
 		}
+		.msg::after {
+			content: '';
+			display: block;
+			background: url(images/talk.jpg) no-repeat;
+			width: 8px;
+			height: 14px;
+			position: absolute;
+			right: -8px;
+    	top: 10px;
+		}
+
 
 		.time {
 			margin-top: 10px;
@@ -86,7 +121,7 @@
 				var data = JSON.parse(e.data)
 				var count = +data.count // 转换成数字
 				// 不是首次
-				if(count) {
+				if (count) {
 					// console.log(e);
 					var newData = JSON.parse(e.data);
 					var msg = newData.mes
@@ -95,15 +130,16 @@
 					var html = ''
 					if (name === 'user1') {
 						html = `<li class="row tr">
-								<div class="user-name">${ name }</div>
+								<div class="user-info">
+									<img src="images/1.jpg" />
+									<div class="user-name">${ name }</div>
+								</div>
 								<div class="msg">${ msg }</div>
-								<div class="time">${ time }</div>
 							</li>`
 					} else if (name === 'user2') {
 						html = `<li class="row tl">
 								<div class="user-name">${ name }</div>
 								<div class="msg">${ msg }</div>
-								<div class="time">时间:${ time }</div>
 							</li>`
 					}
 					// 更新页面上显示的信息
@@ -115,7 +151,7 @@
 				var obj = {
 					name: "user1",
 					mes: document.querySelector(".int").value,
-					count: count +'' // 必须是字符串
+					count: count + '' // 必须是字符串
 				}
 				ws.send(JSON.stringify(obj));
 				document.querySelector(".int").value = "";
