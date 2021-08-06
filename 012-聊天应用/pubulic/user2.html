@@ -38,44 +38,84 @@
 			clear: both;
 		}
 
-		.user-info {
-			width: 44px;
-			border-radius: 50%;
-			margin-left: 15px;
-			float: right;
+		.current {
+			color: #1acd7e;
 		}
 
-		.user-info img {
-			height: 44px;
-			width: 100%;
-			border-radius: 50%;
+		.answer {
+			color: #ccc;
+		}
+
+		.fr {
+			float: right !important;
+		}
+
+		.fl {
+			float: left !important;
 		}
 
 		.msg {
 			font-size: 14px;
 			width: auto;
 			height: auto;
-			background: #2683f5;
 			padding: 10px 20px;
 			margin: 4px;
 			line-height: 20px;
 			font-size: 14px;
 			border-radius: 10px;
-			margin-left: 30px;
 			position: relative;
-			float: right;
 			color: white;
 		}
 
-		.msg::after {
+		.current .msg {
+			color: #fff;
+			background: #2683f5;
+		}
+
+		.current .msg::after {
 			content: '';
 			display: block;
-			background: url(images/talk.jpg) no-repeat;
+			background: url(images/talk-right.jpg) no-repeat;
 			width: 8px;
 			height: 14px;
 			position: absolute;
 			right: -8px;
 			top: 10px;
+		}
+
+		.answer .msg {
+			background: #eeeeee;
+			color: #000;
+		}
+
+		.answer .msg::after {
+			content: '';
+			display: block;
+			background: url(images/talk-left.jpg) no-repeat;
+			width: 8px;
+			height: 14px;
+			position: absolute;
+			left: -8px;
+			top: 10px;
+		}
+
+		.user-info {
+			width: 44px;
+			border-radius: 50%;
+		}
+
+		.current .user-info {
+			margin-left: 15px;
+		}
+
+		.answer .user-info {
+			margin-right: 15px;
+		}
+
+		.user-info img {
+			height: 44px;
+			width: 100%;
+			border-radius: 50%;
 		}
 
 		.input-box {
@@ -116,24 +156,6 @@
 			margin-top: 10px;
 			font-size: 12px;
 			color: #ccc;
-		}
-
-		.current {
-			color: #1acd7e;
-		}
-
-		.answer {
-			color: #ccc;
-		}
-
-		.fr {
-			float: right;
-
-		}
-
-		.fl {
-			float: left;
-
 		}
 	</style>
 </head>
