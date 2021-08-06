@@ -7,11 +7,6 @@ ws.createServer(function (conn) {
 	conn.on("text", function (str) {
 		console.log("收到的信息为:" + str)
 		console.log('类型', typeof str)
-		var myDate = new Date();
-		var time = myDate.toLocaleTimeString()
-		// var msg = JSON.parse(str)
-		// msg.time = time
-		// console.log('msg', msg)
 		if (str === "user1") {
 			user1 = conn;
 			user1Ready = true;
@@ -21,11 +16,9 @@ ws.createServer(function (conn) {
 			user2Ready = true;
 		}
 		if (user2Ready) {
-			// user2.sendText(JSON.stringify(msg));
 			user2.sendText(str);
 		}
 		if (user1Ready) {
-			// user1.sendText(JSON.stringify(msg));
 			user1.sendText(str);
 		}
 	})
@@ -33,7 +26,7 @@ ws.createServer(function (conn) {
 		console.log("关闭连接")
 	});
 	conn.on("error", function (code, reason) {
-		console.log("异常关闭", reason, code)
+		console.log("异常关闭")
 	});
 }).listen(8001, function() {
 	console.log("WebSocket建立完毕")
