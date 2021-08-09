@@ -33,12 +33,28 @@
 			background: rgba(0, 0, 0, 0.5);
 			z-index: 1001;
 		}
+
+		ul,li {
+			list-style-type: none;
+		}
+		.msg-list {
+			width: 400px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			margin: auto;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="app">
+	  消息:<input value v-model="msg" />
 		<button type="button" @click="send">发送数据</button>
+		<div class="msg-list">
+			<ul>
+				<li v-for="item in messageList">{{ item }}</li>
+			</ul>
+		</div>
 	</div>
 	<script src="js/moment.js"></script>
 	<script src="js/vue.js"></script>
@@ -50,7 +66,7 @@
 					uid: '',
 					nickname: '',
 					socket: '',
-					msg: 'aaa',
+					msg: '',
 					messageList: [],
 					visible: true
 				}
@@ -62,7 +78,7 @@
 				conWebSocket() {
 					const vm = this
 					if (window.WebSocket) {
-						this.socket = new WebSocket('ws://localhost:8989')
+						this.socket = new WebSocket('ws://localhost:9090')
 						let socket = this.socket
 
 						socket.onopen = function (e) {
@@ -79,6 +95,10 @@
 
 						// 接收服务器的消息
 						socket.onmessage = function (e) {
+							console.log('后端返回的数据', e.data)
+							// return
+							vm.messageList.push(e.data)
+							return
 							let message = JSON.parse(e.data);
 							vm.messageList.push(message);
 						}
@@ -86,7 +106,7 @@
 				},
 				// 发送消息
 				send() {
-					this.socket.send('好好学习')
+					this.socket.send(this.msg)
 				}
 			}
 		})
