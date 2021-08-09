@@ -20,29 +20,7 @@ function getDate() {
 
 var server = ws.createServer(function (conn) {
 	conn.on("text", function (obj) {
-		obj = JSON.parse(obj);
-		if (obj.type === 1) {
-			users.push({
-				nickname: obj.nickname,
-				uid: obj.uid
-			});
-			boardcast({
-				type: 1,
-				date: getDate(),
-				msg: obj.nickname + '加入聊天室',
-				users: users,
-				uid: obj.uid,
-				nickname: obj.nickname
-			});
-		} else {
-			boardcast({
-				type: 2,
-				date: getDate(),
-				msg: obj.msg,
-				uid: obj.uid,
-				nickname: obj.nickname
-			});
-		}
+		console.log('消息:', obj)
 	})
 	conn.on("close", function (code, reason) {
 		console.log("关闭连接")
@@ -50,6 +28,6 @@ var server = ws.createServer(function (conn) {
 	conn.on("error", function (code, reason) {
 		console.log("异常关闭")
 	});
-}).listen(2001, function () {
+}).listen(8989, function () {
 	console.log("WebSocket服务启动")
 })

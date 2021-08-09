@@ -38,15 +38,7 @@
 
 <body>
 	<div id="app">
-		<button type="button" @click="send">确定</button>
-
-		
-		<div class="mask"  v-show="visible">
-			<div class="login">
-				昵称: <input type="text" v-model="nickname" />
-				<button type="button" @click="setNickname">设置</button>
-			</div>
-		</div>
+		<button type="button" @click="send">发送数据</button>
 	</div>
 	<script src="js/moment.js"></script>
 	<script src="js/vue.js"></script>
@@ -58,7 +50,7 @@
 					uid: '',
 					nickname: '',
 					socket: '',
-					msg: '',
+					msg: 'aaa',
 					messageList: [],
 					visible: true
 				}
@@ -67,38 +59,14 @@
 				this.conWebSocket()
 			},
 			methods: {
-				send() {
-					if (!this.msg) {
-						return
-					}
-					this.sendMessage(2, this.msg)
-				},
-				sendMessage(type, msg) {
-					this.socket.send(JSON.stringify({
-						uid: this.uid,
-						type: type,
-						nickname: this.nickname,
-						msg: msg
-					}));
-					this.msg = '';
-				},
 				conWebSocket() {
 					const vm = this
 					if (window.WebSocket) {
-						vm.socket = new WebSocket('ws://localhost:2001')
-						let socket = vm.socket
+						this.socket = new WebSocket('ws://localhost:8989')
+						let socket = this.socket
 
 						socket.onopen = function (e) {
-							console.log("连接服务器成功");
-							if (!vm.uid) {
-								// 生成新的用户id,并存入localStorage
-								vm.uid = 'web_im_' + moment().valueOf();
-								localStorage.setItem('WEB_IM_USER', JSON.stringify({
-									uid: vm.uid,
-									nickname: vm.nickname
-								}))
-								vm.sendMessage(1)
-							}
+							console.log("连接服务器成功")
 						}
 
 						socket.onclose = function (e) {
@@ -116,10 +84,9 @@
 						}
 					}
 				},
-				// 设置昵称
-				setNickname() {
-					if (this.nickname === '') return alert('昵称不能为空')
-					this.visible = false
+				// 发送消息
+				send() {
+					this.socket.send('好好学习')
 				}
 			}
 		})
