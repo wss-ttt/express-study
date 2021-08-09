@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+
+<body>
+	<input type="text" id="msg" />
+	<button id="send">发送</button>
+	<div id="container"></div>
+	<script>
+		const ws = new WebSocket('ws://localhost:3000')
+		let container = document.getElementById('container')
+		ws.onopen = function () {
+			document.getElementById('send').onclick = () => {
+				let data = document.getElementById('msg').value
+				ws.send(data) //发送给服务端信息
+			}
+		}
+		ws.onmessage = function (e) {
+			let p = document.createElement('p')
+			p.innerHTML = e.data //接受来自服务端的信息
+			container.appendChild(p) //在html插入元素 显示来自服务端的信息
+		}
+	</script>
+</body>
+
+</html>
